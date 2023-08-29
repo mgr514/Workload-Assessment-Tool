@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./stylesheet.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=Quicksand:wght@300&display=swap" rel="stylesheet">
     <title>Workload Assessment</title>
 </head>
 
@@ -14,17 +15,53 @@
 
 <!--Main Form page-->
     <!-- Head Banner -->
-<header></header>
+<header class="heading-container">
+    <div class="icons">
+        <div class="clickable"><img>icon</div>
+        <div class="clickable"><img>icon</div>
+     </div>
+     <div class="main-header">
+        <h4>Workload Assessment Tool</h4>
+        <div class="bottom-head">
+            <p>Date</p>
+            <p>Unit</p>
+            <p>Shift</p>
+        </div>
+    </div>
+     <div class="shift-stats">
+        <p>Nurses:</p>
+        <p>Total Tally:</p>
+     </div>    
+</header>
 
     <!-- Sidebar -->
-<div></div>
+<div class="sidebar"></div>
 
     <!-- Form -->
 <form></form>
 
 <!--Data Page-->
     <!-- Head Banner -->
-<header></header>
+<header>
+    <header class="heading-container">
+        <div class="icons">
+            <div class="clickable"><img>icon</div>
+            <div class="clickable"><img>icon</div>
+         </div>
+         <div class="main-header">
+            <h4>Workload Assessment Tool</h4>
+            <div class="bottom-head">
+                <p>Date</p>
+                <p>Unit</p>
+                <p>Shift</p>
+            </div>
+        </div>
+         <div class="shift-stats">
+            <p>Nurses:</p>
+            <p>Total Tally:</p>
+         </div>    
+    </header>
+</header>
 
     <!-- Sidebar -->
 <div></div>
@@ -36,3 +73,10 @@
 <script src="./script.js"></script>
 </body>
 </html>
+
+<!--
+    -click bed space -> populate first tab automatically
+    -allow clicking between tabs, but also have an "enter" button when finished relevant part of from to move to next tab automatically
+    -autofill or recall previous form data for minimal effort in fillinf form from shift to shift
+    -submit button when finished form, thank you message when complete
+-->

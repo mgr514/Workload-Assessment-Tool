@@ -1,6 +1,8 @@
-/*
+
 :root {  
-    --color: ;
+    --navy: #123456;
+    --white: #FFFFFF;
+    --black: #000000;
 }
 
 * {
@@ -10,6 +12,53 @@
 }
 
 body {
-    display:;
-    font-family:;
+    display: flex;
+    font-family: 'Inter', sans-serif;
+}
+
+.heading-container {
+    display:flex;
+    justify-content: space-between;
+    align-items: Baseline;
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 2em;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.main-header{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 500;
+    margin-left: 5em;
+}
+.main-header h4 {
+    font-size: 2em;
+}
+.bottom-head{
+    display: flex;
+    flex-direction: row;
+    padding: 0.5em;
+    font-size: 1em;
+}
+.bottom-head p{
+    margin: 0 4em 0 4em;
+}
+.icons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-left: 1em;
+}
+.clickable {
+    padding: 0.5em;
+}
+.shift-stats{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 15vw;
 }
