@@ -35,139 +35,143 @@
 
 
 <!--Main Form page-->
+<div class="grid-container">
     <!-- Head Banner -->
-<header class="heading-container">
-    <div class="icons">
-        <div class="clickable"><img>icon</div>
-        <div class="clickable"><img>icon</div>
-     </div>
-     <div class="main-header">
-        <h4>Workload Assessment Tool</h4>
-        <div class="bottom-head">
-            <p>Date</p>
-            <p>Unit</p>
-            <p>Shift</p>
+    <header class="heading-container">  
+        <div class="icons">
+            <div class="clickable"><img>icon</div>
+            <div class="clickable"><img>icon</div>
         </div>
-    </div>
-     <div class="shift-stats">
-        <p>Nurses:</p>
-        <p>Total Tally:</p>
-     </div>    
-</header>
+        <div class="main-header">
+         <h4>Workload Assessment Tool</h4>
+            <div class="bottom-head">
+                <p>Date</p>
+                <p>Unit</p>
+                <p>Shift</p>
+            </div>
+        </div>
+        <div class="shift-stats">
+            <p>Nurses:</p>
+            <p>Total Tally:</p>
+        </div>    
+    </header>
 
     <!-- Sidebar -->
-<div class="sidebar">
-    <ul class="bed-list">
-        <li>Bed 1</li>
-        <li>Bed 2</li>
-        <li>Bed 3</li>
-        <li>Bed 4</li>
-        <li>Bed 5</li>
-        <li>Bed 6</li>
-        <li>Bed 7</li>
-        <li>Bed 8</li>
-        <li>Admit 1</li>
-        <li>Admit 2</li>
-        <li>Admit 3</li>
-        <li>Admit 4</li>
-    </ul>
+    <div class="sidebar">
+        <ul class="bed-list">
+            <li>Bed 1</li>
+            <li>Bed 2</li>
+            <li>Bed 3</li>
+            <li>Bed 4</li>
+            <li>Bed 5</li>
+            <li>Bed 6</li>
+            <li>Bed 7</li>
+            <li>Bed 8</li>
+            <li>Admit 1</li>
+            <li>Admit 2</li>
+            <li>Admit 3</li>
+            <li>Admit 4</li>
+        </ul>
+    </div>
+
+    <!-- Main-Content -->
+    <div class="main-content">
+        <form>
+        <!--Assessment/Planning/Collaboration Tab-->
+        Admission Assessment
+        Shift Assessment
+        Update Assessment
+        Interdisciplinary Rounds (day shift only)
+        Shift Report
+        Team / Family Meetings
+
+        <!--Basic Patient Care Activities Tab-->
+        Feeds Self with Partial Assistance
+        Feeding with Full Assistance
+        Tube Feeding (Continuous/ Intermittent)
+        Toilet with Assistance
+        Incontinent Care (1-3)
+        Incontinent Care (4+)
+        Bath with Partial Assistance
+        Bath with Complete Assistance
+        Mouth Care
+        Eye Care
+        Turn and Position 1-3 times (1-2 nurses)
+        Turn and Position 4+ times (1-2 nurses)
+        Prone Positioning
+        Up In Chair With 1 Person Assist
+        Up In Chair With 2+ Person Assist
+        Mechanical Lift
+
+        <!--Monitor and Evaluate Tab-->
+        Monitoring of Patient 12x /shift
+        Monitoring of Patient 6x /shift
+        Monitoring of Patient 3x /shift
+        Hemodynamic Pressure/ Cardiac Output 5x /shift
+        Hemodynamic Pressure/ Cardiac Output 3x /shift
+        Neuro Signs 12x /shift
+        Neuro Signs 6x /shift
+        Neurovascular Signs 12x /shift
+        Neurovascular Signs 6x /shift
+        Care of patient with ICP Monitoring/ Ventricular Drain
+        Care of patient with IABP
+        Chest Tube Care
+        ET Tube Care
+        Cardiac/Respiratory Arrest Time: _____ <!--calculate as fraction of hours multiplied by 20-->
+        Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 1-3
+        Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 4-6
+        Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 7-12
+        Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 12+
+        Titration of Vasoactive Medication 1
+        Titration of Vasoactive Medication 2-3
+        Titration of Vasoactive Medication 4+
+        Continuous IV Stable Infusion 1-3
+        Continuous IV Stable Infusion 4+
+        Transfusion of Blood Products 1-2
+        Transfusion of Blood Products 3+
+
+        <!--Nursing Interventions Tab-->
+        IV Insertion 1-2
+        IV Insertion 3+
+        Tubing / Dressing Change / IV Site Care 1-2
+        Tubing / Dressing Change / IV Site Care 3+
+        Simple Wound Dressing 1-2
+        Simple Wound Dressing 3+
+        Complex Wound Dressing Time: _____ <!--calculate as fraction of hours multiplied by 10-->
+        Burn Care Time: ____ <!--calculate as fraction of hours multiplied by 15-->
+        Infusion Irrigations (Bladder, Pleural, Mediastinal)
+        Aspiration of Drains 1-2
+        Aspiration of Drains 3+
+        Chest Tube Removal by Nurse
+        Tracheostomy Care 1-2
+        Tracheostomy Care 3+
+        ET Tube Care
+        Suctioning 1-3
+        Suctioning 4-6
+        Suctioning 7+
+
+        <!--Other Interventions Tab-->
+        Assist With Procedures x15 Minutes
+        Assist With Procedures x30 Minutes
+        Assist With Procedures x60+ Minutes
+        Blood Collection 1-3
+        Blood Collection 4-6
+        Blood Collection 7+
+        Teaching / Emotional Support x15 Minutes
+        Teaching / Emotional Support x30 Minutes
+        Teaching / Emotional Support x60+ Minutes
+        Transportation of Patient (Within and Outside Facility) Time: ____ <!--calculate as fraction of hours multiplied by 10-->
+        CRRT Initial Set Up
+        CRRT Change Set x1
+        CRRT Change Set x2+
+        CRRT Temporary Disconnect
+        CRRT Monitoring 12x /shift
+        CRRT Monitoring 6x /shift
+        Unplanned Activities Time: ______ <!--calculate as fraction of hours multiplied by 10-->
+
+        </form>
+    </div>
 </div>
-
-    <!-- Form -->
-<form>
-    <!--Assessment/Planning/Collaboration Tab-->
-    Admission Assessment
-    Shift Assessment
-    Update Assessment
-    Interdisciplinary Rounds (day shift only)
-    Shift Report
-    Team / Family Meetings
-
-    <!--Basic Patient Care Activities Tab-->
-    Feeds Self with Partial Assistance
-    Feeding with Full Assistance
-    Tube Feeding (Continuous/ Intermittent)
-    Toilet with Assistance
-    Incontinent Care (1-3)
-    Incontinent Care (4+)
-    Bath with Partial Assistance
-    Bath with Complete Assistance
-    Mouth Care
-    Eye Care
-    Turn and Position 1-3 times (1-2 nurses)
-    Turn and Position 4+ times (1-2 nurses)
-    Prone Positioning
-    Up In Chair With 1 Person Assist
-    Up In Chair With 2+ Person Assist
-    Mechanical Lift
-
-    <!--Monitor and Evaluate Tab-->
-    Monitoring of Patient 12x /shift
-    Monitoring of Patient 6x /shift
-    Monitoring of Patient 3x /shift
-    Hemodynamic Pressure/ Cardiac Output 5x /shift
-    Hemodynamic Pressure/ Cardiac Output 3x /shift
-    Neuro Signs 12x /shift
-    Neuro Signs 6x /shift
-    Neurovascular Signs 12x /shift
-    Neurovascular Signs 6x /shift
-    Care of patient with ICP Monitoring/ Ventricular Drain
-    Care of patient with IABP
-    Chest Tube Care
-    ET Tube Care
-    Cardiac/Respiratory Arrest Time: _____ <!--calculate as fraction of hours multiplied by 20-->
-    Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 1-3
-    Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 4-6
-    Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 7-12
-    Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 12+
-    Titration of Vasoactive Medication 1
-    Titration of Vasoactive Medication 2-3
-    Titration of Vasoactive Medication 4+
-    Continuous IV Stable Infusion 1-3
-    Continuous IV Stable Infusion 4+
-    Transfusion of Blood Products 1-2
-    Transfusion of Blood Products 3+
-
-    <!--Nursing Interventions Tab-->
-    IV Insertion 1-2
-    IV Insertion 3+
-    Tubing / Dressing Change / IV Site Care 1-2
-    Tubing / Dressing Change / IV Site Care 3+
-    Simple Wound Dressing 1-2
-    Simple Wound Dressing 3+
-    Complex Wound Dressing Time: _____ <!--calculate as fraction of hours multiplied by 10-->
-    Burn Care Time: ____ <!--calculate as fraction of hours multiplied by 15-->
-    Infusion Irrigations (Bladder, Pleural, Mediastinal)
-    Aspiration of Drains 1-2
-    Aspiration of Drains 3+
-    Chest Tube Removal by Nurse
-    Tracheostomy Care 1-2
-    Tracheostomy Care 3+
-    ET Tube Care
-    Suctioning 1-3
-    Suctioning 4-6
-    Suctioning 7+
-
-    <!--Other Interventions Tab-->
-    Assist With Procedures x15 Minutes
-    Assist With Procedures x30 Minutes
-    Assist With Procedures x60+ Minutes
-    Blood Collection 1-3
-    Blood Collection 4-6
-    Blood Collection 7+
-    Teaching / Emotional Support x15 Minutes
-    Teaching / Emotional Support x30 Minutes
-    Teaching / Emotional Support x60+ Minutes
-    Transportation of Patient (Within and Outside Facility) Time: ____ <!--calculate as fraction of hours multiplied by 10-->
-    CRRT Initial Set Up
-    CRRT Change Set x1
-    CRRT Change Set x2+
-    CRRT Temporary Disconnect
-    CRRT Monitoring 12x /shift
-    CRRT Monitoring 6x /shift
-    Unplanned Activities Time: ______ <!--calculate as fraction of hours multiplied by 10-->
-
-</form>
 
 
 <!--Data Page-->

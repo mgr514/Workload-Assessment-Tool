@@ -16,8 +16,17 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+/*GRID CONTAINER*/
+.grid-container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: minmax(250px, auto) 1fr;
+    min-height: 100vh
+}
+
 /* HEADER */
 .heading-container {
+    grid-column: span 2;
     display:flex;
     justify-content: space-between;
     align-items: Baseline;
@@ -63,9 +72,14 @@ body {
     align-items: flex-start;
     width: 15vw;
 }
+.shift-stats p{
+    margin-bottom: 0.5em;
+}
 
 /* SIDEBAR */
 .sidebar {
+    grid-column: 1;
+    grid-row: 2 / span 2;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -86,4 +100,10 @@ body {
 }
 .bed-list li {
     padding: 1em;
+}
+
+/* MAIN-CONTENT */
+.main-content {
+    grid-column: 2;
+    grid-row: 2;
 }
