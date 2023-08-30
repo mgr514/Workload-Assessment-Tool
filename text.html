@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./stylesheet.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=Quicksand:wght@300&display=swap"
+        rel="stylesheet">
     <title>Workload Assessment</title>
 </head>
 
 <body>
-<!--Log-in Page-->
-<!--
+    <!--Log-in Page-->
+    <!-- Great that you have this here but we won't be doing anything with it, it can be removed if you want -->
+    <!--
 <form>
     <fieldset class="field">
         <div class="field-container">
@@ -32,18 +36,23 @@
 </form>
 -->
 
+    <!-- HINT: use alt + shift + f (CMD + k + f on Mac) to auto-format your code -->
 
 
 <!--Main Form page-->
 <div class="grid-container">
     <!-- Head Banner -->
     <header class="heading-container">  
+    <!--Main Form page-->
+    <!-- Head Banner -->
+    <header class="heading-container">
         <div class="icons">
             <div class="clickable"><img>icon</div>
             <div class="clickable"><img>icon</div>
         </div>
         <div class="main-header">
          <h4>Workload Assessment Tool</h4>
+            <h4>Workload Assessment Tool</h4>
             <div class="bottom-head">
                 <p>Date</p>
                 <p>Unit</p>
@@ -56,28 +65,36 @@
         </div>    
     </header>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
+     <!-- Sidebar -->
+    <!-- HINT: Remember Semantic HTML, this is a great place for a 'nav' element instead of a div -->
+    <nav class="sidebar">
         <ul class="bed-list">
-            <li>Bed 1</li>
-            <li>Bed 2</li>
-            <li>Bed 3</li>
-            <li>Bed 4</li>
-            <li>Bed 5</li>
-            <li>Bed 6</li>
-            <li>Bed 7</li>
-            <li>Bed 8</li>
-            <li>Admit 1</li>
-            <li>Admit 2</li>
-            <li>Admit 3</li>
-            <li>Admit 4</li>
+            <li class="bed-link">Bed 1</li>
+            <li class="bed-link">Bed 2</li>
+            <li class="bed-link">Bed 3</li>
+            <li class="bed-link">Bed 4</li>
+            <li class="bed-link">Bed 5</li>
+            <li class="bed-link">Bed 6</li>
+            <li class="bed-link">Bed 7</li>
+            <li class="bed-link">Bed 8</li>
+            <li class="bed-link">Admit 1</li>
+            <li class="bed-link">Admit 2</li>
+            <li class="bed-link">Admit 3</li>
+            <li class="bed-link">Admit 4</li>
         </ul>
-    </div>
+    </nav>
 
     <!-- Main-Content -->
     <div class="main-content">
+    <!-- Form -->
         <form>
+        <!-- WOW, there is a ton of data here, I would probably break these into fieldsets for each tab, 
+        then convert each placeholder into a generic input based on the data type -->
         <!--Assessment/Planning/Collaboration Tab-->
+        <!-- Fieldset 1 - freeform text inputs? -->
+        <!-- SAMPLE TEXT INPUT -->
+        <!-- <input type="text" placeholder="Admission Assessment" multiple> -->
+        <!-- NOTE: You may also want to create a generic container to wrp each fieldset to help with styling -->
         Admission Assessment
         Shift Assessment
         Update Assessment
@@ -85,7 +102,8 @@
         Shift Report
         Team / Family Meetings
 
-        <!--Basic Patient Care Activities Tab-->
+        <!--Basic Patient Care Activities Tab -->
+        <!-- Fieldset 2 - Checkboxes? Select all that apply? -->
         Feeds Self with Partial Assistance
         Feeding with Full Assistance
         Tube Feeding (Continuous/ Intermittent)
@@ -104,6 +122,7 @@
         Mechanical Lift
 
         <!--Monitor and Evaluate Tab-->
+        <!-- Fieldset 3 - Combo of checkboxes and number inputs -->
         Monitoring of Patient 12x /shift
         Monitoring of Patient 6x /shift
         Monitoring of Patient 3x /shift
@@ -131,6 +150,7 @@
         Transfusion of Blood Products 3+
 
         <!--Nursing Interventions Tab-->
+        <!-- Fieldset 4 - Combo of checkboxes and number inputs -->
         IV Insertion 1-2
         IV Insertion 3+
         Tubing / Dressing Change / IV Site Care 1-2
@@ -151,6 +171,7 @@
         Suctioning 7+
 
         <!--Other Interventions Tab-->
+        <!-- Fieldset 5 - Combo of checkboxes and number inputs -->
         Assist With Procedures x15 Minutes
         Assist With Procedures x30 Minutes
         Assist With Procedures x60+ Minutes
@@ -160,7 +181,8 @@
         Teaching / Emotional Support x15 Minutes
         Teaching / Emotional Support x30 Minutes
         Teaching / Emotional Support x60+ Minutes
-        Transportation of Patient (Within and Outside Facility) Time: ____ <!--calculate as fraction of hours multiplied by 10-->
+        Transportation of Patient (Within and Outside Facility) Time: ____
+        <!--calculate as fraction of hours multiplied by 10-->
         CRRT Initial Set Up
         CRRT Change Set x1
         CRRT Change Set x2+
@@ -168,60 +190,64 @@
         CRRT Monitoring 12x /shift
         CRRT Monitoring 6x /shift
         Unplanned Activities Time: ______ <!--calculate as fraction of hours multiplied by 10-->
-
-        </form>
+    </form>
     </div>
 </div>
 
 
-<!--Data Page-->
+    <!-- You'll probably need some more header content here for handling the nav between form tabs -->
 
-    <!-- Head Banner
-<header class="heading-container">
-    <div class="icons">
-        <div class="clickable"><img>icon</div>
-        <div class="clickable"><img>icon</div>
-    </div>
-    <div class="main-header">
-        <h4>Workload Assessment Tool</h4>
-        <div class="bottom-head">
-            <p>Date</p>
-            <p>Unit</p>
-            <p>Shift</p>
+
+
+   
+
+
+    <!--Data Page-->
+    <!-- 
+    Head Banner 
+    <header class="heading-container">
+        <div class="icons">
+            <div class="clickable"><img>icon</div>
+            <div class="clickable"><img>icon</div>
         </div>
+        <div class="main-header">
+            <h4>Workload Assessment Tool</h4>
+            <div class="bottom-head">
+                <p>Date</p>
+                <p>Unit</p>
+                <p>Shift</p>
+            </div>
+        </div>
+        <div class="shift-stats">
+            <p>Nurses:</p>
+            <p>Total Tally:</p>
+        </div>
+    </header>
+-->
+    <!-- 
+    Sidebar
+    <div class="sidebar">
+        <ul class="data-list1">Overview
+            <li>By Week</li>
+            <li>By Month</li>
+            <li>By Year</li>
+        </ul>
+        <ul class="data-list2"> Shift
+            <li>Day</li>
+            <li>Night</li>
+        </ul>
     </div>
-    <div class="shift-stats">
-        <p>Nurses:</p>
-        <p>Total Tally:</p>
-    </div>    
-</header>
 -->
-
-    <!-- Sidebar
-<div class="sidebar">
-     <ul class="data-list1">Overview
-        <li>By Week</li>
-        <li>By Month</li>
-        <li>By Year</li>
-     </ul>
-     <ul class="data-list2"> Shift
-        <li>Day</li>
-        <li>Night</li>
-     </ul>
-</div>
--->
-
     <!--Data Grids-->
 
 
-<!-- TEMPLATE AND SCRIPT TAGS
-<div></div>
-
-<template> </template>
-<script src="./script.js"></script>
--->
+    <!-- TEMPLATE AND SCRIPT TAGS -->
+    <div></div>
+    <template></template>
+    <script src="./script.js" defer></script>
 
 </body>
+
 </html>
 
 
