@@ -36,6 +36,7 @@ body {
     position: fixed;
     width: 100%;
 }
+
 .main-header{
     display: flex;
     flex-direction: column;
@@ -43,9 +44,11 @@ body {
     font-weight: 500;
     margin-left: 5em;
 }
+
 .main-header h4 {
     font-size: 2em;
 }
+
 .bottom-head{
     display: flex;
     flex-direction: row;
@@ -53,18 +56,22 @@ body {
     font-size: 1em;
     margin-bottom: 0.5em;
 }
+
 .bottom-head p{
     margin: 0 4em 0 4em;
 }
+
 .icons{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     margin-left: 1em;
 }
+
 .clickable {
     padding: 0.5em;
 }
+
 .shift-stats{
     display: flex;
     flex-direction: column;
@@ -72,6 +79,7 @@ body {
     align-items: flex-start;
     width: 15vw;
 }
+
 .shift-stats p{
     margin-bottom: 0.5em;
 }
@@ -81,6 +89,7 @@ body {
     bottom: 0;
     left: 20em;
 }
+
 button{
     padding: 0.5em;
     border-radius: 15px 15px 0 0;
@@ -99,12 +108,14 @@ button{
     padding: 3em;
     color: var(--white);
 }
+
 .bed-list {
     list-style: none;
     display: flex;
     flex-direction: column;
     height: 75%;
 }
+
 .bed-list li {
     padding: 1em;
 }
@@ -127,6 +138,11 @@ button{
     padding: 0.5em;
     border: 1px dotted black;
 }
+
 label {
     margin: 0.5em;
+}
+
+.hidden {
+    display:none;
 }
