@@ -42,8 +42,7 @@ const fieldsetOtherIntervention = document.getElementById("other-int-form");
 const allFormSections = Array.from(document.getElementsByClassName('fieldset'));
 
 // Generic callback for showing discrete form sections based on the tab being clicked
-const showFormSection = (formSectionToShow) =>
-{
+const showFormSection = (formSectionToShow) => {
   if (!formSectionToShow) throw Error('Invalid HTML element provided as input')
 
   // Hides all form sections to start with
@@ -59,6 +58,19 @@ basic_care_link.addEventListener('click', () => showFormSection(fieldsetBasicCar
 monitor_eval_link.addEventListener('click', () => showFormSection(fieldsetMonitorEval))
 nurse_int_link.addEventListener('click', () => showFormSection(fieldsetNurseIntervention))
 other_int_link.addEventListener('click', () => showFormSection(fieldsetOtherIntervention))
+
+
+//Adds  Current Date
+function updateDate() {
+  const currentDateElement = document.getElementById('current-date');
+  const currentDate = new Date();
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = currentDate.toLocaleDateString('en-US', options);
+
+  currentDateElement.textContent = formattedDate;
+}
+
+updateDate();
 
 // ========================================================================
 // TEST SUBMIT CODE WITH WORKLOAD VALUE ATTRIBUTE
@@ -105,3 +117,4 @@ test_btn.addEventListener('click', () => {
 
   else return console.log('no value entered in the meetings input')
 })
+
