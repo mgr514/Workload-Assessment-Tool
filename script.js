@@ -59,3 +59,15 @@ document.addEventListener("DOMContentLoaded", function () {
  button5.addEventListener('click', () => {
    fieldsetOtherIntervention.classList.toggle("hidden");
  })
+
+ //Adds  Current Date
+ function updateDate() {
+    const currentDateElement = document.getElementById('current-date');
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = currentDate.toLocaleDateString('en-US', options);
+        
+        currentDateElement.textContent = formattedDate;
+ }
+ 
+ updateDate();
