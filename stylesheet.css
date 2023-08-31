@@ -51,6 +51,7 @@ body {
     flex-direction: row;
     padding: 0.5em;
     font-size: 1em;
+    margin-bottom: 0.5em;
 }
 .bottom-head p{
     margin: 0 4em 0 4em;
@@ -73,6 +74,16 @@ body {
 }
 .shift-stats p{
     margin-bottom: 0.5em;
+}
+
+.form-tabs{
+    position: absolute;
+    bottom: 0;
+    left: 20em;
+}
+button{
+    padding: 0.5em;
+    border-radius: 15px 15px 0 0;
 }
 
 /* SIDEBAR */
@@ -114,6 +125,7 @@ body {
     align-items: center;
     justify-content: flex-start;
     padding: 0.5em;
+    border: 1px dotted black;
 }
 label {
     margin: 0.5em;
