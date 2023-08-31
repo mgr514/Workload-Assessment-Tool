@@ -22,6 +22,7 @@ body {
     grid-template-rows: auto auto 1fr;
     grid-template-columns: minmax(250px, auto) 1fr;
     min-height: 100vh;
+    width: 100%;
 }
 
 /* HEADER */
@@ -33,7 +34,21 @@ body {
     background-color: var(--navy);
     color: var(--white);
     padding: 2em;
+    padding-bottom: 0px;
     width: 100%;
+}
+
+.flex-column{
+    width: 100%;
+    padding-left: 10px 
+}
+
+.flex-row{
+    width: 100%;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .main-header{
@@ -62,6 +77,7 @@ body {
 
 .icons{
     display: flex;
+    width: 212px;
     flex-direction: row;
     justify-content: space-around;
     margin-left: 1em;
