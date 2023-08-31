@@ -19,9 +19,9 @@ body {
 /*GRID CONTAINER*/
 .grid-container {
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-template-columns: minmax(250px, auto) 1fr;
-    min-height: 100vh
+    min-height: 100vh;
 }
 
 /* HEADER */
@@ -33,7 +33,6 @@ body {
     background-color: var(--navy);
     color: var(--white);
     padding: 2em;
-    position: fixed;
     width: 100%;
 }
 
@@ -83,11 +82,8 @@ body {
 .shift-stats p{
     margin-bottom: 0.5em;
 }
+.form-tabs {
 
-.form-tabs{
-    position: absolute;
-    bottom: 0;
-    left: 20em;
 }
 
 button{
