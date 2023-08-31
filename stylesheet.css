@@ -34,7 +34,6 @@ body {
     color: var(--white);
     padding: 2em;
     position: fixed;
-    top: 0;
     width: 100%;
 }
 .main-header{
@@ -84,9 +83,6 @@ body {
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    position: fixed;
-    top: 4em;
-    left: 0;
     height: 100vh;
     background-color: var(--navy);
     padding: 3em;
@@ -106,4 +102,19 @@ body {
 .main-content {
     grid-column: 2;
     grid-row: 2;
+}
+
+.workload-form{
+
+}
+
+.fieldset-item {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5em;
+}
+label {
+    margin: 0.5em;
 }

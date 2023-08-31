@@ -83,109 +83,360 @@
     <!-- Main-Content -->
     <div class="main-content">
     <!-- Form -->
-        <form>
-        <!-- WOW, there is a ton of data here, I would probably break these into fieldsets for each tab, 
-        then convert each placeholder into a generic input based on the data type -->
+        <form class="workload-form">
+
         <!--Assessment/Planning/Collaboration Tab-->
-        <!-- Fieldset 1 - freeform text inputs? -->
-        <!-- SAMPLE TEXT INPUT -->
-        <!-- <input type="text" placeholder="Admission Assessment" multiple> -->
-        <!-- NOTE: You may also want to create a generic container to wrp each fieldset to help with styling -->
-        Admission Assessment
-        Shift Assessment
-        Update Assessment
-        Interdisciplinary Rounds (day shift only)
-        Shift Report
-        Team / Family Meetings
+        <fieldset class="admit-collab">
+            <div class="fieldset-item">
+                <input type="checkbox" id="admit-assess" name="admit-assess" value="15">
+                <label for="admit-assess">Admission Assessment</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="shift-assess" name="shift-assess" value="8">
+                <label for="shift-assess">Shift Assessment</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="update-assess" name="update-assess" value="6">
+                <label for="update-assess">Update Assessment</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="rounds" name="rounds" value="3">
+                <label for="rounds"> Interdisciplinary Rounds (day shift only)</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="report" name="report" value="3">
+                <label for="report">Shift Report</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="input" id="meetings" name="meetings" value="">
+                <label for="meetings">Team / Family Meetings Time:</label><!--calculate as fraction of hours multiplied by 10-->
+            </div>
+        </fieldset>
+      
 
         <!--Basic Patient Care Activities Tab -->
         <!-- Fieldset 2 - Checkboxes? Select all that apply? -->
-        Feeds Self with Partial Assistance
-        Feeding with Full Assistance
-        Tube Feeding (Continuous/ Intermittent)
-        Toilet with Assistance
-        Incontinent Care (1-3)
-        Incontinent Care (4+)
-        Bath with Partial Assistance
-        Bath with Complete Assistance
-        Mouth Care
-        Eye Care
-        Turn and Position 1-3 times (1-2 nurses)
-        Turn and Position 4+ times (1-2 nurses)
-        Prone Positioning
-        Up In Chair With 1 Person Assist
-        Up In Chair With 2+ Person Assist
-        Mechanical Lift
+        <fieldset class="basic-care">
+            <div class="fieldset-item">
+                <input type="checkbox" id="feed-partial" name="feed-partial" value="2">
+                <label for="feed-partial">Feeds Self with Partial Assistance</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="feed-full" name="feed-full" value="5">
+                <label for="feed-full">Feeding with Full Assistance</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="tube-feeding" name="tube-feeding" value="7">
+                <label for="tube-feeding">Tube Feeding (Continuous/ Intermittent)</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="toilet-assist" name="toilet-assist" value="2">
+                <label for="toilet-assist">Toilet with Assistance</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="incont1" name="incont1" value="7">
+                <label for="incont1">Incontinent Care (1-3)</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="incont2" name="incont2" value="12">
+                <label for="incont2">Incontinent Care (4+)</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="bath-partial" name="bath-partial" value="3">
+                <label for="bath-partial">Bath with Partial Assistance</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="bath-complete" name="bath-complete" value="5">
+                <label for="bath-complete">Bath with Complete Assistance</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="mouth-care" name="mouth-care" value="3">
+                <label for="mouth-care">Mouth Care</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="eye-care" name="eye-care" value="3">
+                <label for="eye-care">Eye Care</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="turn1" name="turn1" value="6">
+                <label for="turn1">Turn and Position 1-3 times (1-2 nurses)</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="turn2" name="turn2" value="10">
+                <label for="turn2">Turn and Position 4+ times (1-2 nurses)</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="prone" name="prone" value="15">
+                <label for="prone">Prone Positioning</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="chair1" name="chair1" value="2">
+                <label for="chair1">Up In Chair With 1 Person Assist</label>
+             </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="chair2" name="chair2" value="3">
+                <label for="chair2">Up In Chair With 2+ Person Assist</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="mech-lift" name="mech-lift" value="5">
+                <label for="mech-lift">Mechanical Lift</label>
+            </div>
+        </fieldset>
 
         <!--Monitor and Evaluate Tab-->
         <!-- Fieldset 3 - Combo of checkboxes and number inputs -->
-        Monitoring of Patient 12x /shift
-        Monitoring of Patient 6x /shift
-        Monitoring of Patient 3x /shift
-        Hemodynamic Pressure/ Cardiac Output 5x /shift
-        Hemodynamic Pressure/ Cardiac Output 3x /shift
-        Neuro Signs 12x /shift
-        Neuro Signs 6x /shift
-        Neurovascular Signs 12x /shift
-        Neurovascular Signs 6x /shift
-        Care of patient with ICP Monitoring/ Ventricular Drain
-        Care of patient with IABP
-        Chest Tube Care
-        ET Tube Care
-        Cardiac/Respiratory Arrest Time: _____ <!--calculate as fraction of hours multiplied by 20-->
-        Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 1-3
-        Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 4-6
-        Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 7-12
-        Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 12+
-        Titration of Vasoactive Medication 1
-        Titration of Vasoactive Medication 2-3
-        Titration of Vasoactive Medication 4+
-        Continuous IV Stable Infusion 1-3
-        Continuous IV Stable Infusion 4+
-        Transfusion of Blood Products 1-2
-        Transfusion of Blood Products 3+
+        <fieldset class="monitor-eval">
+            <div class="fieldset-item">
+                <input type="checkbox" id="monitor12" name="monitor12" value="10">
+                <label for="monitor12">Monitoring of Patient 12x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="monitor6" name="monitor6" value="5">
+                <label for="monitor6">Monitoring of Patient 6x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="monitor3" name="monitor3" value="3">
+                <label for="monitor3">Monitoring of Patient 3x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="hemo5" name="hemo5" value="8">
+                <label for="hemo5">Hemodynamic Pressure/ Cardiac Output 5x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="hemo3" name="hemo3" value="5">
+                <label for="hemo3">Hemodynamic Pressure/ Cardiac Output 3x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="neuro12" name="neuro12" value="6">
+                <label for="neuro12">Neuro Signs 12x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="neuro6" name="neuro6" value="3">
+                <label for="neuro6">Neuro Signs 6x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="neurovasc12" name="neurovasc12" value="6">
+                <label for="neurovasc12">Neurovascular Signs 12x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="neurovasc6" name="neurovasc6" value="3">
+                <label for="neurovasc6">Neurovascular Signs 6x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="icp" name="icp" value="10">
+                <label for="icp">Care of Patient with ICP Monitoring/ Ventricular Drain</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="iabp" name="iabp" value="10">
+                <label for="iabp">Care of Patient with IABP</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="chest-tube" name="chest-tube" value="4">
+                <label for="chest-tube">Chest Tube Care</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="vent" name="vent" value="10">
+                <label for="vent">Care of Patient on Ventilator (Invasive/Non-invasive)</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="ett" name="ett" value="2">
+                <label for="ett">ET Tube Care</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="input" id="arrest" name="arrest" value="">
+                <label for="arrest">Cardiac/Respiratory Arrest Time:</label> <!--calculate as fraction of hours multiplied by 20-->
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="meds1" name="meds1" value="3">
+                <label for="meds1">Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 1-3</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="meds2" name="meds2" value="5">
+                <label for="meds2">Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 4-6</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="meds3" name="meds3" value="10">
+                <label for="meds3">Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 7-12</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="meds4" name="meds4" value="15">
+                <label for="meds4">Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 12+</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="vaso1" name="vaso1" value="4">
+                <label for="vaso1">Titration of Vasoactive Medication 1</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="vaso2" name="vaso2" value="12">
+                <label for="vaso2">Titration of Vasoactive Medication 2-3</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="vaso3" name="vaso3" value="20">
+                <label for="vaso3">Titration of Vasoactive Medication 4+</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="stable-iv1" name="stable-iv1" value="4">
+                <label for="stable-iv1">Continuous IV Stable Infusion 1-3</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="stable-iv2" name="stable-iv2" value="10">
+                <label for="stable-iv2">Continuous IV Stable Infusion 4+</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="bloodtx1" name="bloodtx1" value="5">
+                <label for="bloodtx1">Transfusion of Blood Products 1-2</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="bloodtx2" name="bloodtx2" value="10">
+                <label for="bloodtx2">Transfusion of Blood Products 3+</label>
+            </div>
+        </fieldset>
 
         <!--Nursing Interventions Tab-->
         <!-- Fieldset 4 - Combo of checkboxes and number inputs -->
-        IV Insertion 1-2
-        IV Insertion 3+
-        Tubing / Dressing Change / IV Site Care 1-2
-        Tubing / Dressing Change / IV Site Care 3+
-        Simple Wound Dressing 1-2
-        Simple Wound Dressing 3+
-        Complex Wound Dressing Time: _____ <!--calculate as fraction of hours multiplied by 10-->
-        Burn Care Time: ____ <!--calculate as fraction of hours multiplied by 15-->
-        Infusion Irrigations (Bladder, Pleural, Mediastinal)
-        Aspiration of Drains 1-2
-        Aspiration of Drains 3+
-        Chest Tube Removal by Nurse
-        Tracheostomy Care 1-2
-        Tracheostomy Care 3+
-        ET Tube Care
-        Suctioning 1-3
-        Suctioning 4-6
-        Suctioning 7+
+        <fieldset class="nurse-intervention">
+            <div class="fieldset-item">
+                <input type="checkbox" id="iv-insert1" name="iv-insert1" value="3">
+                <label for="iv-insert1">IV Insertion 1-2</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="iv-insert2" name="iv-insert2" value="7">
+                <label for="iv-insert2">IV Insertion 3+</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="site-care1" name="sitecare1" value="5">
+                <label for="sitecare1">Tubing / Dressing Change / IV Site Care 1-2</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="site-care2" name="sitecare2" value="10">
+                <label for="sitecare2">Tubing / Dressing Change / IV Site Care 3+</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="simpledsg1" name="simpledsg1" value="2">
+                <label for="simpledsg1">Simple Wound Dressing 1-2</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="simpledsg2" name="simpledsg2" value="4">
+                <label for="simpledsg2">Simple Wound Dressing 3+</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="input" id="complexdsg" name="complexdsg" value="">
+                <label for="complexdsg">Complex Wound Dressing Time:</label> <!--calculate as fraction of hours multiplied by 10-->
+            </div>
+            <div class="fieldset-item">
+                <input type="input" id="burn-care" name="burn-care" value="">
+                <label for="burn-care">Burn Care Time:</label><!--calculate as fraction of hours multiplied by 15-->
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="irrigat" name="irrigat" value="6">
+                <label for="irrigat">Infusion Irrigations (Bladder, Pleural, Mediastinal)</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="asp1" name="asp1" value="8">
+                <label for="asp1">Aspiration of Drains 1-2</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="asp2" name="asp2" value="20">
+                <label for="asp2">Aspiration of Drains 3+</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="chest-tube-removal" name="chest-tube-removal" value="3">
+                <label for="chest-tube-removal">Chest Tube Removal by Nurse</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="trach1" name="trach1" value="4">
+                <label for="trach1">Tracheostomy Care 1-2</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="trach2" name="trach2" value="6">
+                <label for="trach2">Tracheostomy Care 3+</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="suction1" name="suction1" value="5">
+                <label for="suction1">Suctioning 1-3</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="suction2" name="suction2" value="10">
+                <label for="suction2">Suctioning 4-6</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="suction3" name="suction3" value="20">
+                <label for="suction3">Suctioning 7+</label>
+            </div>
+        </fieldset>
 
         <!--Other Interventions Tab-->
         <!-- Fieldset 5 - Combo of checkboxes and number inputs -->
-        Assist With Procedures x15 Minutes
-        Assist With Procedures x30 Minutes
-        Assist With Procedures x60+ Minutes
-        Blood Collection 1-3
-        Blood Collection 4-6
-        Blood Collection 7+
-        Teaching / Emotional Support x15 Minutes
-        Teaching / Emotional Support x30 Minutes
-        Teaching / Emotional Support x60+ Minutes
-        Transportation of Patient (Within and Outside Facility) Time: ____
-        <!--calculate as fraction of hours multiplied by 10-->
-        CRRT Initial Set Up
-        CRRT Change Set x1
-        CRRT Change Set x2+
-        CRRT Temporary Disconnect
-        CRRT Monitoring 12x /shift
-        CRRT Monitoring 6x /shift
-        Unplanned Activities Time: ______ <!--calculate as fraction of hours multiplied by 10-->
+        <fieldset class="other-intervention">
+            <div class="fieldset-item">
+                <input type="checkbox" id="assist15" name="assist15" value="3">
+                <label for="assist15">Assist With Procedures x15 Minutes</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="assist30" name="assist30" value="5">
+                <label for="assist30"> Assist With Procedures x30 Minutes</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="assist60" name="assist60" value="10">
+                <label for="assist60">Assist With Procedures x60+ Minutes</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="blood-collect1" name="blood-collect1" value="3">
+                <label for="blood-collect1">Blood Collection 1-3</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="blood-collect2" name="blood-collect2" value="6">
+                <label for="blood-collect2">Blood Collection 4-6</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="blood-collect3" name="blood-collect3" value="10">
+                <label for="blood-collect3">Blood Collection 7+</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="teaching15" name="teaching15" value="5">
+                <label for="teaching15">Teaching / Emotional Support x15 Minutes</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="teaching30" name="teaching30" value="10">
+                <label for="teaching30">Teaching / Emotional Support x30 Minutes</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="teaching60" name="teaching60" value="15">
+                <label for="teaching60">Teaching / Emotional Support x60+ Minutes</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="input" id="transport" name="transport" value="">
+                <label for="transport">Transportation of Patient (Within and Outside Facility) Time:</label> <!--calculate as fraction of hours multiplied by 10-->
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="crrt-setup" name="crrt-setup" value="8">
+                <label for="crrt-setup">CRRT Initial Set Up</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="crrt-change1" name="crrt-change1" value="5">
+                <label for="crrt-change1">CRRT Change Set x1</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="crrt-change2" name="crrt-change2" value="10">
+                <label for="crrt-change2">CRRT Change Set x2+</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="crrt-disconnect" name="crrt-disconnect" value="5">
+                <label for="crrt-disconnect">CRRT Temporary Disconnect</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="crrt-monitor12" name="crrt-monitor12" value="30">
+                <label for="crrt-monitor12">CRRT Monitoring 12x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="checkbox" id="crrt-monitor6" name="crrt-monitor6" value="15">
+                <label for="crrt-monitor6">CRRT Monitoring 6x /shift</label>
+            </div>
+            <div class="fieldset-item">
+                <input type="input" id="unplanned" name="unplanned" value="">
+                <label for="unplanned">Unplanned Activities Time:</label> <!--calculate as fraction of hours multiplied by 10-->
+            </div>
+        </fieldset>
     </form>
     </div>
 </div>
@@ -222,7 +473,7 @@
 -->
     <!-- 
     Sidebar
-    <div class="sidebar">
+    <nav class="sidebar">
         <ul class="data-list1">Overview
             <li>By Week</li>
             <li>By Month</li>
@@ -232,7 +483,7 @@
             <li>Day</li>
             <li>Night</li>
         </ul>
-    </div>
+    </nav>
 -->
     <!--Data Grids-->
 
