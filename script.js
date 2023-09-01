@@ -7,22 +7,22 @@
 // Break things into small pieces as much as possible and test often (console.log() and error messages)
 // small changes are easier to debug than building half your app and finding out you went astray somewhere
 
-//Adds functionality to Bed links
+ //Adds functionality to Bed links
 document.addEventListener("DOMContentLoaded", function () {
-  const bedLinks = document.querySelectorAll(".bed-link");
-  const formFieldsets = document.querySelectorAll(".workload-form fieldset");
+    const bedLinks = document.querySelectorAll(".bed-link");
+    const formFieldsets = document.querySelectorAll(".workload-form fieldset");
 
-  bedLinks.forEach(function (bedLink) {
-    bedLink.addEventListener("click", function () {
-      formFieldsets.forEach(function (fieldset) {
-        fieldset.style.display = "none";
-      });
-      formFieldsets[0].style.display = "block";
-    })
-  });
+    bedLinks.forEach(function (bedLink) {
+        bedLink.addEventListener("click", function () {
+            formFieldsets.forEach(function (fieldset) {
+                fieldset.style.display = "none";
+            });
+            formFieldsets[0].style.display = "block";
+        })
+    });
 });
 
-// Adds functionality to form tabs
+ // Adds functionality to form tabs
 const assess_collab_link = document.getElementById("assess-collab-tab");
 const fieldsetAssessCollab = document.getElementById("assess-collab-form");
 
@@ -60,17 +60,17 @@ nurse_int_link.addEventListener('click', () => showFormSection(fieldsetNurseInte
 other_int_link.addEventListener('click', () => showFormSection(fieldsetOtherIntervention))
 
 
-//Adds  Current Date
-function updateDate() {
-  const currentDateElement = document.getElementById('current-date');
-  const currentDate = new Date();
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  const formattedDate = currentDate.toLocaleDateString('en-US', options);
+ //Adds  Current Date
+ function updateDate() {
+    const currentDateElement = document.getElementById('current-date');
+    const currentDate = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = currentDate.toLocaleDateString('en-US', options);
+        
+        currentDateElement.textContent = formattedDate;
+ }
 
-  currentDateElement.textContent = formattedDate;
-}
-
-updateDate();
+ updateDate();
 
 // ========================================================================
 // TEST SUBMIT CODE WITH WORKLOAD VALUE ATTRIBUTE
