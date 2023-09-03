@@ -2,47 +2,47 @@
 // Break things into small pieces as much as possible and test often (console.log() and error messages)
 // small changes are easier to debug than building half your app and finding out you went astray somewhere
 
- //Adds  Current Date
- function updateDate() {
-    const currentDateElement = document.getElementById('current-date');
-    const currentDate = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const formattedDate = currentDate.toLocaleDateString('en-US', options);
-        
-        currentDateElement.textContent = formattedDate;
- }
+//Adds  Current Date
+function updateDate() {
+  const currentDateElement = document.getElementById('current-date');
+  const currentDate = new Date();
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = currentDate.toLocaleDateString('en-US', options);
 
- updateDate();
+  currentDateElement.textContent = formattedDate;
+}
 
-
- //Shift Toggle
- const shiftSelect = document.getElementById("shift-select");
-
-  shiftSelect.addEventListener("change", () => {
-    const selectedValue = shiftSelect.value;
-    const shiftText = selectedValue === "day" ? "Day" : "Night";
-    shiftSelect.textContent  = `Shift: ${shiftText}`;
-  })
+updateDate();
 
 
+//Shift Toggle
+const shiftSelect = document.getElementById("shift-select");
 
- //Adds functionality to Bed links
+shiftSelect.addEventListener("change", () => {
+  const selectedValue = shiftSelect.value;
+  const shiftText = selectedValue === "day" ? "Day" : "Night";
+  shiftSelect.textContent = `Shift: ${shiftText}`;
+})
+
+
+
+//Adds functionality to Bed links
 document.addEventListener("DOMContentLoaded", function () {
-    const bedLinks = document.querySelectorAll(".bed-link");
-    const formFieldsets = document.querySelectorAll(".workload-form fieldset");
+  const bedLinks = document.querySelectorAll(".bed-link");
+  const formFieldsets = document.querySelectorAll(".workload-form fieldset");
 
-    bedLinks.forEach(function (bedLink) {
-        bedLink.addEventListener("click", function () {
-            formFieldsets.forEach(function (fieldset) {
-                fieldset.style.display = "none";
-            });
-            formFieldsets[0].style.display = "block";
-        })
-    });
+  bedLinks.forEach(function (bedLink) {
+    bedLink.addEventListener("click", function () {
+      formFieldsets.forEach(function (fieldset) {
+        fieldset.style.display = "none";
+      });
+      formFieldsets[0].style.display = "block";
+    })
+  });
 });
 
 
- // Adds functionality to form tabs
+// Adds functionality to form tabs
 const assess_collab_link = document.getElementById("assess-collab-tab");
 const fieldsetAssessCollab = document.getElementById("assess-collab-form");
 
@@ -100,99 +100,98 @@ other_int_link.addEventListener('click', () => showFormSection(fieldsetOtherInte
 // })
 
 const someValidationCallback = (input_value) => {
-    if (!input_value) throw Error(`no input value provided`);
-  
-    if (typeof (input_value) !== 'number') throw Error(`Input value of ${input_value} is not valid as a number`)
-  
-    // other filter conditions can be added here
-  
-    return input_value
+  if (!input_value) throw Error(`no input value provided`);
+
+  if (typeof (input_value) !== 'number') return Number(input_value) ?? 0;
+
+  // other filter conditions can be added here
+
+  return input_value
+}
+
+// Generic callback for handling value extraction from any freeform workload value input
+const handleExtractUniqueValue = (field_element) => {
+  if (field_element?.value) {
+    const input_points_value = someValidationCallback(field_element?.value)
+    console.log(`${field_element.name} had ${input_points_value} entered, adding to workload points total`);
+    return input_points_value
+  } else {
+    console.log(`no value entered in the ${field_element.name} input`)
+    return undefined
   }
+}
+
+const meetings = document.getElementById("meetings");
+const arrest = document.getElementById("arrest");
+const complexdsg = document.getElementById("complexdsg")
+const burn_care = document.getElementById("burn-care");
+const transport = document.getElementById("transport")
+const unplanned = document.getElementById("unplanned")
+
+// combine all unique fields into an array so we can operate on them all as a group with the generic callback function above
+const unique_fields_array = [
+  meetings,
+  arrest,
+  complexdsg,
+  burn_care,
+  transport,
+  unplanned
+];
 
 
-  //Supposed to address workload values associated with checkboxes
-document.getElementById(".workload-form").addEventListener("submit", function (e) {
-    e.preventDefault();
 
-    const checkboxes = document.querySelectorAll('input[type="checkbox"][workload-value]');
+// document.getElementById(".workload-form").addEventListener("submit", function (e) { // Original Code
+document.getElementById("workload-form").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-    let workload_point_total = 0
+  // Checks all checkbox elements with a 'workload-value' attribute
+  // const checkboxes = document.querySelectorAll('input[type="checkbox"][workload-value]'); // Original code
+  const checkboxes = document.querySelectorAll('[workload-value]');
 
+  let workload_point_total = 0
 
-    checkboxes.forEach(function (checkbox) {
-        checkbox.addEventListener("change", function () {
-            if (checkbox.checked) {
-                const workloadValue = (checkbox.getAttribute('workload-value'));
-                workload_point_total = workloadValue
-                console.log(`Added ${workloadValue} workload points. Total: ${workload_point_total}`);
-            }
-        })
+  // CAUTION: Nesting event listeners can cause a lot of unexpected behaviour... consider that this event listener will only
+  // get attached to our checkboxes when we submit the form, meaning interactions would be pointless until the form gets submitted for
+  // the first time
+  // checkboxes.forEach(function (checkbox) {
+  //     checkbox.addEventListener("change", function () {
+  //         if (checkbox.checked) {
+  //             const workloadValue = (checkbox.getAttribute('workload-value'));
+  //             // workload_point_total = workloadValue // This overwrites the total value with the field value each time
+  //             console.log(`Added ${workloadValue} workload points. Total: ${workload_point_total}`);
+  //         }
+  //     })
 
-        const form= document.querySelector(".workload-form");
-        form.addEventListener("submit", function (event) {
-          e.preventDefault();
-        })
-    })
-})
+  // Nesting quesry selectors can get very confusing, probably best to avoid this if you can
+  // const form= document.querySelector(".workload-form");
+  // form.addEventListener("submit", function (event) {
+  //   e.preventDefault();
+  // })
+  // });
 
-//Supposed to address the workload value inputs for the free text inputs
-const  meetings = document.getElementById("meetings");
-    if (meetings.value) {
-        const input_points_value = someValidationCallback(meetings.value)
-        workload_point_total = workload_point_total + input_points_value
-        return console.log(`Added ${meetings.value} workload points to the total`, `workload point total = ${workload_point_total}`);
-    } else {
-        return console.log('no value entered in the meetings input')
-    }
-
-// NOTE: There is a string literal in the first return here, it allows us to render JS code directly in a string which cannot
-// be done using normal single quotes ' ' 
-
-const  arrest = document.getElementById("arrest");
-    if (arrest.value) {
-        const input_points_value = someValidationCallback(arrest.value)
-        workload_point_total = workload_point_total + input_points_value
-        return console.log(`Added ${arrest.value} workload points to the total`, `workload point total = ${workload_point_total}`);
-    }  else {
-          return console.log('no value entered in the arrest input');
-    }
-  
-const  complexdsg = document.getElementById("complexdsg")
-    if (complexdsg.value) {
-        const input_points_value = someValidationCallback(complexdsg.value)
-        workload_point_total = workload_point_total + input_points_value
-        return console.log(`Added ${complexdsg.value} workload points to the total`, `workload point total = ${workload_point_total}`);
-    } else {
-        return console.log('no value entered in the complexdsg input')
-    }
-
-const burn_care = document.getElementById("burn_care");
-    if (burn_care.value) {
-        const input_points_value = someValidationCallback(burn_care.value)
-        workload_point_total = workload_point_total + input_points_value
-        return console.log(`Added ${burn_care.value} workload points to the total`, `workload point total = ${workload_point_total}`);
-      } else {
-        return console.log('no value entered in the burn-care input')
+  //  totalize the inputs of all free form number input fields in the entirety of the form's fieldsets
+  checkboxes.forEach(
+    checkbox => {
+      if (checkbox.checked) {
+        const workloadValue = (Number(checkbox.getAttribute('workload-value')));
+        workload_point_total = workload_point_total + workloadValue
+        console.log(`Added ${workloadValue} workload points. Total: ${workload_point_total}`);
       }
+    }
+  )
 
 
-const  transport = document.getElementById("transport")
-    if (transport.value) {
-        const input_points_value = someValidationCallback(transport.value)
-        workload_point_total = workload_point_total + input_points_value
-        return console.log(`Added ${transport.value} workload points to the total`, `workload point total = ${workload_point_total}`);
-      } else {
-        return console.log('no value entered in the transport input')
-      }
-  
-const  unplanned = document.getElementById("unplanned")
-    if (unplanned.value) {
-        const input_points_value = someValidationCallback(unplanned.value)
-        workload_point_total = workload_point_total + input_points_value
-        return console.log(`Added ${unplanned.value} workload points to the total`, `workload point total = ${workload_point_total}`);
-      } else {
-        return console.log('no value entered in the unplanned input')
-      }
+  // totalize the inputs of all free form number input fields in the entirety of the form's fieldsets
+  unique_fields_array.forEach(
+    field_element => {
+      const workload_value = handleExtractUniqueValue(field_element)
+      if (workload_value) workload_point_total = workload_point_total + workload_value
+    }
+  )
+
+  console.log('The form has a total score of: ', workload_point_total)
+
+});
 
 
 

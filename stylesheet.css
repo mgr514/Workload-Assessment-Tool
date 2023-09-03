@@ -166,7 +166,7 @@ label {
     margin: 0.5em;
 }
 
-.workload-form input[type="checkbox"] {
+#workload-form input[type="checkbox"] {
     appearance: none;
     border: 2px solid var(--navy);
     width: 20px;
@@ -177,11 +177,11 @@ label {
     cursor: pointer;
 }
 
-.workload-form input[type="checkbox"]:checked {
+#workload-form input[type="checkbox"]:checked {
     background-color: var(--navy);
 }
 
-.workload-form input[type="input"] {
+#workload-form input[type="input"] {
     appearance: none;
     border: 2px solid var(--navy);
     width: 120px;
@@ -192,7 +192,7 @@ label {
     cursor: pointer;
 }
 
-submit {
+#submit-button {
     display: flex;
     justify-content: center;
     cursor: pointer;
@@ -203,7 +203,7 @@ submit {
     background-color: whitesmoke;
 }
 
-submit:hover {
+#submit-button:hover {
     background-color: var(--navy);
     color: var(--white);
 }
