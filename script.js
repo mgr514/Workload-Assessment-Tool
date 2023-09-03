@@ -26,7 +26,6 @@
 
 
 
-
  //Adds functionality to Bed links
 document.addEventListener("DOMContentLoaded", function () {
     const bedLinks = document.querySelectorAll(".bed-link");
@@ -110,6 +109,8 @@ const someValidationCallback = (input_value) => {
     return input_value
   }
 
+
+  //Supposed to address workload values associated with checkboxes
 document.getElementById(".workload-form").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -134,6 +135,7 @@ document.getElementById(".workload-form").addEventListener("submit", function (e
     })
 })
 
+//Supposed to address the workload value inputs for the free text inputs
 const  meetings = document.getElementById("meetings");
     if (meetings.value) {
         const input_points_value = someValidationCallback(meetings.value)
@@ -142,6 +144,9 @@ const  meetings = document.getElementById("meetings");
     } else {
         return console.log('no value entered in the meetings input')
     }
+
+// NOTE: There is a string literal in the first return here, it allows us to render JS code directly in a string which cannot
+// be done using normal single quotes ' ' 
 
 const  arrest = document.getElementById("arrest");
     if (arrest.value) {
@@ -152,7 +157,7 @@ const  arrest = document.getElementById("arrest");
           return console.log('no value entered in the arrest input');
     }
   
-    const  complexdsg = document.getElementById("complexdsg")
+const  complexdsg = document.getElementById("complexdsg")
     if (complexdsg.value) {
         const input_points_value = someValidationCallback(complexdsg.value)
         workload_point_total = workload_point_total + input_points_value
@@ -193,12 +198,10 @@ const  unplanned = document.getElementById("unplanned")
 
 
 
+//const submit_btn = document.querySelector("submit_btn")
 
-// Testing for submission of freeform number input w/ no predetermine workload-value attached
+//submit_btn.addEventListener('click', () => { })
 
-//test_btn.addEventListener('click', () => { })
-  // NOTE: There is a string literal in the first return here, it allows us to render JS code directly in a string which cannot
-  // be done using normal single quotes ' ' 
 
 
 
