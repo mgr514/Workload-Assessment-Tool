@@ -85,7 +85,12 @@ body {
 }
 
 .clickable {
-    padding: 0.5em;
+    padding: 1em;
+}
+
+.clickable img {
+    margin-top: 1em;
+    width: 25%;
 }
 
 .shift-stats{
@@ -193,12 +198,16 @@ label {
     cursor: pointer;
 }
 
+.fieldset-button {
+    border: none;
+}
+
 #submit-button {
     display: flex;
     justify-content: center;
     cursor: pointer;
     padding: 0.6em 1.5em;
-    margin: 1em 1em 1em 79em;
+    margin: 2em 2em 2em 80em;
     border: 2px solid var(--navy);
     border-radius: 5px;
     background-color: whitesmoke;
