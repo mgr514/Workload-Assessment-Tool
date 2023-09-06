@@ -208,8 +208,13 @@ let currentFieldsetIndex = 0;
         }
     }
 
-document.getElementById("total-workload").textContent = totalWorkload;
-document.getElementById("thank-you-message").style.display = "block";
+    //Display Total workload points in message
+    const totalWorkloadElement = document.getElementById("total-workload");
+    totalWorkloadElement.textContent = workload_point_total;
+
+    //Thank you message
+    const thankYouMessage = document.getElementById("thank-you-message");
+    document.getElementById("thank-you-message").style.display = "block";
 
 
 
