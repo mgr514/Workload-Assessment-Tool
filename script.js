@@ -193,6 +193,23 @@ document.getElementById("workload-form").addEventListener("submit", function (e)
 
 });
 
+//Allows submit button to flow user into next fieldset
+let currentFieldsetIndex = 0;
+    const fieldsets = document.querySelectorAll('fieldset');
+
+    function nextFieldset() {
+        if (currentFieldsetIndex < fieldsets.length - 1) {
+            fieldsets[currentFieldsetIndex].classList.add('hidden');
+            currentFieldsetIndex++;
+            fieldsets[currentFieldsetIndex].classList.remove('hidden');
+        } else {
+// If on the last fieldset, submit the form
+            document.getElementById('workload-form').submit();
+        }
+    }
+
+document.getElementById("total-workload").textContent = totalWorkload;
+document.getElementById("thank-you-message").style.display = "block";
 
 
 

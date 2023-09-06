@@ -99,7 +99,7 @@
             <!-- Form -->
 
             <!-- SWITCHED TO USE id INSTEAD OF CLASS -->
-            <form id="workload-form">
+            <form id="workload-form" action="" method="post">
 
                 <!--Assessment/Planning/Collaboration Tab-->
                 <fieldset class="assess-collab fieldset" id="assess-collab-form">
@@ -472,9 +472,12 @@
 
                 <!-- This will always show since it's outside the fieldsets (wrapped in fieldset for styling) -->
                 <fieldset class="fieldset-button">
-                    <button type="submit" id="submit-button">Enter</button>
+                    <button type="submit" id="submit-button" onclick="nextFieldset()">Enter</button>
                 </fieldset>
             </form>
+        </div>
+        <div id="thank-you-message" hidden>
+            <p>Thank you for submitting the form with a total workload of <span id="total-workload"></span>.</p>
         </div>
     </div>
 
@@ -519,8 +522,6 @@
 
 
     <!-- TEMPLATE AND SCRIPT TAGS -->
-    <div></div>
-    <template></template>
     <script src="./script.js" defer></script>
 
 </body>

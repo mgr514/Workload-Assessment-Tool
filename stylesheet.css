@@ -221,3 +221,7 @@ label {
 .hidden {
     display:none;
 }
+
+.thank-you-message {
+    display: hidden;
+}
