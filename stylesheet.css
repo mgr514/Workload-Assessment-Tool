@@ -123,6 +123,31 @@ select {
     height: 25px;
 }
 
+/* MENU */
+.menu-popup {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.menu-popup ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-popup li {
+    padding: 10px;
+    text-align: center;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
 /* SIDEBAR */
 .sidebar {
     grid-column: 1;

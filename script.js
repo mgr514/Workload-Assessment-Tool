@@ -216,6 +216,26 @@ let currentFieldsetIndex = 0;
     const thankYouMessage = document.getElementById("thank-you-message");
     document.getElementById("thank-you-message").style.display = "block";
 
+    
+// Pop up menu
+document.addEventListener("DOMContentLoaded", function () {
+    const menuIcon = document.getElementById("menu-icon");
+    const menuPopup = document.getElementById("menu-popup");
+
+    menuIcon.addEventListener("click", function () {
+        if (menuPopup.style.display === "block") {
+            menuPopup.style.display = "none";
+        } else {
+            menuPopup.style.display = "block";
+        }
+    });
+    document.addEventListener("click", function (event) {
+        if (!menuPopup.contains(event.target) && event.target !== menuIcon) {
+            menuPopup.style.display = "none";
+        }
+    });
+});
+
 
 
 
