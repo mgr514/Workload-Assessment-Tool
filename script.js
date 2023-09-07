@@ -226,12 +226,15 @@ let currentFieldsetIndex = 0;
     }
 
     //Display Total workload points in message
-    const totalWorkloadElement = document.getElementById("total-workload");
-    totalWorkloadElement.textContent = workload_point_total;
+const totalWorkloadElement = document.getElementById("total-workload");
+totalWorkloadElement.textContent = workload_point_total;
 
     //Thank you message
-    const thankYouMessage = document.getElementById("thank-you-message");
-    document.getElementById("thank-you-message").style.display = "block";
+const thankYouMessage = document.getElementById("thank-you-message");
+document.getElementById("thank-you-message").style.display = "block";
+
+const formElement = document. getElementById("workload-form");
+formElement.style.display = "none";
 
 
 
