@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuPopup = document.getElementById("menu-popup");
 
     menuIcon.addEventListener("click", function () {
+        console.log("menu icon clicked");
         if (menuPopup.style.display === "block") {
             menuPopup.style.display = "none";
         } else {
