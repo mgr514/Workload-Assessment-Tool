@@ -29,17 +29,29 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuIcon = document.getElementById("menu-icon");
     const menuPopup = document.getElementById("menu-popup");
 
+    const hidePopup = () =>
+    {
+        menuPopup.style.display = "none";
+
+        // Remove the event listener from the body to listen for clicks outisde the Popup
+        document.body.removeEventListener('click', event => clickOutsidePopup(event))
+    }
+
+    const clickOutsidePopup = event =>
+    {
+      // Hides the Popup if the clicked element isn't the Popup itself
+      // or part of the menuIcon element used to open the Popup
+      if (!menuPopup.contains(event.target) && !menuIcon.contains(event.target)) {
+        hidePopup()
+      }
+    }
+
     menuIcon.addEventListener("click", function () {
-        console.log("menu icon clicked");
-        if (menuPopup.style.display === "block") {
-            menuPopup.style.display = "none";
-        } else {
+        if (menuPopup.style.display !== "block") {
+            console.log('show popup')
             menuPopup.style.display = "block";
-        }
-    });
-    document.addEventListener("click", function (event) {
-        if (!menuPopup.contains(event.target) && event.target !== menuIcon) {
-            menuPopup.style.display = "none";
+            // Attach event listener to close the Popup if a click occurs outside of it
+            document.body.addEventListener("click", event => clickOutsidePopup(event))
         }
     });
 });
@@ -157,6 +169,7 @@ const unique_fields_array = [
 ];
 
 
+let workload_point_total = 0
 
 // document.getElementById(".workload-form").addEventListener("submit", function (e) { // Original Code
 document.getElementById("workload-form").addEventListener("submit", function (e) {
@@ -165,8 +178,6 @@ document.getElementById("workload-form").addEventListener("submit", function (e)
   // Checks all checkbox elements with a 'workload-value' attribute
   // const checkboxes = document.querySelectorAll('input[type="checkbox"][workload-value]'); // Original code
   const checkboxes = document.querySelectorAll('[workload-value]');
-
-  let workload_point_total = 0
 
   // CAUTION: Nesting event listeners can cause a lot of unexpected behaviour... consider that this event listener will only
   // get attached to our checkboxes when we submit the form, meaning interactions would be pointless until the form gets submitted for
@@ -229,6 +240,7 @@ let currentFieldsetIndex = 0;
     //Display Total workload points in message
 const totalWorkloadElement = document.getElementById("total-workload");
 totalWorkloadElement.textContent = workload_point_total;
+
 
     //Thank you message
 const thankYouMessage = document.getElementById("thank-you-message");
