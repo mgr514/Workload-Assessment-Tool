@@ -89,8 +89,8 @@ body {
 }
 
 .clickable img {
-    margin-top: 1em;
-    width: 25%;
+    padding: 1em 1em 0 0;
+    width: 40%;
 }
 
 .shift-stats{
