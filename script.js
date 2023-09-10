@@ -19,9 +19,10 @@ updateDate();
 const shiftSelect = document.getElementById("shift-select");
 
 shiftSelect.addEventListener("change", () => {
-  const selectedValue = shiftSelect.value;
+  const selectedOption = shiftSelect.options[shiftSelect.selectedIndex];
+  const selectedValue = selectedOption.value;
   const shiftText = selectedValue === "day" ? "Day" : "Night";
-  shiftSelect.textContent = `Shift: ${shiftText}`;
+  selectedOption.textContent = shiftText;
 })
 
 // Pop up menu
