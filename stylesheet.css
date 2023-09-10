@@ -101,6 +101,10 @@ body {
     width: 15vw;
 }
 
+.shift-stats input[type="input"]{
+    width: 3em;
+}
+
 .shift-stats p{
     margin-bottom: 0.5em;
 }
