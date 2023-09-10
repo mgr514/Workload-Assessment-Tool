@@ -138,7 +138,7 @@ select {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 1;
     transition: ease-in 0.3s;
 }
@@ -152,6 +152,7 @@ select {
 .menu-popup li {
     padding: 10px 0;
     text-align: center;
+    border-bottom: 0.5px dotted black;
 }
 
 .menu-popup li a {
