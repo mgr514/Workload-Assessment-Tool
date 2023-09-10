@@ -66,11 +66,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const formFieldsets = document.querySelectorAll(".workload-form fieldset");
 
   bedLinks.forEach(function (bedLink) {
-    bedLink.addEventListener("click", function () {
-      formFieldsets.forEach(function (fieldset) {
-        fieldset.style.display = "none";
-      });
-      formFieldsets[0].style.display = "block";
+    bedLink.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        console.log("bed link clicked");
+
+        formFieldsets.forEach(function (fieldset) {
+            fieldset.style.display = "none";
+            formFieldsets[0].style.display = "block";
+            console.log("fieldset style set to none") //I think this is the section not working, the other console log seems fine
+      });  
     })
   });
 });
