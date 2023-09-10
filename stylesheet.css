@@ -116,6 +116,9 @@ button{
     padding: 0.5em;
     border-radius: 15px 15px 0 0;
 }
+button:hover {
+    transform: scale(1.05);
+}
 
 select {
     display: flex;
@@ -131,13 +134,13 @@ select {
 .menu-popup {
     display: none;
     position: absolute;
-    background-color: #fff;
+    background-color: #ffffff;
     border: 1px solid #ccc;
-    padding: 0.3em;
+    padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1;
-    transition: ease-in 1s;
+    transition: ease-in 0.3s;
 }
 
 .menu-popup ul {
@@ -147,13 +150,20 @@ select {
 }
 
 .menu-popup li {
-    padding: 10px;
+    padding: 10px 0;
     text-align: center;
-    text-decoration: none;
 }
 
-.clickable {
-    cursor: pointer;
+.menu-popup li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.menu-popup li a:hover {
+    color: #007bff;
 }
 
 /* SIDEBAR */
