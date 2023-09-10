@@ -110,25 +110,6 @@ nurse_int_link.addEventListener('click', () => showFormSection(fieldsetNurseInte
 other_int_link.addEventListener('click', () => showFormSection(fieldsetOtherIntervention))
 
 
-// ========================================================================
-// TEST SUBMIT CODE WITH WORKLOAD VALUE ATTRIBUTE
-// ========================================================================
-
-//const enterBtn1 = document.getElementById('enter_btn');
-
-//const assess_admit = document.getElementById('admit-assess');
-
-//const meetings = document.getElementById('meetings');
-
-// Testing for submission of checkbox with predefined workload-value attached to element
-// test_btn.addEventListener('click', () => {
-//   // NOTE: There is a string literal in the first return here, it allows us to render JS code directly in a string which cannot
-//   // be done using normal single quotes ' ' 
-//   if(assess_admit.checked) return console.log(`Added ${assess_admit.getAttribute('workload-value')} workload points to the total`);
-
-//   else return console.log('no workload value is modified')
-// })
-
 const someValidationCallback = (input_value) => {
   if (!input_value) throw Error(`no input value provided`);
 
@@ -138,6 +119,21 @@ const someValidationCallback = (input_value) => {
 
   return input_value
 }
+
+//Allows submit button to flow user into next fieldset
+let currentFieldsetIndex = 0;
+    const fieldsets = document.querySelectorAll('fieldset');
+
+    function nextFieldset() {
+        if (currentFieldsetIndex < fieldsets.length - 1) {
+            fieldsets[currentFieldsetIndex].classList.add('hidden');
+            currentFieldsetIndex++;
+            fieldsets[currentFieldsetIndex].classList.remove('hidden');
+        } else {
+// If on the last fieldset, submit the form
+            document.getElementById('workload-form').submit();
+        }
+    }
 
 // Generic callback for handling value extraction from any freeform workload value input
 const handleExtractUniqueValue = (field_element) => {
@@ -168,35 +164,13 @@ const unique_fields_array = [
   unplanned
 ];
 
-
 let workload_point_total = 0
 
-// document.getElementById(".workload-form").addEventListener("submit", function (e) { // Original Code
 document.getElementById("workload-form").addEventListener("submit", function (e) {
   e.preventDefault();
 
   // Checks all checkbox elements with a 'workload-value' attribute
-  // const checkboxes = document.querySelectorAll('input[type="checkbox"][workload-value]'); // Original code
   const checkboxes = document.querySelectorAll('[workload-value]');
-
-  // CAUTION: Nesting event listeners can cause a lot of unexpected behaviour... consider that this event listener will only
-  // get attached to our checkboxes when we submit the form, meaning interactions would be pointless until the form gets submitted for
-  // the first time
-  // checkboxes.forEach(function (checkbox) {
-  //     checkbox.addEventListener("change", function () {
-  //         if (checkbox.checked) {
-  //             const workloadValue = (checkbox.getAttribute('workload-value'));
-  //             // workload_point_total = workloadValue // This overwrites the total value with the field value each time
-  //             console.log(`Added ${workloadValue} workload points. Total: ${workload_point_total}`);
-  //         }
-  //     })
-
-  // Nesting quesry selectors can get very confusing, probably best to avoid this if you can
-  // const form= document.querySelector(".workload-form");
-  // form.addEventListener("submit", function (event) {
-  //   e.preventDefault();
-  // })
-  // });
 
   //  totalize the inputs of all free form number input fields in the entirety of the form's fieldsets
   checkboxes.forEach(
@@ -206,8 +180,7 @@ document.getElementById("workload-form").addEventListener("submit", function (e)
         workload_point_total = workload_point_total + workloadValue
         console.log(`Added ${workloadValue} workload points. Total: ${workload_point_total}`);
       }
-    }
-  )
+    });
 
 
   // totalize the inputs of all free form number input fields in the entirety of the form's fieldsets
@@ -215,49 +188,21 @@ document.getElementById("workload-form").addEventListener("submit", function (e)
     field_element => {
       const workload_value = handleExtractUniqueValue(field_element)
       if (workload_value) workload_point_total = workload_point_total + workload_value
-    }
-  )
+    });
 
   console.log('The form has a total score of: ', workload_point_total)
 
-});
-
-//Allows submit button to flow user into next fieldset
-let currentFieldsetIndex = 0;
-    const fieldsets = document.querySelectorAll('fieldset');
-
-    function nextFieldset() {
-        if (currentFieldsetIndex < fieldsets.length - 1) {
-            fieldsets[currentFieldsetIndex].classList.add('hidden');
-            currentFieldsetIndex++;
-            fieldsets[currentFieldsetIndex].classList.remove('hidden');
-        } else {
-// If on the last fieldset, submit the form
-            document.getElementById('workload-form').submit();
-        }
-    }
+  //Thank you message
+    const thankYouMessage = document.getElementById("thank-you-message");
+    thankYouMessage.style.display = "block";
+               
+    const formElement = document. getElementById("workload-form");
+    formElement.style.display = "none";
 
     //Display Total workload points in message
-const totalWorkloadElement = document.getElementById("total-workload");
-totalWorkloadElement.textContent = workload_point_total;
-
-
-    //Thank you message
-const thankYouMessage = document.getElementById("thank-you-message");
-document.getElementById("thank-you-message").style.display = "block";
-
-const formElement = document. getElementById("workload-form");
-formElement.style.display = "none";
-
-
-
-
-
-
-
-//const submit_btn = document.querySelector("submit_btn")
-
-//submit_btn.addEventListener('click', () => { })
+    const totalWorkloadElement = document.getElementById("total-workload");
+    totalWorkloadElement.textContent = workload_point_total;
+});
 
 
 
@@ -265,5 +210,3 @@ formElement.style.display = "none";
 //Nurse Stat
 
 //Total Tally Stat
-
-//Menu Icon Functionality
