@@ -58,6 +58,8 @@ shiftSelect.addEventListener("change", () => {
   selectedOption.textContent = shiftText;
 })
 
+
+//I believe there is issues with the bed links now, it doesn't appear that they do anything when clicked
 //Adds functionality to Bed links
 document.addEventListener("DOMContentLoaded", function () {
   const bedLinks = document.querySelectorAll(".bed-link");
@@ -222,6 +224,12 @@ function updateLocalStorage() {
     localStorage.setItem(localStorageKey, JSON.stringify(workloadValues));
 }
 
-//Nurse Stat
 
-//Total Tally Stat
+//Local storage needs to save the data from the form per bed, and per shift, and how many nurses were on shift
+//preferably autosave select values for each bed and repopulate for next user to minimize burden
+//however I believe there will be issues with that idea in practicality (would need to code only certain selections to autosave)
+
+//Populate total tally stat for header bar
+
+//What will we do about the data page? create dummy content? get rid of it for now?
+
