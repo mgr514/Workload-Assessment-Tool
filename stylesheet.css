@@ -129,8 +129,11 @@ select {
     position: absolute;
     background-color: #fff;
     border: 1px solid #ccc;
+    padding: 0.3em;
+    border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    transition: ease-in 1s;
 }
 
 .menu-popup ul {
@@ -142,6 +145,7 @@ select {
 .menu-popup li {
     padding: 10px;
     text-align: center;
+    text-decoration: none;
 }
 
 .clickable {

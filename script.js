@@ -2,28 +2,6 @@
 // Break things into small pieces as much as possible and test often (console.log() and error messages)
 // small changes are easier to debug than building half your app and finding out you went astray somewhere
 
-//Adds  Current Date
-function updateDate() {
-  const currentDateElement = document.getElementById('current-date');
-  const currentDate = new Date();
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  const formattedDate = currentDate.toLocaleDateString('en-US', options);
-
-  currentDateElement.textContent = formattedDate;
-}
-
-updateDate();
-
-
-//Shift Toggle
-const shiftSelect = document.getElementById("shift-select");
-
-shiftSelect.addEventListener("change", () => {
-  const selectedOption = shiftSelect.options[shiftSelect.selectedIndex];
-  const selectedValue = selectedOption.value;
-  const shiftText = selectedValue === "day" ? "Day" : "Night";
-  selectedOption.textContent = shiftText;
-})
 
 // Pop up menu
 document.addEventListener("DOMContentLoaded", function () {
@@ -56,6 +34,29 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+//Adds  Current Date
+function updateDate() {
+  const currentDateElement = document.getElementById('current-date');
+  const currentDate = new Date();
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = currentDate.toLocaleDateString('en-US', options);
+
+  currentDateElement.textContent = formattedDate;
+}
+
+updateDate();
+
+
+//Shift Toggle
+const shiftSelect = document.getElementById("shift-select");
+
+shiftSelect.addEventListener("change", () => {
+  const selectedOption = shiftSelect.options[shiftSelect.selectedIndex];
+  const selectedValue = selectedOption.value;
+  const shiftText = selectedValue === "day" ? "Day" : "Night";
+  selectedOption.textContent = shiftText;
+})
 
 //Adds functionality to Bed links
 document.addEventListener("DOMContentLoaded", function () {
@@ -212,7 +213,14 @@ document.getElementById("workload-form").addEventListener("submit", function (e)
 });
 
 
-
+//LOCAL STORAGE
+function updateLocalStorage() {
+    const selectedBed = document.querySelector('.bed-link.active').textContent;
+    const selectedShift = document.getElementById('shift-select').value;
+    const localStorageKey = `${selectedBed}-${selectedShift}-workload-values`;
+    const workloadValues = {};
+    localStorage.setItem(localStorageKey, JSON.stringify(workloadValues));
+}
 
 //Nurse Stat
 
