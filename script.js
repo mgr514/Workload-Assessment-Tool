@@ -122,7 +122,8 @@ const someValidationCallback = (input_value) => {
 
 //Allows submit button to flow user into next fieldset
 let currentFieldsetIndex = 0;
-    const fieldsets = document.querySelectorAll('fieldset');
+const fieldsets = document.querySelectorAll('fieldset');
+let submittedFieldsets = 0;
 
     function nextFieldset() {
         if (currentFieldsetIndex < fieldsets.length - 1) {
@@ -192,16 +193,21 @@ document.getElementById("workload-form").addEventListener("submit", function (e)
 
   console.log('The form has a total score of: ', workload_point_total)
 
+  submittedFieldsets++; // Increment the variable for each submitted fieldset
+
+  if (submittedFieldsets === fieldsets.length) {
   //Thank you message
     const thankYouMessage = document.getElementById("thank-you-message");
     thankYouMessage.style.display = "block";
                
     const formElement = document. getElementById("workload-form");
     formElement.style.display = "none";
+  
 
     //Display Total workload points in message
     const totalWorkloadElement = document.getElementById("total-workload");
     totalWorkloadElement.textContent = workload_point_total;
+  }
 });
 
 
