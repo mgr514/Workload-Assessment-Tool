@@ -199,10 +199,14 @@ select {
     text-decoration: underline;
     cursor: pointer;
 }
-.bed-link .active {
+
+.active {
     background-color:white;
     border-radius: 15px;
     color: orange;
+}
+
+.bed-link {
     cursor: pointer;
 }
 

@@ -66,10 +66,12 @@ document.addEventListener("DOMContentLoaded", function () {
         bedLink.addEventListener("click", function () {
             // Remove the "active" class from all bed links
             bedLinks.forEach(function (link) {
+                console.log('removing active class')
                 link.classList.remove("active");
             });
 
             // Add the "active" class to the clicked bed link
+            console.log('adding active class');
             bedLink.classList.add("active");
         });
     });
@@ -104,18 +106,42 @@ const fieldsetNurseIntervention = document.getElementById("nurse-int-form");
 const other_int_link = document.getElementById("other-int-tab");
 const fieldsetOtherIntervention = document.getElementById("other-int-form");
 
+const allFormTabs = [
+  assess_collab_link,
+  basic_care_link,
+  monitor_eval_link,
+  nurse_int_link,
+  other_int_link
+]
+
 // Grabs all form sections based on a shared classname
 const allFormSections = Array.from(document.getElementsByClassName('fieldset'));
 
 // Generic callback for showing discrete form sections based on the tab being clicked
 const showFormSection = (formSectionToShow, tabElement) => {
+
+  // Step 1: handle error conditions if arguments not passed
+  // Step 2: iterate through all form sections and ensure they are hidden from the DOM
+  // Step 3: Display the selected Form Section
+  // Step 4: Remove all 'active-tab' classes from the form links
+  // Step 5: Set the 'active-tab' class on the link that was just selected
+
   if (!formSectionToShow || !tabElement) throw Error('Invalid HTML element provided as input')
 
   // Hides all form sections to start with
-  allFormSections.forEach(formSection => formSection.classList.add('hidden'));
+  allFormSections.forEach(formSection => {
+    formSection.classList.add('hidden')
+  });
 
   // show only the form section specified as input
   formSectionToShow.classList.remove('hidden');
+
+  allFormTabs.forEach(
+    (tabElement) => 
+    {
+      tabElement.classList.remove('active-tab')
+    }
+  );
 
   tabElement.classList.add('active-tab');
 }
@@ -269,6 +295,35 @@ function saveDataToLocalStorage() {
     
     // You can call this function when you want to save the data, for example, when submitting the form
     document.getElementById('submit-button').addEventListener('click', saveDataToLocalStorage);  
+
+
+
+    // JSON object for testing
+    const random_data = {
+      someKey: 'some value',
+      someFunction: () => {console.log('this')},
+      someOtherKey: 100,
+      nested_data: {
+        someKey: 200,
+        someOtherFunction: () => {console.log('that')}
+      }
+    }
+
+    // Store the JSON object into our Browser's cache
+    localStorage.setItem('json_sample', JSON.stringify(random_data));
+
+    console.log(random_data.someKey);
+
+    const stringified_json = localStorage.getItem('json_sample');
+
+    console.log(JSON.parse(stringified_json).someKey);
+
+
+
+
+
+
+
 
 
 //Since adding the local storage function the form is not corresponding to the tabs
