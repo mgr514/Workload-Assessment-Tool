@@ -108,22 +108,24 @@ const fieldsetOtherIntervention = document.getElementById("other-int-form");
 const allFormSections = Array.from(document.getElementsByClassName('fieldset'));
 
 // Generic callback for showing discrete form sections based on the tab being clicked
-const showFormSection = (formSectionToShow) => {
-  if (!formSectionToShow) throw Error('Invalid HTML element provided as input')
+const showFormSection = (formSectionToShow, tabElement) => {
+  if (!formSectionToShow || !tabElement) throw Error('Invalid HTML element provided as input')
 
   // Hides all form sections to start with
-  allFormSections.forEach(formSection => formSection.classList.add('hidden'))
+  allFormSections.forEach(formSection => formSection.classList.add('hidden'));
 
   // show only the form section specified as input
-  formSectionToShow.classList.remove('hidden')
+  formSectionToShow.classList.remove('hidden');
+
+  tabElement.classList.add('active-tab');
 }
 
 // shows related form section and hides all others
-assess_collab_link.addEventListener('click', () => showFormSection(fieldsetAssessCollab));
-basic_care_link.addEventListener('click', () => showFormSection(fieldsetBasicCare));
-monitor_eval_link.addEventListener('click', () => showFormSection(fieldsetMonitorEval))
-nurse_int_link.addEventListener('click', () => showFormSection(fieldsetNurseIntervention))
-other_int_link.addEventListener('click', () => showFormSection(fieldsetOtherIntervention))
+assess_collab_link.addEventListener('click', () => showFormSection(fieldsetAssessCollab, assess_collab_link));
+basic_care_link.addEventListener('click', () => showFormSection(fieldsetBasicCare, basic_care_link));
+monitor_eval_link.addEventListener('click', () => showFormSection(fieldsetMonitorEval, monitor_eval_link))
+nurse_int_link.addEventListener('click', () => showFormSection(fieldsetNurseIntervention, nurse_int_link))
+other_int_link.addEventListener('click', () => showFormSection(fieldsetOtherIntervention, other_int_link))
 
 
 const someValidationCallback = (input_value) => {

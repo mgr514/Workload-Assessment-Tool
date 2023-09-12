@@ -111,6 +111,9 @@ body {
 .form-tabs {
 margin-left: 1.5em;
 }
+.active-tab {
+    background-color: orange;
+}
 
 button{
     padding: 0.5em;
