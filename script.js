@@ -58,32 +58,32 @@ shiftSelect.addEventListener("change", () => {
   selectedOption.textContent = shiftText;
 });
 
-
-//I believe there is issues with the bed links now, it doesn't appear that they do anything when clicked
+const bedLinks = document.querySelectorAll('.bed-link');
 //Adds functionality to Bed links
 document.addEventListener("DOMContentLoaded", function () {
-    const bedLinks = document.querySelectorAll(".bed-link");
-    const formFieldsets = document.querySelectorAll(".workload-form .fieldset"); // Corrected selector
 
-    bedLinks.forEach(function (bedLink, index) {
-        bedLink.addEventListener("click", function (event) {
-            event.preventDefault();
-
-            formFieldsets.forEach(function (fieldset) {
-                fieldset.classList.remove("active"); // Remove the "active" class from all fieldsets
+    bedLinks.forEach(function (bedLink) {
+        bedLink.addEventListener("click", function () {
+            // Remove the "active" class from all bed links
+            bedLinks.forEach(function (link) {
+                link.classList.remove("active");
             });
 
-            const correspondingFieldset = formFieldsets[index];
-            if (correspondingFieldset) {
-                correspondingFieldset.classList.add("active"); // Add the "active" class to the corresponding fieldset
-                bedLinks.forEach(function (link) {
-                    link.classList.remove("active");
-                });
-
-                bedLink.classList.add("active");
-            }
+            // Add the "active" class to the clicked bed link
+            bedLink.classList.add("active");
         });
     });
+});
+//Active class is working in the console log, it is registering the click. But no change appears.
+
+
+// Get the assess-collab-form fieldset
+const assessCollabForm = document.getElementById('assess-collab-form');
+// Open first form fieldset when bed-link clicked
+bedLinks.forEach((bedLink, index) => {
+  bedLink.addEventListener('click', () => {
+    assessCollabForm.setAttribute('id', `Bed ${index + 1}`);
+  });
 });
   
 

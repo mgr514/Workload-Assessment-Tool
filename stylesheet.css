@@ -196,7 +196,7 @@ select {
     text-decoration: underline;
     cursor: pointer;
 }
-.bed-link.active {
+.bed-link .active {
     background-color:white;
     border-radius: 15px;
     color: orange;
