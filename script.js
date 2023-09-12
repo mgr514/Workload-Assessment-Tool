@@ -269,8 +269,8 @@ function saveDataToLocalStorage() {
     document.getElementById('submit-button').addEventListener('click', saveDataToLocalStorage);  
 
 
+//Since adding the local storage function the form is not corresponding to the tabs
 
-//Local storage needs to save the data from the form per bed, and per shift, and how many nurses were on shift
 //preferably autosave select values for each bed and repopulate for next user to minimize burden
 //however I believe there will be issues with that idea in practicality (would need to code only certain selections to autosave)
 
