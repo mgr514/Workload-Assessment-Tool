@@ -56,30 +56,36 @@ shiftSelect.addEventListener("change", () => {
   const selectedValue = selectedOption.value;
   const shiftText = selectedValue === "day" ? "Day" : "Night";
   selectedOption.textContent = shiftText;
-})
+});
 
 
 //I believe there is issues with the bed links now, it doesn't appear that they do anything when clicked
 //Adds functionality to Bed links
 document.addEventListener("DOMContentLoaded", function () {
-  const bedLinks = document.querySelectorAll(".bed-link");
-  const formFieldsets = document.querySelectorAll(".workload-form fieldset");
+    const bedLinks = document.querySelectorAll(".bed-link");
+    const formFieldsets = document.querySelectorAll(".workload-form .fieldset"); // Corrected selector
 
-  bedLinks.forEach(function (bedLink) {
-    bedLink.addEventListener("click", function (event) {
-        event.preventDefault();
+    bedLinks.forEach(function (bedLink, index) {
+        bedLink.addEventListener("click", function (event) {
+            event.preventDefault();
 
-        console.log("bed link clicked");
+            formFieldsets.forEach(function (fieldset) {
+                fieldset.classList.remove("active"); // Remove the "active" class from all fieldsets
+            });
 
-        formFieldsets.forEach(function (fieldset) {
-            fieldset.style.display = "none";
-            formFieldsets[0].style.display = "block";
-            console.log("fieldset style set to none") //I think this is the section not working, the other console log seems fine
-      });  
-    })
-  });
+            const correspondingFieldset = formFieldsets[index];
+            if (correspondingFieldset) {
+                correspondingFieldset.classList.add("active"); // Add the "active" class to the corresponding fieldset
+                bedLinks.forEach(function (link) {
+                    link.classList.remove("active");
+                });
+
+                bedLink.classList.add("active");
+            }
+        });
+    });
 });
-
+  
 
 // Adds functionality to form tabs
 const assess_collab_link = document.getElementById("assess-collab-tab");

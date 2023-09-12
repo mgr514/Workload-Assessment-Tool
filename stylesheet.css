@@ -196,6 +196,12 @@ select {
     text-decoration: underline;
     cursor: pointer;
 }
+.bed-link.active {
+    background-color:white;
+    border-radius: 15px;
+    color: orange;
+    cursor: pointer;
+}
 
 /* MAIN-CONTENT */
 .main-content {
