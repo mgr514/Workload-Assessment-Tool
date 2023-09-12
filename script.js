@@ -87,6 +87,7 @@ bedLinks.forEach((bedLink, index) => {
 });
   
 
+
 // Adds functionality to form tabs
 const assess_collab_link = document.getElementById("assess-collab-tab");
 const fieldsetAssessCollab = document.getElementById("assess-collab-form");
@@ -227,13 +228,46 @@ document.getElementById("workload-form").addEventListener("submit", function (e)
 
 
 //LOCAL STORAGE
-function updateLocalStorage() {
+function saveDataToLocalStorage() {
+    // Get the selected bed, shift, and nurses
     const selectedBed = document.querySelector('.bed-link.active').textContent;
     const selectedShift = document.getElementById('shift-select').value;
-    const localStorageKey = `${selectedBed}-${selectedShift}-workload-values`;
+    const numberOfNurses = parseFloat(document.getElementById('nurses').value);
+
+    //Get value from checkboxes
+    const checkboxes = document.querySelectorAll('[workload-value]');
     const workloadValues = {};
-    localStorage.setItem(localStorageKey, JSON.stringify(workloadValues));
-}
+    checkboxes.forEach(checkbox => {
+      const name = checkbox.getAttribute('workload-value');
+      const value = checkbox.checked;
+      workloadValues[name] = value;
+    });
+  
+//Create array
+    const dataToSave = {
+        date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+        shift: selectedShift,
+        bed: selectedBed,
+        workloadValues: workloadValues,
+        numberOfNurses: numberOfNurses,
+        meetings: meetingsValue,
+        arrest: arrestValue,
+        complexdsg: complexdsgValue,
+        burnCare: burnCareValue,
+        transport: transportValue,
+        unplanned: unplannedValue,
+      };
+    
+      // Generate a unique key for this data entry
+      const localStorageKey = `${selectedBed}-${selectedShift}-${new Date().getTime()}`;
+    
+      // Save the data to Local Storage
+      localStorage.setItem(localStorageKey, JSON.stringify(dataToSave));
+    }
+    
+    // You can call this function when you want to save the data, for example, when submitting the form
+    document.getElementById('submit-button').addEventListener('click', saveDataToLocalStorage);  
+
 
 
 //Local storage needs to save the data from the form per bed, and per shift, and how many nurses were on shift
