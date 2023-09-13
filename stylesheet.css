@@ -112,13 +112,15 @@ body {
 margin-left: 1.5em;
 }
 .active-tab {
-    background-color: orange;
+    background-color: #117de9;
+    color: white;
 }
 
 button{
     padding: 0.5em;
     border-radius: 15px 15px 0 0;
 }
+
 button:hover {
     transform: scale(1.05);
 }
@@ -203,12 +205,9 @@ select {
 .active {
     background-color:white;
     border-radius: 15px;
-    color: orange;
+    color: black;
 }
 
-.bed-link {
-    cursor: pointer;
-}
 
 /* MAIN-CONTENT */
 .main-content {
