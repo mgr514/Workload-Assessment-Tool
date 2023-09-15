@@ -178,11 +178,12 @@ select {
     grid-row: 2 / span 2;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
     min-height: 100vh;
     background-color: var(--navy);
-    padding: 3em;
+    padding: 1.5em;
+    width: 200px;
     color: var(--white);
 }
 
@@ -215,12 +216,18 @@ select {
     grid-row: 2;
 }
 
+.form-container {
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
 .fieldset-item {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5em;
+    margin: 0;
+    padding: 0.5em 5em;
     border: 1px dotted black;
 }
 
