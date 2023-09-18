@@ -309,6 +309,59 @@ function saveDataToLocalStorage() {
       }
     }
 
+    //BED LINKS JSON
+    const bedLinks_data ={
+
+    }
+
+    //INPUT FIELDS JSON
+    const inputFields_data = {
+        nurse_field: {
+          type: 'number',
+          label: 'nurses',
+          value: '',
+        },
+        shift_select: {
+          type: '',
+          label: 'shift-select',
+          value: ,
+        },
+        meetings_field: {
+            type: 'number',
+            label: 'meetings',
+            value: '',
+          },
+          arrest_field: {
+            type: 'number',
+            label: 'arrest',
+            value: '',
+          },
+          complexdsg_field: {
+            type: 'number',
+            label: 'complexdsg',
+            value: '',
+          },
+          burn_field: {
+            type: 'number',
+            label: 'burn-care',
+            value: '',
+          },
+          transport_field: {
+            type: 'number',
+            label: 'transport',
+            value: '',
+          },
+          unplanned_field: {
+            type: 'number',
+            label: 'unplanned',
+            value: '',
+          },
+        checkbox: {
+          type: 'checkbox',
+          checked: false,
+        }
+      };
+
     // Store the JSON object into our Browser's cache
     localStorage.setItem('json_sample', JSON.stringify(random_data));
 
