@@ -197,10 +197,11 @@ const handleExtractUniqueValue = (field_element) => {
 
 const meetings = document.getElementById("meetings");
 const arrest = document.getElementById("arrest");
-const complexdsg = document.getElementById("complexdsg")
+const complexdsg = document.getElementById("complexdsg");
 const burn_care = document.getElementById("burn-care");
-const transport = document.getElementById("transport")
-const unplanned = document.getElementById("unplanned")
+const transport = document.getElementById("transport");
+const unplanned = document.getElementById("unplanned");
+
 
 // combine all unique fields into an array so we can operate on them all as a group with the generic callback function above
 const unique_fields_array = [
@@ -212,7 +213,8 @@ const unique_fields_array = [
   unplanned
 ];
 
-let workload_point_total = 0
+let workload_point_total = 0;
+letsubmittedFieldsets = 0;
 
 // Function to calculate total workload points
 function calculateWorkloadPoints() {
@@ -230,7 +232,7 @@ function calculateWorkloadPoints() {
     });
     // Totalize the inputs of all free form number input fields in the unique fields array
   unique_fields_array.forEach(field_element => {
-    const workload_value = handleExtractUniqueValue(field_element); // Replace with your actual function
+    const workload_value = handleExtractUniqueValue(field_element);
     if (workload_value) workload_point_total += workload_value;
   });
 
@@ -239,41 +241,46 @@ function calculateWorkloadPoints() {
 
 // Function to show thank you message
 function showThankYouMessage() {
-  const thankYouMessage = document.getElementById("thank-you-message");
-  thankYouMessage.style.display = "block";
+    const thankYouMessage = document.getElementById("thank-you-message");
+    thankYouMessage.style.display = "block";
 
-  const formElement = document.getElementById("workload-form");
-  formElement.style.display = "none";
+    const formElement = document.getElementById("workload-form");
+    formElement.style.display = "none";
 
   // Display Total workload points in message
-  const totalWorkloadElement = document.getElementById("total-workload");
-  totalWorkloadElement.textContent = workload_point_total;
+    const totalWorkloadElement = document.getElementById("total-workload");
+    totalWorkloadElement.textContent = workload_point_total;
 }
+  
+//Function show form and hide thank you message
+function showForm() {
+    const thankYouMessage = document.getElementById("thank-you-message");
+    thankYouMessage.style.display = "none";
 
+    const formElement = document.getElementById("workload-form");
+    formElement.style.display = "block";
+}
 // Attach a submit event listener to the form
 const formElement = document.getElementById("workload-form");
 formElement.addEventListener("submit", function(event) {
   event.preventDefault();
 
   calculateWorkloadPoints();
+  formSubmitted = true;
   showThankYouMessage();
+  
 });
 
-// Attach a click event listener to the "New Bed" link
-const newBedLink = document.getElementById("new-bed-link");
-newBedLink.addEventListener("click", function(event) {
-  event.preventDefault();
-
-  // Hide the thank you message and show the form again
-  const thankYouMessage = document.getElementById("thank-you-message");
-  thankYouMessage.style.display = "none";
-
-  const formElement = document.getElementById("workload-form");
-  formElement.style.display = "block";
-
-  // Reset the form fields
-  formElement.reset();
+// Attach a click event listener to the Bed link
+const bedLink = document.querySelectorAll(".bed-link");
+bedLinks.forEach(bedLink => {
+    bedLink.addEventListener("click", function(event) {
+        event.preventDefault()
+          //show form again
+        showForm();
+    })
 });
+
 
 
 //LOCAL STORAGE
