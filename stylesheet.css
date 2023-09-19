@@ -41,7 +41,7 @@ body {
 
 .flex-column{
     width: 100%;
-    padding-left: 10px 
+    padding-left: 10px;
 }
 
 .flex-row{
@@ -112,6 +112,7 @@ body {
     margin-bottom: 0.5em;
 }
 .form-tabs {
+    margin-left: -1em;
 }
 .active-tab {
     background-color: #117de9;

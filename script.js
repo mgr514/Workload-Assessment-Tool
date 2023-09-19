@@ -311,7 +311,8 @@ function saveDataToLocalStorage() {
 
     //BED LINKS JSON
     const bedLinks_data ={
-
+        bedLinks: 'bed-link'
+        bedLinks.addEventListener: ('click') => {console.log(bedLinks_data)}
     }
 
     //INPUT FIELDS JSON
@@ -324,7 +325,7 @@ function saveDataToLocalStorage() {
         shift_select: {
           type: '',
           label: 'shift-select',
-          value: ,
+          value: '',
         },
         meetings_field: {
             type: 'number',
@@ -361,6 +362,7 @@ function saveDataToLocalStorage() {
           checked: false,
         }
       };
+
 
     // Store the JSON object into our Browser's cache
     localStorage.setItem('json_sample', JSON.stringify(random_data));
