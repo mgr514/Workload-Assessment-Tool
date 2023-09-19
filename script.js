@@ -309,11 +309,32 @@ function saveDataToLocalStorage() {
       }
     }
 
+    //DATE JSON
+    const dateData = {
+        date: formattedDate,
+    };
+    
+    localStorage.setItem('dateData', JSON.stringify(dateData));
+    
+    console.log(dateData.date);
+    
+    const stringifiedDateData = localStorage.getItem('dateData');
+    
+    console.log(JSON.parse(stringifiedDateData).date);
+
     //BED LINKS JSON
-    const bedLinks_data ={
-        bedLinks: 'bed-link'
-        bedLinks.addEventListener: ('click') => {console.log(bedLinks_data)}
-    }
+    const bedLinks_data = {
+        bedLinks: 'bed-link',
+        document.getElementById('bed-link').addEventListener('click' => {console.log(bedLinks_data)}
+    )};
+
+    localStorage.setItem(JSON.stringify(bedLinks_data));
+
+    console.log(bedLinks_data.bedLinks);
+
+    const stringifiedBedLinks_data = localStorage.getItem('bedLinks_data');
+
+    console.log(JSON.parse(stringifiedBedLinks_data).bedLinks);
 
     //INPUT FIELDS JSON
     const inputFields_data = {
@@ -362,6 +383,14 @@ function saveDataToLocalStorage() {
           checked: false,
         }
       };
+    localStorage.setItem(JSON.stringify(inputFields_data));
+
+    console.log(inputFields_data)
+
+    const stringifiedInputFields_data = localStorage.getItem('inputFields_data');
+
+    console.log(JSON.parse(stringifiedInputFields_data).inputFields_data);
+      
 
 
     // Store the JSON object into our Browser's cache
