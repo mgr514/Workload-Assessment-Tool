@@ -431,7 +431,7 @@ const inputFields_data = {
 
 
 // ====================================================================================================
-// Submission Handlers
+// Click Handlers
 // ====================================================================================================
 
 //Allows submit button to flow user into next fieldset
@@ -439,6 +439,7 @@ let currentFieldsetIndex = 0;
 const fieldsets = document.querySelectorAll('fieldset');
 let submittedFieldsets = 0;
 
+// Checks current fieldset index and jumps to next section
 function nextFieldset() {
   console.log(currentFieldsetIndex)
   if (currentFieldsetIndex < fieldsets.length - 1) {
@@ -447,10 +448,6 @@ function nextFieldset() {
     currentFieldsetIndex++;
     fieldsets[currentFieldsetIndex].classList.remove('hidden');
     allFormTabs[currentFieldsetIndex].classList.add('active-tab');
-  } else {
-    console.log('error');
-    // If on the last fieldset, submit the form
-    // document.getElementById('workload-form').submit();
   }
 }
 
@@ -459,8 +456,8 @@ document.getElementById('submit-button').addEventListener(
   (event) => handleButtonClick(event)
 )
 
-const handleButtonClick = (event) =>
-{
+// Callback handler to determine whether to submit the form or show the next section
+const handleButtonClick = (event) => {
   // Prevent default form submission behaviour
   event.preventDefault();
 
@@ -469,7 +466,7 @@ const handleButtonClick = (event) =>
   // check current fieldset from querySelector
   const current_tab = allFormTabs.find(
     (formTabElement, index) => {
-      if (formTabElement?.classList.contains('active-tab')){
+      if (formTabElement?.classList.contains('active-tab')) {
         currentFieldsetIndex = index
         return formTabElement;
       }
@@ -481,15 +478,119 @@ const handleButtonClick = (event) =>
     // Cycle to next fieldset
     nextFieldset();
   }
-  else{
+  else {
     //handle submission
-    console.log('handle submission')
+    // console.log('handle submission')
     // saveDataToLocalStorage()
 
     // calculateWorkloadPoints();
-    // formSubmitted = true;
     // showThankYouMessage();
+
+    // // If on the last fieldset, submit the form
+    writeFormDataToLS()
   }
 
 }
 
+
+
+// ====================================================================================================
+// Submission Handlers
+// ====================================================================================================
+
+// Grabs the current form data and stores it to LS on submit
+const writeFormDataToLS = () =>
+{
+  // create a new object to store our form data in
+  const data_to_store = {
+    bed_id: undefined,
+    assessment_form_values: {}
+  };
+
+  // convert NodeList to array so we can use Prototype methods
+  const bedLinksArray = Array.from(bedLinks);
+
+  // determine the current bed_id from bedlinks
+  const current_link_id = bedLinksArray.find(
+    (link) => {
+      if(link.classList.contains('active')) {
+        const bed_id = link.getAttribute("id");
+        return link;
+      }
+      else return null
+    }
+  )?.getAttribute('id')
+
+  // set the objects bed_id property to the correct value
+  data_to_store.bed_id = current_link_id;
+
+  // grab all the inputs in a specific form section
+  const assessment_inputs = Array.from(assessCollabForm.querySelectorAll('input'))
+
+  // Iterate through all the fields and extract the relevant info from each
+  // NOTE: map and forEach are nearly identical, except map MUST explicitly return a value
+  assessment_inputs.map(
+    input => {
+      // if we have a checkbox, extract the checked state into a boolean value
+      if(input.type === 'checkbox') {
+        return data_to_store.assessment_form_values[input.name] = {
+          value: input.checked ? true : false,
+          type: 'checkbox'
+        }
+      }
+      // if we have a text field, force the value into a Number type.
+      else if (input.type === 'text') {
+        return data_to_store.assessment_form_values[input.name] = {
+          value: Number(input.value) ?? 0,
+          type: 'number'
+        }
+      }
+    else return console.log(`Error extracting data from ${input.name}`)
+    }
+  )
+
+  localStorage.setItem(current_link_id, JSON.stringify(data_to_store))
+};
+
+
+
+// Prepopulate Field Data when a particular bed link is clicked
+const injectLSDataIntoForm = (bed_id) =>
+{
+  // handle error if no id argument is passed
+  if (!bed_id) throw new Error('no bed id provided to Form Population Method')
+
+  // check if the bed_id exists in LS
+  const bed_data = localStorage.getItem(bed_id);
+
+  // handle error if the LS key doesn't exist
+  if (!bed_data) return console.log(`No form data exists for bed id ${bed_id}`);
+
+  // extracts form data from LS after we verify that exists above
+  const current_form_data = JSON.parse(bed_data);
+
+  // checks if a particualr form section exists in our LS data
+  if(current_form_data.assessment_form_values) {
+    // grab all the inputs in a specific form section
+    const assessment_inputs = Array.from(assessCollabForm.querySelectorAll('input'))
+
+    // Iterate through our form inputs and populate each one with it's corresponding LS value
+    assessment_inputs.forEach(
+      input => {
+        const ls_data = current_form_data.assessment_form_values[input.name] ?? null
+        if (ls_data) {
+          if (input.type === 'checkbox') {
+            input.checked = ls_data.value 
+          }
+          if (input.type === 'text') {
+            input.value = ls_data.value
+          }
+        }
+      }
+    )
+  }
+}
+
+// This will only work if you already have data for 'bed_1' 
+// stored in Localstorage from the writeFormDataToLS method above
+// injectLSDataIntoForm('bed_1');
