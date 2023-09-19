@@ -79,15 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
 //Active class is working in the console log, it is registering the click. But no change appears.
 
 
-// Get the assess-collab-form fieldset
-const assessCollabForm = document.getElementById('assess-collab-form');
-// Open first form fieldset when bed-link clicked
-bedLinks.forEach((bedLink, index) => {
-  bedLink.addEventListener('click', () => {
-    assessCollabForm.setAttribute('id', `Bed ${index + 1}`);
-  });
-});
-  
 
 
 // Adds functionality to form tabs
@@ -164,6 +155,17 @@ const someValidationCallback = (input_value) => {
   return input_value
 }
 
+// Get the assess-collab-form fieldset
+const assessCollabForm = document.getElementById('assess-collab-form');
+// Function to populate assess-collab-form based on the clicked link
+function populateAssessCollabForm(index) {
+bedLinks.forEach((bedLink, index) => {
+  bedLink.addEventListener('click', () => {
+      populateAssessCollabForm(index);
+    });
+  });
+}
+
 //Allows submit button to flow user into next fieldset
 let currentFieldsetIndex = 0;
 const fieldsets = document.querySelectorAll('fieldset');
@@ -179,6 +181,7 @@ let submittedFieldsets = 0;
             document.getElementById('workload-form').submit();
         }
     }
+
 
 // Generic callback for handling value extraction from any freeform workload value input
 const handleExtractUniqueValue = (field_element) => {
@@ -211,47 +214,65 @@ const unique_fields_array = [
 
 let workload_point_total = 0
 
-document.getElementById("workload-form").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  // Checks all checkbox elements with a 'workload-value' attribute
-  const checkboxes = document.querySelectorAll('[workload-value]');
-
-  //  totalize the inputs of all free form number input fields in the entirety of the form's fieldsets
-  checkboxes.forEach(
-    checkbox => {
+// Function to calculate total workload points
+function calculateWorkloadPoints() {
+    // Reset total workload points
+    workload_point_total = 0;
+  
+    // Checks all checkbox elements with a 'workload-value' attribute
+    const checkboxes = document.querySelectorAll('[workload-value]');
+  
+    checkboxes.forEach(checkbox => {
       if (checkbox.checked) {
-        const workloadValue = (Number(checkbox.getAttribute('workload-value')));
-        workload_point_total = workload_point_total + workloadValue
-        console.log(`Added ${workloadValue} workload points. Total: ${workload_point_total}`);
+        const workloadValue = Number(checkbox.getAttribute('workload-value'));
+        workload_point_total += workloadValue;
       }
     });
+    // Totalize the inputs of all free form number input fields in the unique fields array
+  unique_fields_array.forEach(field_element => {
+    const workload_value = handleExtractUniqueValue(field_element); // Replace with your actual function
+    if (workload_value) workload_point_total += workload_value;
+  });
 
+  console.log('The form has a total score of: ', workload_point_total);
+}
 
-  // totalize the inputs of all free form number input fields in the entirety of the form's fieldsets
-  unique_fields_array.forEach(
-    field_element => {
-      const workload_value = handleExtractUniqueValue(field_element)
-      if (workload_value) workload_point_total = workload_point_total + workload_value
-    });
+// Function to show thank you message
+function showThankYouMessage() {
+  const thankYouMessage = document.getElementById("thank-you-message");
+  thankYouMessage.style.display = "block";
 
-  console.log('The form has a total score of: ', workload_point_total)
+  const formElement = document.getElementById("workload-form");
+  formElement.style.display = "none";
 
-  submittedFieldsets++; // Increment the variable for each submitted fieldset
+  // Display Total workload points in message
+  const totalWorkloadElement = document.getElementById("total-workload");
+  totalWorkloadElement.textContent = workload_point_total;
+}
 
-  if (submittedFieldsets === fieldsets.length) {
-  //Thank you message
-    const thankYouMessage = document.getElementById("thank-you-message");
-    thankYouMessage.style.display = "block";
-               
-    const formElement = document. getElementById("workload-form");
-    formElement.style.display = "none";
-  
+// Attach a submit event listener to the form
+const formElement = document.getElementById("workload-form");
+formElement.addEventListener("submit", function(event) {
+  event.preventDefault();
 
-    //Display Total workload points in message
-    const totalWorkloadElement = document.getElementById("total-workload");
-    totalWorkloadElement.textContent = workload_point_total;
-  }
+  calculateWorkloadPoints();
+  showThankYouMessage();
+});
+
+// Attach a click event listener to the "New Bed" link
+const newBedLink = document.getElementById("new-bed-link");
+newBedLink.addEventListener("click", function(event) {
+  event.preventDefault();
+
+  // Hide the thank you message and show the form again
+  const thankYouMessage = document.getElementById("thank-you-message");
+  thankYouMessage.style.display = "none";
+
+  const formElement = document.getElementById("workload-form");
+  formElement.style.display = "block";
+
+  // Reset the form fields
+  formElement.reset();
 });
 
 
@@ -298,43 +319,44 @@ function saveDataToLocalStorage() {
 
 
 
-    // JSON object for testing
-    const random_data = {
-      someKey: 'some value',
-      someFunction: () => {console.log('this')},
-      someOtherKey: 100,
-      nested_data: {
-        someKey: 200,
-        someOtherFunction: () => {console.log('that')}
-      }
-    }
+    // // JSON object for testing
+    // const random_data = {
+    //   someKey: 'some value',
+    //   someFunction: () => {console.log('this')},
+    //   someOtherKey: 100,
+    //   nested_data: {
+    //     someKey: 200,
+    //     someOtherFunction: () => {console.log('that')}
+    //   }
+    // }
 
-    //DATE JSON
-    const dateData = {
-        date: formattedDate,
-    };
+
+    // //DATE JSON
+    // const dateData = {
+    //     date: formattedDate,
+    // };
     
-    localStorage.setItem('dateData', JSON.stringify(dateData));
+    // localStorage.setItem('dateData', JSON.stringify(dateData));
     
-    console.log(dateData.date);
+    // console.log(dateData.date);
     
-    const stringifiedDateData = localStorage.getItem('dateData');
+    // const stringifiedDateData = localStorage.getItem('dateData');
     
-    console.log(JSON.parse(stringifiedDateData).date);
+    // console.log(JSON.parse(stringifiedDateData).date);
 
-    //BED LINKS JSON
-    const bedLinks_data = {
-        bedLinks: 'bed-link',
-        document.getElementById('bed-link').addEventListener('click' => {console.log(bedLinks_data)}
-    )};
+    // //BED LINKS JSON
+    // const bedLinks_data = {
+    //     bedLinks: 'bed-link',
+    //     document.getElementById('bed-link').addEventListener('click' => {console.log(bedLinks_data)}
+    // )};
 
-    localStorage.setItem(JSON.stringify(bedLinks_data));
+    // localStorage.setItem(JSON.stringify(bedLinks_data));
 
-    console.log(bedLinks_data.bedLinks);
+    // console.log(bedLinks_data.bedLinks);
 
-    const stringifiedBedLinks_data = localStorage.getItem('bedLinks_data');
+    // const stringifiedBedLinks_data = localStorage.getItem('bedLinks_data');
 
-    console.log(JSON.parse(stringifiedBedLinks_data).bedLinks);
+    // console.log(JSON.parse(stringifiedBedLinks_data).bedLinks);
 
     //INPUT FIELDS JSON
     const inputFields_data = {
@@ -393,14 +415,14 @@ function saveDataToLocalStorage() {
       
 
 
-    // Store the JSON object into our Browser's cache
-    localStorage.setItem('json_sample', JSON.stringify(random_data));
+    // // Store the JSON object into our Browser's cache
+    // localStorage.setItem('json_sample', JSON.stringify(random_data));
 
-    console.log(random_data.someKey);
+    // console.log(random_data.someKey);
 
-    const stringified_json = localStorage.getItem('json_sample');
+    // const stringified_json = localStorage.getItem('json_sample');
 
-    console.log(JSON.parse(stringified_json).someKey);
+    // console.log(JSON.parse(stringified_json).someKey);
 
 
 
