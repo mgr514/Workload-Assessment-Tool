@@ -1,8 +1,3 @@
-
-// Break things into small pieces as much as possible and test often (console.log() and error messages)
-// small changes are easier to debug than building half your app and finding out you went astray somewhere
-
-
 // Pop up menu
 document.addEventListener("DOMContentLoaded", function () {
   const menuIcon = document.getElementById("menu-icon");
@@ -56,8 +51,10 @@ shiftSelect.addEventListener("change", () => {
   selectedOption.textContent = shiftText;
 });
 
-const bedLinks = document.querySelectorAll('.bed-link');
+
 //Adds functionality to Bed links
+const bedLinks = document.querySelectorAll('.bed-link');
+
 document.addEventListener("DOMContentLoaded", function () {
 
   bedLinks.forEach(function (bedLink) {
@@ -321,13 +318,6 @@ function saveDataToLocalStorage() {
 //     date: formattedDate,
 // };
 
-// localStorage.setItem('dateData', JSON.stringify(dateData));
-
-// console.log(dateData.date);
-
-// const stringifiedDateData = localStorage.getItem('dateData');
-
-// console.log(JSON.parse(stringifiedDateData).date);
 
 // //BED LINKS JSON
 // const bedLinks_data = {
@@ -335,13 +325,6 @@ function saveDataToLocalStorage() {
 //     document.getElementById('bed-link').addEventListener('click' => {console.log(bedLinks_data)}
 // )};
 
-// localStorage.setItem(JSON.stringify(bedLinks_data));
-
-// console.log(bedLinks_data.bedLinks);
-
-// const stringifiedBedLinks_data = localStorage.getItem('bedLinks_data');
-
-// console.log(JSON.parse(stringifiedBedLinks_data).bedLinks);
 
 //INPUT FIELDS JSON
 const inputFields_data = {
@@ -390,44 +373,6 @@ const inputFields_data = {
     checked: false,
   }
 };
-// localStorage.setItem('test', JSON.stringify(inputFields_data));
-
-// console.log(inputFields_data)
-
-// const stringifiedInputFields_data = localStorage.getItem('inputFields_data');
-
-// console.log(JSON.parse(stringifiedInputFields_data).inputFields_data);
-
-
-
-// // Store the JSON object into our Browser's cache
-// localStorage.setItem('json_sample', JSON.stringify(random_data));
-
-// console.log(random_data.someKey);
-
-// const stringified_json = localStorage.getItem('json_sample');
-
-// console.log(JSON.parse(stringified_json).someKey);
-
-
-
-
-
-
-
-
-
-//Since adding the local storage function the form is not corresponding to the tabs
-
-//preferably autosave select values for each bed and repopulate for next user to minimize burden
-//however I believe there will be issues with that idea in practicality (would need to code only certain selections to autosave)
-
-//Populate total tally stat for header bar
-
-//What will we do about the data page? create dummy content? get rid of it for now?
-
-
-
 
 
 // ====================================================================================================
@@ -480,13 +425,13 @@ const handleButtonClick = (event) => {
   }
   else {
     //handle submission
-    // console.log('handle submission')
-    // saveDataToLocalStorage()
+    console.log('handle submission')
+    //saveDataToLocalStorage()
 
-    // calculateWorkloadPoints();
-    // showThankYouMessage();
+    //calculateWorkloadPoints();
+   // showThankYouMessage();
 
-    // // If on the last fieldset, submit the form
+    // If on the last fieldset, submit the form
     writeFormDataToLS()
   }
 
