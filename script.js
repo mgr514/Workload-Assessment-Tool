@@ -314,16 +314,16 @@ function saveDataToLocalStorage() {
 
 
 // //DATE JSON
-// const dateData = {
+//  const dateData = {
 //     date: formattedDate,
-// };
+//  };
 
 
 // //BED LINKS JSON
-// const bedLinks_data = {
-//     bedLinks: 'bed-link',
-//     document.getElementById('bed-link').addEventListener('click' => {console.log(bedLinks_data)}
-// )};
+//  const bedLinks_data = {
+//      bedLinks: 'bed-link',
+//      document.getElementById('bed-link').addEventListener('click' => {console.log(bedLinks_data)}
+//  )};
 
 
 //INPUT FIELDS JSON
@@ -438,7 +438,6 @@ const handleButtonClick = (event) => {
 }
 
 
-
 // ====================================================================================================
 // Submission Handlers
 // ====================================================================================================
@@ -539,3 +538,4 @@ const injectLSDataIntoForm = (bed_id) =>
 // This will only work if you already have data for 'bed_1' 
 // stored in Localstorage from the writeFormDataToLS method above
 // injectLSDataIntoForm('bed_1');
+//Not Sure I need this function??
