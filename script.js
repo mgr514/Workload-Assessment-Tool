@@ -198,6 +198,7 @@ const unique_fields_array = [
 let workload_point_total = 0;
 letsubmittedFieldsets = 0;
 
+
 // Function to calculate total workload points
 function calculateWorkloadPoints() {
   // Reset total workload points
@@ -290,7 +291,6 @@ function saveDataToLocalStorage() {
     transport: transportValue,
     unplanned: unplannedValue,
   };
-
   // Generate a unique key for this data entry
   const localStorageKey = `${selectedBed}-${selectedShift}-${new Date().getTime()}`;
 
@@ -383,6 +383,14 @@ const inputFields_data = {
 let currentFieldsetIndex = 0;
 const fieldsets = document.querySelectorAll('fieldset');
 let submittedFieldsets = 0;
+let meetingsValue = 0
+let arrestValue = 0
+let complexdsgValue = 0
+let burnCareValue = 0
+let transportValue = 0
+let unplannedValue = 0
+
+// const allFormTabs = document.querySelectorAll('.form-tabs');
 
 // Checks current fieldset index and jumps to next section
 function nextFieldset() {
@@ -419,17 +427,16 @@ const handleButtonClick = (event) => {
   )
 
   // // Check current fieldset and either submit form OR cycle to next field set
-  if (currentFieldsetIndex !== 4) {
+  if (currentFieldsetIndex !== fieldsets.length -1) {
     // Cycle to next fieldset
     nextFieldset();
   }
   else {
     //handle submission
     console.log('handle submission')
-    //saveDataToLocalStorage()
-
-    //calculateWorkloadPoints();
-   // showThankYouMessage();
+    saveDataToLocalStorage()
+    calculateWorkloadPoints();
+    showThankYouMessage();
 
     // If on the last fieldset, submit the form
     writeFormDataToLS()
