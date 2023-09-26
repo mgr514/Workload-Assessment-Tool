@@ -19,7 +19,7 @@ body {
 .grid-container {
     display: grid;
     grid-template-rows: auto auto 1fr;
-    grid-template-columns: minmax(250px, auto) 1fr;
+    grid-template-columns: minmax(175px, auto) 1fr;
     overflow: auto;
     min-height: 100vh;
     width: 100%;
@@ -185,7 +185,7 @@ select {
     min-height: 100vh;
     background-color: var(--navy);
     padding: 1.5em;
-    width: 200px;
+    max-width: 150px;
     color: var(--white);
 }
 
@@ -197,7 +197,9 @@ select {
 }
 
 .bed-list li {
-    padding: 1em;
+    padding: 0.8em;
+    margin: 0.7em;
+    font-size: 0.9em;
 }
 
 .bed-link:hover {
@@ -415,49 +417,14 @@ label {
     }
 }
 
-/*@media screen and (min-width: 768px) and (max-width: 1024px) {
-    .grid-container {
-        grid-template-columns: 1fr;
-    }
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
     .heading-container {
         flex-direction: column; 
-    }
-
-    .menu-popup li{
-    padding: auto 0;
-    }
-
-    .main-header h4{
-        font-size: 4em;
-        margin-bottom: 1em;
-    }
-
-    .shift-stats {
-        flex-direction: column;
-        margin-bottom: 1em;
-        font-size: 0.8em;
-    }
-
-    .bottom-head {
-        flex-direction: row;
-        font-size: 0.8em;
-    }
-
-    .main-header {
-        margin-left: 0;
-    }
-
-    button {
-        border-radius: 15px;
-    }
-
-    .bed-list {
-        width: 100%;
-    }
-    .bed-list li {
-        padding: 0.5em;
-        margin: 1em;
-        font-size: 0.9em;
+        justify-content: flex-end;
+        text-align: center; 
+        align-items: center;
+        padding: 1em; 
     }
 
     .clickable {
@@ -466,11 +433,79 @@ label {
 
     .clickable img {
         padding: 0.5em;
-        width: 30%;
+        width: 4em;
+        position: absolute;
+        left: 2%;
+        top: 3%;
+    }
+
+    .menu-popup li{
+    padding: auto 0;
+    }
+
+    .flex-column {
+        margin-left: 0; 
+    }
+    .main-header {
+        flex-direction: column;
+        align-items: center; 
+        text-align: center;
+        justify-content: center;
+        margin-left: 0;
+    }
+
+    .main-header h4{
+        font-size: 1.5em;
+        margin-bottom: 1em;
+        margin-left: 4em;
+    }
+
+    .shift-stats {
+        flex-direction: row;
+        align-items: center; 
+        font-size: 0.8em;
+        margin-top: 3em;
+    }
+    .shift-stats p {
+        padding: 1em 0;
+    }
+
+    .bottom-head {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-left: 4em;
+        font-size: 0.8em;
+    }
+
+    .form-tabs {
+        margin-left: 2em;
+        margin-bottom: -1em;
+        margin-right: -1em;
+    }
+
+    button {
+        border-radius: 15px;
+        align-items: center;
+    }
+
+    .bed-list {
+        width: 100%;
+    }
+    .bed-list li {
+        padding: 0.5em;
+        margin: 1em;
+        font-size: 0.8em;
+    }
+
+    .active {
+        margin: none;
+        padding: none;
     }
 
     .sidebar {
-        width: 100%;
+        width: 8em;
         padding: 1em 0; 
     }
 
@@ -478,9 +513,6 @@ label {
         text-align: center; 
     }
 
-    #workload-form {
-        margin: 0;
-    }
 
     .fieldset-item {
         padding: 0.5em 0;
@@ -490,8 +522,9 @@ label {
     .label {
         margin: 0.5em 0;
     }
-}
 
-@media screen and (min-width: 1025px) {
-
+  
+    #submit-button {
+        margin: 2em auto; 
+    }
 }
