@@ -51,6 +51,15 @@ body {
     justify-content: space-between;
 }
 
+.shift-stats-new{
+    padding: 10px 0px;
+}
+
+.input-wrapper{
+    display: flex;
+    flex-direction: row;
+}
+
 .main-header{
     display: flex;
     flex-direction: column;

@@ -1,3 +1,9 @@
+
+// GLBOALS FOR QUERY SELECTORS
+const thankYouMessage = document.getElementById("thank-you-message");
+
+
+
 // Pop up menu
 document.addEventListener("DOMContentLoaded", function () {
   const menuIcon = document.getElementById("menu-icon");
@@ -61,12 +67,14 @@ document.addEventListener("DOMContentLoaded", function () {
     bedLink.addEventListener("click", function () {
       // Remove the "active" class from all bed links
       bedLinks.forEach(function (link) {
-        console.log('removing active class')
         link.classList.remove("active");
       });
-
+      
+      if (thankYouMessage.style.display === 'block'){
+        showForm();
+        // TODO: Show form submission summary for current bed if already submitted
+      }
       // Add the "active" class to the clicked bed link
-      console.log('adding active class');
       bedLink.classList.add("active");
     });
   });
@@ -196,7 +204,7 @@ letsubmittedFieldsets = 0;
 
 // Function to update the total workload tally in HTML
 function updateTotalWorkloadTally() {
-    const totalTallyParagraph = document.querySelector(".shift-stats p");
+    const totalTallyParagraph = document.querySelector("#points-total");
     totalTallyParagraph.textContent = `Total Tally: ${workload_point_total}`;
   }
 
@@ -226,7 +234,6 @@ updateTotalWorkloadTally();
 
 // Function to show thank you message
 function showThankYouMessage() {
-  const thankYouMessage = document.getElementById("thank-you-message");
   thankYouMessage.style.display = "block";
 
   const formElement = document.getElementById("workload-form");
@@ -239,7 +246,6 @@ function showThankYouMessage() {
 
 //Function show form and hide thank you message
 function showForm() {
-  const thankYouMessage = document.getElementById("thank-you-message");
   thankYouMessage.style.display = "none";
 
   const formElement = document.getElementById("workload-form");
@@ -393,7 +399,7 @@ function nextFieldset() {
     allFormTabs.forEach(element => element.classList.remove('active-tab'))
     currentFieldsetIndex++;
     fieldsets[currentFieldsetIndex].classList.remove('hidden');
-    allFormTabs[currentFieldsetIndex].classList.add('active-tab');
+    allFormTabs[currentFieldsetIndex]?.classList.add('active-tab');
   }
 }
 
@@ -405,6 +411,13 @@ document.getElementById('submit-button').addEventListener(
 // Callback handler to determine whether to submit the form or show the next section
 const handleButtonClick = (event) => {
   // Prevent default form submission behaviour
+  if (document.querySelector('#workload-form')?.checkValidity() === false) {
+    event.preventDefault();
+    event.stopPropagation();
+    return console.log('form invalid!')
+  }
+
+
   event.preventDefault();
 
   console.log('button clicked');
@@ -436,6 +449,10 @@ const handleButtonClick = (event) => {
   }
   //Reset form and show first fieldset
   function showForm() {
+    // Check localStorage keys for bed id...
+      // if bed id doesn't exist, show form
+      // else show summary
+
     currentFieldsetIndex = 0; 
     fieldsets.forEach((fieldset, index) => {
       if (index === 0) {
