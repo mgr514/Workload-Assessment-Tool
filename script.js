@@ -478,6 +478,23 @@ function hideThankYouMessage() {
 // Submission Handlers
 // ====================================================================================================
 
+// // Add an event listener to the form's submit event
+// document.addEventListener('DOMContentLoaded', function () {
+//     // Add an event listener to the form's submit event
+//     document.getElementById('nurse-form').addEventListener('submit', function (e) {
+//         // Get the value of the "Nurses" input field
+//         var nursesInput = document.getElementById('nurses').value;
+
+//         // Check if the input is empty or not a number
+//         if (nursesInput === "" || isNaN(nursesInput)) {
+//             // Prevent the form from submitting
+               //console.log ('error message validated")
+//             e.preventDefault();
+//             alert("Please enter a valid number of nurses.");
+//         }
+//     });
+// });
+
 // Grabs the current form data and stores it to LS on submit
 const writeFormDataToLS = () =>
 {
