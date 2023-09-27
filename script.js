@@ -72,10 +72,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-//Active class is working in the console log, it is registering the click. But no change appears.
-
-
-
 
 // Adds functionality to form tabs
 const assess_collab_link = document.getElementById("assess-collab-tab");
@@ -198,6 +194,11 @@ const unique_fields_array = [
 let workload_point_total = 0;
 letsubmittedFieldsets = 0;
 
+// Function to update the total workload tally in HTML
+function updateTotalWorkloadTally() {
+    const totalTallyParagraph = document.querySelector(".shift-stats p");
+    totalTallyParagraph.textContent = `Total Tally: ${workload_point_total}`;
+  }
 
 // Function to calculate total workload points
 function calculateWorkloadPoints() {
@@ -218,6 +219,7 @@ function calculateWorkloadPoints() {
     const workload_value = handleExtractUniqueValue(field_element);
     if (workload_value) workload_point_total += workload_value;
   });
+updateTotalWorkloadTally();
 
   console.log('The form has a total score of: ', workload_point_total);
 }
@@ -449,7 +451,6 @@ const handleButtonClick = (event) => {
         element.classList.remove('active-tab');
       }
     });
-  
   hideThankYouMessage();
 }
 
