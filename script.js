@@ -248,16 +248,7 @@ const formElement = document.getElementById("workload-form");
 
 
 
-// Attach a click event listener to the Bed link
-const bedLink = document.querySelectorAll(".bed-link");
 
-bedLinks.forEach(bedLink => {
-  bedLink.addEventListener("click", function (event) {
-    event.preventDefault()
-    //show form again
-    showForm();
-  })
-});
 
 
 
@@ -388,7 +379,7 @@ let arrestValue = 0
 let complexdsgValue = 0
 let burnCareValue = 0
 let transportValue = 0
-let unplannedValue = 0
+let unplannedValue = 0 
 
 // const allFormTabs = document.querySelectorAll('.form-tabs');
 
@@ -441,7 +432,44 @@ const handleButtonClick = (event) => {
     // If on the last fieldset, submit the form
     writeFormDataToLS()
   }
+  //Reset form and show first fieldset
+  function showForm() {
+    currentFieldsetIndex = 0; 
+    fieldsets.forEach((fieldset, index) => {
+      if (index === 0) {
+        fieldset.classList.remove('hidden');
+      } else {
+        fieldset.classList.add('hidden');
+      }
+    });
+    allFormTabs.forEach((element, index) => {
+      if (index === 0) {
+        element.classList.add('active-tab');
+      } else {
+        element.classList.remove('active-tab');
+      }
+    });
+  
+  hideThankYouMessage();
+}
 
+// Function to hide the "Thank You" message
+function hideThankYouMessage() {
+  const thankYouMessage = document.getElementById('thank-you-message');
+  if (thankYouMessage) {
+    thankYouMessage.classList.add('hidden');
+  }
+}
+// Attach a click event listener to the Bed link
+  const bedlinks = document.querySelectorAll(".bed-link");
+
+    bedLinks.forEach(bedLink => {
+    bedLink.addEventListener("click", function (event) {
+        event.preventDefault()
+        //show form again
+        showForm();
+    })
+  })
 }
 
 
