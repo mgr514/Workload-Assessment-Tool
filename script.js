@@ -1,6 +1,10 @@
 
 // GLBOALS FOR QUERY SELECTORS
 const thankYouMessage = document.getElementById("thank-you-message");
+const summaryDiv = document.getElementById("summary");
+const formElement = document.getElementById("workload-form")
+const nurseInput = document.querySelector('#nurses');
+
 
 
 
@@ -33,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
 
 //Adds  Current Date
 function updateDate() {
@@ -79,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
 
 
 // Adds functionality to form tabs
@@ -167,8 +173,6 @@ function populateAssessCollabForm(index) {
   });
 }
 
-
-
 // Generic callback for handling value extraction from any freeform workload value input
 const handleExtractUniqueValue = (field_element) => {
   if (field_element?.value) {
@@ -236,27 +240,29 @@ updateTotalWorkloadTally();
 function showThankYouMessage() {
   thankYouMessage.style.display = "block";
 
-  const formElement = document.getElementById("workload-form");
   formElement.style.display = "none";
 
   // Display Total workload points in message
   const totalWorkloadElement = document.getElementById("total-workload");
   totalWorkloadElement.textContent = workload_point_total;
 }
+/////////////////////////////////////////
+
+//Function to show summary
+function showSummary () {
+summaryDiv.style.display = "block";
+formElement.style.display = "none";
+}
+/////////////////////////////////
 
 //Function show form and hide thank you message
 function showForm() {
   thankYouMessage.style.display = "none";
+  summaryDiv.style.display = "none";
 
   const formElement = document.getElementById("workload-form");
   formElement.style.display = "block";
 }
-// Attach a submit event listener to the form
-const formElement = document.getElementById("workload-form");
-
-
-
-
 
 
 
@@ -300,217 +306,151 @@ function saveDataToLocalStorage() {
 
 
 
-// // JSON object for testing
-// const random_data = {
-//   someKey: 'some value',
-//   someFunction: () => {console.log('this')},
-//   someOtherKey: 100,
-//   nested_data: {
-//     someKey: 200,
-//     someOtherFunction: () => {console.log('that')}
-//   }
-// }
-
-
-// //DATE JSON
-//  const dateData = {
-//     date: formattedDate,
-//  };
-
-
-// //BED LINKS JSON
-//  const bedLinks_data = {
-//      bedLinks: 'bed-link',
-//      document.getElementById('bed-link').addEventListener('click' => {console.log(bedLinks_data)}
-//  )};
-
-
-//INPUT FIELDS JSON
-const inputFields_data = {
-  nurse_field: {
-    type: 'number',
-    label: 'nurses',
-    value: '',
-  },
-  shift_select: {
-    type: '',
-    label: 'shift-select',
-    value: '',
-  },
-  meetings_field: {
-    type: 'number',
-    label: 'meetings',
-    value: '',
-  },
-  arrest_field: {
-    type: 'number',
-    label: 'arrest',
-    value: '',
-  },
-  complexdsg_field: {
-    type: 'number',
-    label: 'complexdsg',
-    value: '',
-  },
-  burn_field: {
-    type: 'number',
-    label: 'burn-care',
-    value: '',
-  },
-  transport_field: {
-    type: 'number',
-    label: 'transport',
-    value: '',
-  },
-  unplanned_field: {
-    type: 'number',
-    label: 'unplanned',
-    value: '',
-  },
-  checkbox: {
-    type: 'checkbox',
-    checked: false,
-  }
-};
-
-
 // ====================================================================================================
 // Click Handlers
 // ====================================================================================================
 
 //Allows submit button to flow user into next fieldset
-let currentFieldsetIndex = 0;
-const fieldsets = document.querySelectorAll('fieldset');
-let submittedFieldsets = 0;
-let meetingsValue = 0
-let arrestValue = 0
-let complexdsgValue = 0
-let burnCareValue = 0
-let transportValue = 0
-let unplannedValue = 0 
+     let currentFieldsetIndex = 0;
+     const fieldsets = document.querySelectorAll('fieldset');
+     let submittedFieldsets = 0;
+     let meetingsValue = 0
+     let arrestValue = 0
+     let complexdsgValue = 0
+     let burnCareValue = 0
+     let transportValue = 0
+     let unplannedValue = 0 
+ 
+     // const allFormTabs = document.querySelectorAll('.form-tabs');
+ 
+     // Checks current fieldset index and jumps to next section
+     function nextFieldset() {
+     console.log(currentFieldsetIndex)
+     if (currentFieldsetIndex < fieldsets.length - 1) {
+         fieldsets[currentFieldsetIndex].classList.add('hidden');
+         allFormTabs.forEach(element => element.classList.remove('active-tab'))
+         currentFieldsetIndex++;
+         fieldsets[currentFieldsetIndex].classList.remove('hidden');
+         allFormTabs[currentFieldsetIndex]?.classList.add('active-tab');
+        }
+        }
+ 
+     document.getElementById('submit-button').addEventListener(
+     'click',
+     (event) => handleButtonClick(event)
+     )
+ 
+     //Callback handler to determine whether to submit the form or show the next section
+     const handleButtonClick = (event) => {
+     // Prevent default form submission behaviour
+     if (document.querySelector('#workload-form')?.checkValidity() === false) {
+         event.preventDefault();
+         event.stopPropagation();
+         return console.log('form invalid!')
+     }
+     // Nurse-related validity check
+     
+     if (
+         nurseInput.checkValidity() === false
+     ) {
+         event.preventDefault();
+         event.stopPropagation();
+         return console.log('Nurse input invalid!');
+     }
+ 
+     event.preventDefault();
+ 
+     console.log('button clicked');
+ 
+     // check current fieldset from querySelector
+     const current_tab = allFormTabs.find(
+         (formTabElement, index) => {
+         if (formTabElement?.classList.contains('active-tab')) {
+             currentFieldsetIndex = index
+             return formTabElement;
+         }
+         }
+     )
 
-// const allFormTabs = document.querySelectorAll('.form-tabs');
-
-// Checks current fieldset index and jumps to next section
-function nextFieldset() {
-  console.log(currentFieldsetIndex)
-  if (currentFieldsetIndex < fieldsets.length - 1) {
-    fieldsets[currentFieldsetIndex].classList.add('hidden');
-    allFormTabs.forEach(element => element.classList.remove('active-tab'))
-    currentFieldsetIndex++;
-    fieldsets[currentFieldsetIndex].classList.remove('hidden');
-    allFormTabs[currentFieldsetIndex]?.classList.add('active-tab');
+     // Check current fieldset and either submit form OR cycle to next field set
+     if (currentFieldsetIndex !== fieldsets.length -1) {
+         // Cycle to next fieldset
+         nextFieldset();
+     }
+     else {
+         //handle submission
+         console.log('handle submission')
+         saveDataToLocalStorage()
+         calculateWorkloadPoints();
+         showThankYouMessage();
+ 
+ 
+         // If on the last fieldset, submit the form
+         writeFormDataToLS() }
   }
-}
-
-document.getElementById('submit-button').addEventListener(
-  'click',
-  (event) => handleButtonClick(event)
-)
-
-// Callback handler to determine whether to submit the form or show the next section
-const handleButtonClick = (event) => {
-  // Prevent default form submission behaviour
-  if (document.querySelector('#workload-form')?.checkValidity() === false) {
-    event.preventDefault();
-    event.stopPropagation();
-    return console.log('form invalid!')
-  }
-
-
-  event.preventDefault();
-
-  console.log('button clicked');
-
-  // check current fieldset from querySelector
-  const current_tab = allFormTabs.find(
-    (formTabElement, index) => {
-      if (formTabElement?.classList.contains('active-tab')) {
-        currentFieldsetIndex = index
-        return formTabElement;
-      }
-    }
-  )
-
-  // // Check current fieldset and either submit form OR cycle to next field set
-  if (currentFieldsetIndex !== fieldsets.length -1) {
-    // Cycle to next fieldset
-    nextFieldset();
-  }
-  else {
-    //handle submission
-    console.log('handle submission')
-    saveDataToLocalStorage()
-    calculateWorkloadPoints();
-    showThankYouMessage();
-
-    // If on the last fieldset, submit the form
-    writeFormDataToLS()
-  }
-  //Reset form and show first fieldset
-  function showForm() {
-    // Check localStorage keys for bed id...
-      // if bed id doesn't exist, show form
-      // else show summary
-
-    currentFieldsetIndex = 0; 
-    fieldsets.forEach((fieldset, index) => {
-      if (index === 0) {
-        fieldset.classList.remove('hidden');
-      } else {
-        fieldset.classList.add('hidden');
-      }
-    });
-    allFormTabs.forEach((element, index) => {
-      if (index === 0) {
-        element.classList.add('active-tab');
-      } else {
-        element.classList.remove('active-tab');
-      }
-    });
-  hideThankYouMessage();
-}
 
 // Function to hide the "Thank You" message
 function hideThankYouMessage() {
-  const thankYouMessage = document.getElementById('thank-you-message');
-  if (thankYouMessage) {
-    thankYouMessage.classList.add('hidden');
+    const thankYouMessage = document.getElementById('thank-you-message');
+    if (thankYouMessage) {
+      thankYouMessage.classList.add('hidden');
+    }
   }
-}
-// Attach a click event listener to the Bed link
-  const bedlinks = document.querySelectorAll(".bed-link");
-
-    bedLinks.forEach(bedLink => {
-    bedLink.addEventListener("click", function (event) {
-        event.preventDefault()
-        //show form again
-        showForm();
+  // Attach a click event listener to the Bed link
+    const bedlinks = document.querySelectorAll(".bed-link");
+  
+      bedLinks.forEach(bedLink => {
+      bedLink.addEventListener("click", function (event) {
+          event.preventDefault()
+          //show form again
+          showForm();
+      })
     })
-  })
-}
+
+  //Reset form and show first fieldset
+  function showForm() {
+    // Check localStorage keys for bed id
+    const bedId = localStorage.getItem('bed_id');
+
+    // if bed id doesn't exist, show form
+    if (!bedId) {
+        currentFieldsetIndex = 0;
+        fieldsets.forEach((fieldset, index) => {
+          if (index === 0) {
+            fieldset.classList.remove('hidden');
+          } else {
+            fieldset.classList.add('hidden');
+          }
+        });
+        allFormTabs.forEach((element, index) => {
+          if (index === 0) {
+            element.classList.add('active-tab');
+          } else {
+            element.classList.remove('active-tab');
+          }
+        });
+        hideThankYouMessage();
+      } else {
+      // Create an HTML list to display the selected inputs
+            const list = document.createElement('ul');
+
+     // Iterate through the bedData and add each selected input to the list
+            bedData.selectedInputs.forEach((inputLabel) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = inputLabel;
+            list.appendChild(listItem);
+            });
+
+            // Clear the summary div and append the list
+            summaryDiv.innerHTML = '';
+            summaryDiv.appendChild(list);
+        }
+    }
 
 
 // ====================================================================================================
 // Submission Handlers
 // ====================================================================================================
-
-// // Add an event listener to the form's submit event
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Add an event listener to the form's submit event
-//     document.getElementById('nurse-form').addEventListener('submit', function (e) {
-//         // Get the value of the "Nurses" input field
-//         var nursesInput = document.getElementById('nurses').value;
-
-//         // Check if the input is empty or not a number
-//         if (nursesInput === "" || isNaN(nursesInput)) {
-//             // Prevent the form from submitting
-               //console.log ('error message validated")
-//             e.preventDefault();
-//             alert("Please enter a valid number of nurses.");
-//         }
-//     });
-// });
 
 // Grabs the current form data and stores it to LS on submit
 const writeFormDataToLS = () =>
@@ -608,4 +548,109 @@ const injectLSDataIntoForm = (bed_id) =>
 // This will only work if you already have data for 'bed_1' 
 // stored in Localstorage from the writeFormDataToLS method above
 // injectLSDataIntoForm('bed_1');
+
+
+
+
+
+
+
+
+
+// // JSON object for testing
+// const random_data = {
+//   someKey: 'some value',
+//   someFunction: () => {console.log('this')},
+//   someOtherKey: 100,
+//   nested_data: {
+//     someKey: 200,
+//     someOtherFunction: () => {console.log('that')}
+//   }
+// }
+
+
+// //DATE JSON
+//  const dateData = {
+//     date: formattedDate,
+//  };
+
+
+// //BED LINKS JSON
+//  const bedLinks_data = {
+//      bedLinks: 'bed-link',
+//      document.getElementById('bed-link').addEventListener('click' => {console.log(bedLinks_data)}
+//  )};
+
+
+//INPUT FIELDS JSON
+// const inputFields_data = {
+//   nurse_field: {
+//     type: 'number',
+//     label: 'nurses',
+//     value: '',
+//   },
+//   shift_select: {
+//     type: '',
+//     label: 'shift-select',
+//     value: '',
+//   },
+//   meetings_field: {
+//     type: 'number',
+//     label: 'meetings',
+//     value: '',
+//   },
+//   arrest_field: {
+//     type: 'number',
+//     label: 'arrest',
+//     value: '',
+//   },
+//   complexdsg_field: {
+//     type: 'number',
+//     label: 'complexdsg',
+//     value: '',
+//   },
+//   burn_field: {
+//     type: 'number',
+//     label: 'burn-care',
+//     value: '',
+//   },
+//   transport_field: {
+//     type: 'number',
+//     label: 'transport',
+//     value: '',
+//   },
+//   unplanned_field: {
+//     type: 'number',
+//     label: 'unplanned',
+//     value: '',
+//   },
+//   checkbox: {
+//     type: 'checkbox',
+//     checked: false,
+//   }
+// };
+
+
+
+
+
+// // Add an event listener to the form's submit event
+// document.addEventListener('DOMContentLoaded', function () {
+//     // Add an event listener to the form's submit event
+//     document.getElementById('nurse-form').addEventListener('submit', function (e) {
+//         // Get the value of the "Nurses" input field
+//         var nursesInput = document.getElementById('nurses').value;
+
+//         // Check if the input is empty or not a number
+//         if (nursesInput === "" || isNaN(nursesInput)) {
+//             // Prevent the form from submitting
+               //console.log ('error message validated")
+//             e.preventDefault();
+//             alert("Please enter a valid number of nurses.");
+//         }
+//     });
+// });
+
+
 //Not Sure I need this function??
+

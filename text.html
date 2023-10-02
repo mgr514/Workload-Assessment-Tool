@@ -102,7 +102,9 @@
                         <div class="input-wrapper">
                             <label for="nurses">Nurses:</label>
                             <input type="number" min="3" max="10" id="nurses" name="nurses" required>
+                            <div class="error-message" id="nurses-error"></div>
                         </div>
+
                         <p id="points-total">Total Tally:</p>
                         <div class="input-wrapper">
                             <label for="shift-select">Shift:</label>
@@ -486,7 +488,13 @@
         <div id="thank-you-message" hidden>
             <p>Thank you for submitting the form with a total workload of <span id="total-workload"></span>.</p>
         </div>
+        <div id="summary" hidden>
+            <!-- Summary will be displayed here -->
+            <p>dummy text</p>
+        </div>
     </div>
+
+
 
 
     <!--Data Page-->

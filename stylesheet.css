@@ -49,10 +49,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
-
-.shift-stats-new{
-    padding: 10px 0px;
+    margin-bottom: 2em;
 }
 
 .input-wrapper{
@@ -60,10 +57,16 @@ body {
     flex-direction: row;
 }
 
+#nurses {
+    width: 3em;
+    height: 2em;
+    margin-top: 0.4em;
+}
+
 .main-header{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     font-weight: 500;
     margin-left: 1em;
 }
@@ -104,23 +107,19 @@ body {
     width: 40%;
 }
 
-.shift-stats{
+.shift-stats-new{
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    width: 15vw;
+    flex-direction: row;
+    padding: 10px 0px;
 }
 
-.shift-stats input[type="input"]{
-    width: 3em;
+#nurses input {
+    width: 1em;
 }
 
-.shift-stats p{
-    margin-bottom: 0.5em;
-}
 .form-tabs {
-    margin-left: -1em;
+    margin-left: -3em;
+    margin-bottom: -1.3em;
 }
 .active-tab {
     background-color: #117de9;
@@ -229,6 +228,9 @@ select {
     grid-row: 2;
 }
 
+#points-total {
+    margin-top: 0.4em;
+}
 .form-container {
     max-height: calc(100vh - 100px);
     overflow-y: auto;
@@ -329,7 +331,13 @@ label {
         width: 4em;
         position: absolute;
         left: 2%;
-        top: 3%;
+        top: 6%;
+    }
+
+    .menu-popup {
+        position: absolute;
+        top: 1%;
+        left: 1%;
     }
 
     .menu-popup li{
@@ -353,19 +361,11 @@ label {
         margin-left: 4em;
     }
 
-    .shift-stats {
-        flex-direction: column;
-        align-items: center; 
-        font-size: 0.8em;
-        margin-top: 3em;
-    }
-    .shift-stats p {
-        padding: 1em 0;
-    }
+
 
     .bottom-head {
-        flex-direction: row;
-        justify-content: center;
+        flex-direction: column;
+        justify-content:space-around;
         align-items: center;
         text-align: center;
         margin-left: 4em;
@@ -445,7 +445,12 @@ label {
         width: 4em;
         position: absolute;
         left: 2%;
-        top: 3%;
+        top: 6%;
+    }
+    .menu-popup {
+        position: absolute;
+        top: 1%;
+        left: 1%;
     }
 
     .menu-popup li{
@@ -472,7 +477,7 @@ label {
     .shift-stats {
         flex-direction: row;
         align-items: center; 
-        font-size: 0.8em;
+        font-size: 1em;
         margin-top: 3em;
     }
     .shift-stats p {
@@ -485,7 +490,7 @@ label {
         align-items: center;
         text-align: center;
         margin-left: 4em;
-        font-size: 0.8em;
+        font-size: 1em;
     }
 
     .form-tabs {
