@@ -8,7 +8,7 @@ const nurseInput = document.querySelector('#nurses');
 
 
 
-// Pop up menu
+/////////////////////// Pop up menu////////////////////////////////////////
 document.addEventListener("DOMContentLoaded", function () {
   const menuIcon = document.getElementById("menu-icon");
   const menuPopup = document.getElementById("menu-popup");
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-//Adds  Current Date
+///////////////////Adds  Current Date////////////////////////////////////////
 function updateDate() {
   const currentDateElement = document.getElementById('current-date');
   const currentDate = new Date();
@@ -52,7 +52,7 @@ function updateDate() {
 updateDate();
 
 
-//Shift Toggle
+///////////////////////Shift Toggle///////////////////////////////////////////
 const shiftSelect = document.getElementById("shift-select");
 
 shiftSelect.addEventListener("change", () => {
@@ -63,7 +63,7 @@ shiftSelect.addEventListener("change", () => {
 });
 
 
-//Adds functionality to Bed links
+////////////////////Adds functionality to Bed links///////////////////////////////
 const bedLinks = document.querySelectorAll('.bed-link');
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -86,8 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
-// Adds functionality to form tabs
+////////////////////// Adds functionality to form tabs//////////////////////////////
 const assess_collab_link = document.getElementById("assess-collab-tab");
 const fieldsetAssessCollab = document.getElementById("assess-collab-form");
 
@@ -116,12 +115,6 @@ const allFormSections = Array.from(document.getElementsByClassName('fieldset'));
 
 // Generic callback for showing discrete form sections based on the tab being clicked
 const showFormSection = (formSectionToShow, tabElement) => {
-
-  // Step 1: handle error conditions if arguments not passed
-  // Step 2: iterate through all form sections and ensure they are hidden from the DOM
-  // Step 3: Display the selected Form Section
-  // Step 4: Remove all 'active-tab' classes from the form links
-  // Step 5: Set the 'active-tab' class on the link that was just selected
 
   if (!formSectionToShow || !tabElement) throw Error('Invalid HTML element provided as input')
 
@@ -173,6 +166,8 @@ function populateAssessCollabForm(index) {
   });
 }
 
+
+////////////////////// Value Extractions //////////////////////////
 // Generic callback for handling value extraction from any freeform workload value input
 const handleExtractUniqueValue = (field_element) => {
   if (field_element?.value) {
@@ -184,6 +179,7 @@ const handleExtractUniqueValue = (field_element) => {
     return undefined
   }
 }
+
 
 const meetings = document.getElementById("meetings");
 const arrest = document.getElementById("arrest");
@@ -246,14 +242,12 @@ function showThankYouMessage() {
   const totalWorkloadElement = document.getElementById("total-workload");
   totalWorkloadElement.textContent = workload_point_total;
 }
-/////////////////////////////////////////
 
 //Function to show summary
 function showSummary () {
 summaryDiv.style.display = "block";
 formElement.style.display = "none";
 }
-/////////////////////////////////
 
 //Function show form and hide thank you message
 function showForm() {
@@ -263,47 +257,6 @@ function showForm() {
   const formElement = document.getElementById("workload-form");
   formElement.style.display = "block";
 }
-
-
-
-//LOCAL STORAGE
-function saveDataToLocalStorage() {
-  // Get the selected bed, shift, and nurses
-  const selectedBed = document.querySelector('.bed-link.active').textContent;
-  const selectedShift = document.getElementById('shift-select').value;
-  const numberOfNurses = parseFloat(document.getElementById('nurses').value);
-
-  //Get value from checkboxes
-  const checkboxes = document.querySelectorAll('[workload-value]');
-  const workloadValues = {};
-  checkboxes.forEach(checkbox => {
-    const name = checkbox.getAttribute('workload-value');
-    const value = checkbox.checked;
-    workloadValues[name] = value;
-  });
-
-  //Create array
-  const dataToSave = {
-    date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-    shift: selectedShift,
-    bed: selectedBed,
-    workloadValues: workloadValues,
-    numberOfNurses: numberOfNurses,
-    meetings: meetingsValue,
-    arrest: arrestValue,
-    complexdsg: complexdsgValue,
-    burnCare: burnCareValue,
-    transport: transportValue,
-    unplanned: unplannedValue,
-  };
-  // Generate a unique key for this data entry
-  const localStorageKey = `${selectedBed}-${selectedShift}-${new Date().getTime()}`;
-
-  // Save the data to Local Storage
-  localStorage.setItem(localStorageKey, JSON.stringify(dataToSave));
-}
-
-
 
 
 // ====================================================================================================
@@ -410,41 +363,41 @@ function hideThankYouMessage() {
   //Reset form and show first fieldset
   function showForm() {
     // Check localStorage keys for bed id
-    const bedId = localStorage.getItem('bed_id');
+    // const bedId = localStorage.getItem('bed_id');
 
-    // if bed id doesn't exist, show form
-    if (!bedId) {
-        currentFieldsetIndex = 0;
-        fieldsets.forEach((fieldset, index) => {
-          if (index === 0) {
-            fieldset.classList.remove('hidden');
-          } else {
-            fieldset.classList.add('hidden');
-          }
-        });
-        allFormTabs.forEach((element, index) => {
-          if (index === 0) {
-            element.classList.add('active-tab');
-          } else {
-            element.classList.remove('active-tab');
-          }
-        });
-        hideThankYouMessage();
-      } else {
-      // Create an HTML list to display the selected inputs
-            const list = document.createElement('ul');
+    // // if bed id doesn't exist, show form
+    // if (!bedId) {
+    //     currentFieldsetIndex = 0;
+    //     fieldsets.forEach((fieldset, index) => {
+    //       if (index === 0) {
+    //         fieldset.classList.remove('hidden');
+    //       } else {
+    //         fieldset.classList.add('hidden');
+    //       }
+    //     });
+    //     allFormTabs.forEach((element, index) => {
+    //       if (index === 0) {
+    //         element.classList.add('active-tab');
+    //       } else {
+    //         element.classList.remove('active-tab');
+    //       }
+    //     });
+    //     hideThankYouMessage();
+    //   } else {
+    //   // Create an HTML list to display the selected inputs
+    //         const list = document.createElement('ul');
 
-     // Iterate through the bedData and add each selected input to the list
-            bedData.selectedInputs.forEach((inputLabel) => {
-            const listItem = document.createElement('li');
-            listItem.textContent = inputLabel;
-            list.appendChild(listItem);
-            });
+    //  // Iterate through the bedData and add each selected input to the list
+    //         bedData.selectedInputs.forEach((inputLabel) => {
+    //         const listItem = document.createElement('li');
+    //         listItem.textContent = inputLabel;
+    //         list.appendChild(listItem);
+    //         });
 
-            // Clear the summary div and append the list
-            summaryDiv.innerHTML = '';
-            summaryDiv.appendChild(list);
-        }
+    //         // Clear the summary div and append the list
+    //         summaryDiv.innerHTML = '';
+    //         summaryDiv.appendChild(list);
+    //     }
     }
 
 
@@ -507,7 +460,6 @@ const writeFormDataToLS = () =>
 };
 
 
-
 // Prepopulate Field Data when a particular bed link is clicked
 const injectLSDataIntoForm = (bed_id) =>
 {
@@ -549,12 +501,43 @@ const injectLSDataIntoForm = (bed_id) =>
 // stored in Localstorage from the writeFormDataToLS method above
 // injectLSDataIntoForm('bed_1');
 
-
-
-
-
-
-
+////////////////////////////////////////////////////////////////////////////////
+//LOCAL STORAGE
+function saveDataToLocalStorage() {
+    // Get the selected bed, shift, and nurses
+    const selectedBed = document.querySelector('.bed-link.active').textContent;
+    const selectedShift = document.getElementById('shift-select').value;
+    const numberOfNurses = parseFloat(document.getElementById('nurses').value);
+  
+    //Get value from checkboxes
+    const checkboxes = document.querySelectorAll('[workload-value]');
+    const workloadValues = {};
+    checkboxes.forEach(checkbox => {
+      const name = checkbox.getAttribute('workload-value');
+      const value = checkbox.checked;
+      workloadValues[name] = value;
+    });
+  
+    //Create array
+    const dataToSave = {
+      date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+      shift: selectedShift,
+      bed: selectedBed,
+      workloadValues: workloadValues,
+      numberOfNurses: numberOfNurses,
+      meetings: meetingsValue,
+      arrest: arrestValue,
+      complexdsg: complexdsgValue,
+      burnCare: burnCareValue,
+      transport: transportValue,
+      unplanned: unplannedValue,
+    };
+    // Generate a unique key for this data entry
+    const localStorageKey = `${selectedBed}-${selectedShift}-${new Date().getTime()}`;
+  
+    // Save the data to Local Storage
+    localStorage.setItem(localStorageKey, JSON.stringify(dataToSave));
+  }
 
 
 // // JSON object for testing
@@ -651,6 +634,4 @@ const injectLSDataIntoForm = (bed_id) =>
 //     });
 // });
 
-
-//Not Sure I need this function??
 
