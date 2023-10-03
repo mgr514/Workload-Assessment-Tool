@@ -329,14 +329,13 @@ function showForm() {
      if (currentFieldsetIndex !== fieldsets.length -1) {
          // Cycle to next fieldset
          nextFieldset();
-     }
-     else {
+     } else {
          //handle submission
          console.log('handle submission')
          saveDataToLocalStorage()
          calculateWorkloadPoints();
          showThankYouMessage();
- 
+         showSummary();
  
          // If on the last fieldset, submit the form
          writeFormDataToLS() }
