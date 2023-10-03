@@ -61,14 +61,14 @@
                         <p id="current-date">Date</p>
                         <p>Unit: ICU</p>
                     </div>
-                    
+
                 </div>
                 <div class="form-tabs">
-                    <button class= "tab" id="assess-collab-tab">Assessment/Planning/Collaboration</button>
-                    <button class= "tab" id="basic-care-tab">Basic Patient Care Activities</button>
-                    <button class= "tab" id="monitor-eval-tab">Monitor and Evaluate</button>
-                    <button class= "tab" id="nurse-int-tab">Nursing Interventions </button>
-                    <button class= "tab" id="other-int-tab">Other Interventions</button>
+                    <button class="tab" id="assess-collab-tab">Assessment/Planning/Collaboration</button>
+                    <button class="tab" id="basic-care-tab">Basic Patient Care Activities</button>
+                    <button class="tab" id="monitor-eval-tab">Monitor and Evaluate</button>
+                    <button class="tab" id="nurse-int-tab">Nursing Interventions </button>
+                    <button class="tab" id="other-int-tab">Other Interventions</button>
                 </div>
             </div>
         </header>
@@ -140,7 +140,8 @@
                         <div class="fieldset-item">
                             <input type="input" type="number" min="0" max="25" id="meetings" name="meetings">
                             <label for="meetings">Team / Family Meetings
-                                Time (Calculate as fraction of hours multiplied by 10):</label><!--calculate as fraction of hours multiplied by 10-->
+                                Time (Calculate as fraction of hours multiplied by
+                                10):</label><!--calculate as fraction of hours multiplied by 10-->
                         </div>
                         <!-- Only need 1 submit for the entire form -->
                         <!-- <submit enter-btn1>Enter</submit> -->
@@ -279,7 +280,8 @@
                         </div>
                         <div class="fieldset-item">
                             <input type="input" type="number" min="0" max="60" id="arrest" name="arrest">
-                            <label for="arrest">Cardiac/Respiratory Arrest Time (Calculate as fraction of hours multiplied by 20):</label>
+                            <label for="arrest">Cardiac/Respiratory Arrest Time (Calculate as fraction of hours
+                                multiplied by 20):</label>
                             <!--calculate as fraction of hours multiplied by 20-->
                         </div>
                         <div class="fieldset-item">
@@ -357,13 +359,15 @@
                         </div>
                         <div class="fieldset-item">
                             <input type="input" type="number" min="0" max="30" id="complexdsg" name="complexdsg">
-                            <label for="complexdsg">Complex Wound Dressing Time (Calculate as fraction of hours multiplied by 10):</label>
+                            <label for="complexdsg">Complex Wound Dressing Time (Calculate as fraction of hours
+                                multiplied by 10):</label>
                             <!--calculate as fraction of hours multiplied by 10-->
                         </div>
                         <div class="fieldset-item">
                             <input type="input" type="number" min="0" max="50" id="burn-care" name="burn-care">
                             <label for="burn-care">Burn Care
-                                Time (Calculate as fraction of hours multiplied by 15):</label><!--calculate as fraction of hours multiplied by 15-->
+                                Time (Calculate as fraction of hours multiplied by
+                                15):</label><!--calculate as fraction of hours multiplied by 15-->
                         </div>
                         <div class="fieldset-item">
                             <input type="checkbox" id="irrigat" name="irrigat" workload-value=6>
@@ -444,7 +448,8 @@
                         </div>
                         <div class="fieldset-item">
                             <input type="input" type="number" min="0" max="25" id="transport" name="transport">
-                            <label for="transport">Transportation of Patient (Within and Outside Facility) Time (Calculate as fraction of hours multiplied by 10):</label>
+                            <label for="transport">Transportation of Patient (Within and Outside Facility) Time
+                                (Calculate as fraction of hours multiplied by 10):</label>
                             <!--calculate as fraction of hours multiplied by 10-->
                         </div>
                         <div class="fieldset-item">
@@ -473,7 +478,8 @@
                         </div>
                         <div class="fieldset-item">
                             <input type="input" type="number" min="0" max="45" id="unplanned" name="unplanned">
-                            <label for="unplanned">Unplanned Activities Time (Calculate as fraction of hours multiplied by 10):</label>
+                            <label for="unplanned">Unplanned Activities Time (Calculate as fraction of hours multiplied
+                                by 10):</label>
                             <!--calculate as fraction of hours multiplied by 10-->
                         </div>
                     </fieldset>
@@ -485,12 +491,13 @@
                 </form>
             </div>
         </div>
-        <div id="thank-you-message" hidden>
-            <p>Thank you for submitting the form with a total workload of <span id="total-workload"></span>.</p>
-        </div>
-        <div id="summary" hidden>
-            <!-- Summary will be displayed here -->
-            <p>dummy text</p>
+        <div id="message-container" hidden>
+            <div id="thank-you-message">
+                <p>Thank you for submitting the form with a total workload of <span id="total-workload"></span>.</p>
+            </div>
+            <div id="summary">
+                <!-- Summary will be displayed here -->
+            </div>
         </div>
     </div>
 
@@ -565,4 +572,3 @@
 </body>
 
 </html>
-
