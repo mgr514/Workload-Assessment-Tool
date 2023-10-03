@@ -1,5 +1,5 @@
 
-// GLBOALS FOR QUERY SELECTORS
+///////////////// GLOBALS FOR QUERY SELECTORS /////////////////////////////
 const thankYouMessage = document.getElementById("thank-you-message");
 const summaryDiv = document.getElementById("summary");
 const formElement = document.getElementById("workload-form")
@@ -349,24 +349,78 @@ function hideThankYouMessage() {
       thankYouMessage.classList.add('hidden');
     }
   }
+
+//   function showSubmitButton() {
+//     const submitButton = document.getElementById('submit-button');
+//     if (submitButton) {
+//       submitButton.style.display = 'flex';
+//       console.log('submit button displayed')
+//     }
+//   }
+
+//   function createSubmitButton() {
+//     const submitButtonContainer = document.getElementById('submit-button-container');
+  
+//     // Check if the container already has a submit button
+//     const existingSubmitButton = document.getElementById('submit-button');
+//     if (!existingSubmitButton) {
+//       const newSubmitButton = document.createElement('button');
+//       newSubmitButton.id = 'submit-button';
+//       newSubmitButton.textContent = 'Submit';
+  
+//       // Add a click event listener to the submit button
+//       newSubmitButton.addEventListener('click', function () {
+//         // Add your submit button click logic here
+//         console.log('Submit button clicked');
+//       });
+  
+//       // Append the new submit button to the container
+//       submitButtonContainer.appendChild(newSubmitButton);
+//     }
+// }
+
+
   // Attach a click event listener to the Bed link
-    const bedlinks = document.querySelectorAll(".bed-link");
   
       bedLinks.forEach(bedLink => {
       bedLink.addEventListener("click", function (event) {
+        currentFieldsetIndex = 0;
+        fieldsets.forEach((fieldset, index) => {
+          if (index === 0) {
+            fieldset.classList.remove('hidden');
+          } else {
+            fieldset.classList.add('hidden');
+          }
+        });
+        allFormTabs.forEach((element, index) => {
+          if (index === 0) {
+            element.classList.add('active-tab');
+          } else {
+            element.classList.remove('active-tab');
+          }
+        });
           event.preventDefault()
+          hideThankYouMessage();
           //show form again
           showForm();
+          //createSubmitButton();
       })
     })
 
-  //Reset form and show first fieldset
-  function showForm() {
-    // Check localStorage keys for bed id
-    // const bedId = localStorage.getItem('bed_id');
+    //Here's the problem, the submit button is somehow there. I have trouble shooted
+    //this in every way possible that I could think of. I also tried to dynamically
+    //create a new button. The issue isn't that it's not there functionally. When
+    //you hit the enter button you can move through the fields. the button is just
+    //not visible. Though the button itself does not have hidden properties, the fieldsets
+    //do, but they're removed because the form is visible. I have reached an impasse.
 
-    // // if bed id doesn't exist, show form
-    // if (!bedId) {
+  //function showForm() {
+    //Check localStorage keys for bed id
+    // const bed_Id = localStorage.getItem('bed_id');
+
+    // if bed id doesn't exist, show form
+   
+    // if (!bed_Id) {
     //     currentFieldsetIndex = 0;
     //     fieldsets.forEach((fieldset, index) => {
     //       if (index === 0) {
@@ -384,7 +438,7 @@ function hideThankYouMessage() {
     //     });
     //     hideThankYouMessage();
     //   } else {
-    //   // Create an HTML list to display the selected inputs
+      // Create an HTML list to display the selected inputs
     //         const list = document.createElement('ul');
 
     //  // Iterate through the bedData and add each selected input to the list
@@ -397,8 +451,7 @@ function hideThankYouMessage() {
     //         // Clear the summary div and append the list
     //         summaryDiv.innerHTML = '';
     //         summaryDiv.appendChild(list);
-    //     }
-    }
+      
 
 
 // ====================================================================================================

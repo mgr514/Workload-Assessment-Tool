@@ -299,6 +299,22 @@ label {
     color: var(--white);
 }
 
+#submit-button {
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0.6em 1.5em;
+    margin: 2em 2em 2em 80em;
+    border: 2px solid var(--navy);
+    border-radius: 5px;
+    background-color: whitesmoke;
+}
+
+#submit-button:hover {
+    background-color: var(--navy);
+    color: var(--white);
+}
+
 .hidden {
     display:none;
 }
