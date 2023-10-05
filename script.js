@@ -269,9 +269,9 @@ function summarizeFormInputs() {
             let inputValue = "";
 
             if (input.type === "checkbox") {
-                inputValue = workloadValue.toString();
+                inputValue = `${workloadValue} points`;
             } else if (input.type === "number") {
-                inputValue = input.value;
+                inputValue = `${input.value} points`;
             }
 
        // Check if the inputValue is not empty before appending it to the summary
