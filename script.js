@@ -1,3 +1,10 @@
+//Current Issues: the submission button disappears after first form submission, is not there for any other beds
+//no validation message for nurse field
+
+
+
+
+
 
 ///////////////// GLOBALS FOR QUERY SELECTORS /////////////////////////////
 const thankYouMessage = document.getElementById("thank-you-message");
@@ -242,6 +249,7 @@ function showMessageContainer() {
   totalWorkloadElement.textContent = `${workload_point_total}`;
 }
 
+////////////////////// Summary /////////////////////////////////////////////////
 function summarizeFormInputs() {
     // Initialize variables to store the summary and total workload
     let summary = "";
@@ -260,20 +268,24 @@ function summarizeFormInputs() {
             let inputValue = "";
 
             if (input.type === "checkbox") {
-                inputValue = "Yes";
+                inputValue = workloadValue.toString();
             } else if (input.type === "number") {
                 inputValue = input.value;
             }
 
-            // Append the input summary to the summary variable
-            summary += `${labelText}: ${inputValue}`;
-        });
-    });
+       // Check if the inputValue is not empty before appending it to the summary
+       if (inputValue !== "") {
+        // Append the input summary to the summary variable
+        summary += `<li>${labelText}: ${inputValue}</li>`;
+    }
+});
+});
+        // Update the summary div with the generated summary text
+        const summaryElement = document.getElementById('summary');
+        summaryElement.innerHTML = `<ul>${summary}</ul>`; 
 }
 
-    // Display the summary and total workload
-    const summaryContainer = document.getElementById('summary');
-    summaryContainer.innerHTML = summary;
+
 
 
 //Function show form and hide message container
@@ -357,8 +369,10 @@ const handleButtonClick = (event) =>
     console.log('form valid!')
     saveDataToLocalStorage()
     calculateWorkloadPoints();
-    showThankYouMessage();
-    showSummary();
+    summarizeFormInputs();
+    showMessageContainer();
+   
+
 
     // If on the last fieldset, submit the form
     writeFormDataToLS()

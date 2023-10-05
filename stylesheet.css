@@ -107,16 +107,6 @@ body {
     width: 40%;
 }
 
-.shift-stats-new{
-    display: flex;
-    flex-direction: row;
-    padding: 10px 0px;
-}
-
-#nurses input {
-    width: 1em;
-}
-
 .form-tabs {
     margin-left: -3em;
     margin-bottom: -1.3em;
@@ -235,6 +225,11 @@ select {
     max-height: calc(100vh - 100px);
     overflow-y: auto;
 }
+.shift-stats-new{
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0px;
+}
 
 #workload-form {
     margin-right: 1em;
@@ -268,7 +263,13 @@ label {
     background-color: var(--navy);
 }
 
-#workload-form input[type="input"] {
+#meetings,
+#arrest,
+#complexdsg,
+#burn-care,
+#transport,
+#unplanned
+{
     appearance: none;
     border: 2px solid var(--navy);
     width: 120px;
