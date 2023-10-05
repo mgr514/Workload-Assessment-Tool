@@ -262,6 +262,9 @@ function summarizeFormInputs() {
         // Iterate through each input element within the fieldset
         const inputs = fieldset.querySelectorAll('input[type="checkbox"]:checked, input[type="number"]');
         inputs.forEach(input => {
+            // Guard cluase to prevent rendering of empty number inputs
+            if (input.type === 'number' && !input.value ) return null
+
             const workloadValue = parseInt(input.getAttribute('workload-value')) || 0;
             totalWorkload += workloadValue;
 
@@ -295,6 +298,14 @@ function showForm() {
 
   const formElement = document.getElementById("workload-form");
   formElement.style.display = "block";
+}
+
+//Function hide form and show message container
+function hideForm() {
+  messageContainer.style.display = "block";
+
+  const formElement = document.getElementById("workload-form");
+  formElement.style.display = "none";
 }
 
 // ====================================================================================================
@@ -363,7 +374,11 @@ const handleButtonClick = (event) =>
     // Stops function execution and returns error message if any issues found
     if (document.querySelector('#workload-form')?.checkValidity() === false) {
       event.stopPropagation();
-      throw new Error('Form is invalid, please check required inputs and try again')
+      const errorMessage = document.getElementById('error-handler');
+      errorMessage.textContent = 'Form is invalid, please check required inputs and try again'
+      errorMessage.style.display = 'block';
+      console.log('form invalid!')
+      return;
     }
 
     // If no issues found, submit form and show thank you message
@@ -422,11 +437,11 @@ function hideMessageContainer() {
 bedLinks.forEach(bedLink => {
     bedLink.addEventListener("click", function (event) {
       // Get the bed ID
-      const bedId = bedLink.getAttribute("data-bed-id");
-  
+      const bedId = bedLink.getAttribute("id");
+      
       // Check if data exists for this bed ID in local storage
       const bedData = localStorage.getItem(`bed_${bedId}`);
-  
+
       if (!bedData) {
         // If does not exist, show the form
         currentFieldsetIndex = 0;
@@ -448,13 +463,13 @@ bedLinks.forEach(bedLink => {
         hideMessageContainer();
         showForm();
       } else {
+        console.log("data found, show message container")
         // If data exists, show the message container with saved data
         showMessageContainer();
         hideForm();
-        // parse the bedData? if it's stored as JSON in local storage
-        const parsedData = JSON.parse(bedData);
-        // populate message container with saved data
-        updateMessageContainerContent(parsedData)
+        // populate form with LS data, then populate message container with saved data
+        injectLSDataIntoForm(bedId)
+        summarizeFormInputs()
       }
     });
   });
