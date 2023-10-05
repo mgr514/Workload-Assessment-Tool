@@ -1,7 +1,8 @@
 
 ///////////////// GLOBALS FOR QUERY SELECTORS /////////////////////////////
 const thankYouMessage = document.getElementById("thank-you-message");
-const summaryDiv = document.getElementById("summary");
+const messageContainer = document.getElementById("message-container")
+
 const formElement = document.getElementById("workload-form")
 const nurseInput = document.querySelector('#nurses');
 
@@ -200,13 +201,7 @@ const unique_fields_array = [
 ];
 
 let workload_point_total = 0;
-letsubmittedFieldsets = 0;
-
-// Function to update the total workload tally in HTML
-function updateTotalWorkloadTally() {
-    const totalTallyParagraph = document.querySelector("#points-total");
-    totalTallyParagraph.textContent = `Total Tally: ${workload_point_total}`;
-  }
+let SubmittedFieldsets = 0;
 
 // Function to calculate total workload points
 function calculateWorkloadPoints() {
@@ -227,37 +222,61 @@ function calculateWorkloadPoints() {
     const workload_value = handleExtractUniqueValue(field_element);
     if (workload_value) workload_point_total += workload_value;
   });
-updateTotalWorkloadTally();
 
   console.log('The form has a total score of: ', workload_point_total);
 }
 
-// Function to show thank you message
-function showThankYouMessage() {
-  thankYouMessage.style.display = "block";
-
+// Function to show message container
+function showMessageContainer() {
+  messageContainer.style.display = "block";
   formElement.style.display = "none";
 
   // Display Total workload points in message
   const totalWorkloadElement = document.getElementById("total-workload");
-  totalWorkloadElement.textContent = workload_point_total;
+  totalWorkloadElement.textContent = `${workload_point_total}`;
 }
 
-//Function to show summary
-function showSummary () {
-summaryDiv.style.display = "block";
-formElement.style.display = "none";
+function summarizeFormInputs() {
+    // Initialize variables to store the summary and total workload
+    let summary = "";
+    let totalWorkload = 0;
+
+    // Iterate through each fieldset (assuming each fieldset corresponds to a tab)
+    const fieldsets = document.querySelectorAll('.workload-form');
+    fieldsets.forEach(fieldset => {
+        // Iterate through each input element within the fieldset
+        const inputs = fieldset.querySelectorAll('input[type="checkbox"]:checked, input[type="number"]');
+        inputs.forEach(input => {
+            const workloadValue = parseInt(input.getAttribute('workload-value')) || 0;
+            totalWorkload += workloadValue;
+
+            const labelText = fieldset.querySelector(`label[for="${input.id}"]`).textContent;
+            let inputValue = "";
+
+            if (input.type === "checkbox") {
+                inputValue = "Yes";
+            } else if (input.type === "number") {
+                inputValue = input.value;
+            }
+
+            // Append the input summary to the summary variable
+            summary += `${labelText}: ${inputValue}`;
+        });
+    });
 }
 
-//Function show form and hide thank you message
+    // Display the summary and total workload
+    const summaryContainer = document.getElementById('summary');
+    summaryContainer.innerHTML = summary;
+
+
+//Function show form and hide message container
 function showForm() {
-  thankYouMessage.style.display = "none";
-  summaryDiv.style.display = "none";
+  messageContainer.style.display = "none";
 
   const formElement = document.getElementById("workload-form");
   formElement.style.display = "block";
 }
-
 
 // ====================================================================================================
 // Click Handlers
@@ -334,18 +353,16 @@ function showForm() {
          console.log('handle submission')
          saveDataToLocalStorage()
          calculateWorkloadPoints();
-         showThankYouMessage();
-         showSummary();
+         showMessageContainer();
  
          // If on the last fieldset, submit the form
          writeFormDataToLS() }
   }
 
 // Function to hide the "Thank You" message
-function hideThankYouMessage() {
-    const thankYouMessage = document.getElementById('thank-you-message');
-    if (thankYouMessage) {
-      thankYouMessage.classList.add('hidden');
+function hideMessageContainer() {
+    if (messageContainer) {
+      messageContainer.classList.add('hidden');
     }
   }
 
@@ -356,28 +373,6 @@ function hideThankYouMessage() {
 //       console.log('submit button displayed')
 //     }
 //   }
-
-//   function createSubmitButton() {
-//     const submitButtonContainer = document.getElementById('submit-button-container');
-  
-//     // Check if the container already has a submit button
-//     const existingSubmitButton = document.getElementById('submit-button');
-//     if (!existingSubmitButton) {
-//       const newSubmitButton = document.createElement('button');
-//       newSubmitButton.id = 'submit-button';
-//       newSubmitButton.textContent = 'Submit';
-  
-//       // Add a click event listener to the submit button
-//       newSubmitButton.addEventListener('click', function () {
-//         // Add your submit button click logic here
-//         console.log('Submit button clicked');
-//       });
-  
-//       // Append the new submit button to the container
-//       submitButtonContainer.appendChild(newSubmitButton);
-//     }
-// }
-
 
   // Attach a click event listener to the Bed link
   
@@ -399,10 +394,9 @@ function hideThankYouMessage() {
           }
         });
           event.preventDefault()
-          hideThankYouMessage();
+          hideMessageContainer();
           //show form again
           showForm();
-          //createSubmitButton();
       })
     })
 
@@ -412,46 +406,7 @@ function hideThankYouMessage() {
     //you hit the enter button you can move through the fields. the button is just
     //not visible. Though the button itself does not have hidden properties, the fieldsets
     //do, but they're removed because the form is visible. I have reached an impasse.
-
-  //function showForm() {
-    //Check localStorage keys for bed id
-    // const bed_Id = localStorage.getItem('bed_id');
-
-    // if bed id doesn't exist, show form
-   
-    // if (!bed_Id) {
-    //     currentFieldsetIndex = 0;
-    //     fieldsets.forEach((fieldset, index) => {
-    //       if (index === 0) {
-    //         fieldset.classList.remove('hidden');
-    //       } else {
-    //         fieldset.classList.add('hidden');
-    //       }
-    //     });
-    //     allFormTabs.forEach((element, index) => {
-    //       if (index === 0) {
-    //         element.classList.add('active-tab');
-    //       } else {
-    //         element.classList.remove('active-tab');
-    //       }
-    //     });
-    //     hideThankYouMessage();
-    //   } else {
-      // Create an HTML list to display the selected inputs
-    //         const list = document.createElement('ul');
-
-    //  // Iterate through the bedData and add each selected input to the list
-    //         bedData.selectedInputs.forEach((inputLabel) => {
-    //         const listItem = document.createElement('li');
-    //         listItem.textContent = inputLabel;
-    //         list.appendChild(listItem);
-    //         });
-
-    //         // Clear the summary div and append the list
-    //         summaryDiv.innerHTML = '';
-    //         summaryDiv.appendChild(list);
-      
-
+  
 
 // ====================================================================================================
 // Submission Handlers
@@ -667,8 +622,11 @@ function saveDataToLocalStorage() {
 
 
 
+///////////////////////////////////////////////////////////////////////////
+///Currently Not used Code! ///////////////////////////////////////
 
 
+/////////////////Error message for not filled nurse field/////////////////////
 // // Add an event listener to the form's submit event
 // document.addEventListener('DOMContentLoaded', function () {
 //     // Add an event listener to the form's submit event
@@ -687,3 +645,72 @@ function saveDataToLocalStorage() {
 // });
 
 
+
+////////////// Function to update the total workload tally in HTML/////////////
+// // Initialize an array to store bed space data
+// const bedLink = [];
+
+// // Function to calculate total workload points
+// function calculateWorkloadPoints() {
+//   // Reset total workload points
+//   let totalWorkloadPoints = 0;
+
+//   // Iterate through each bed space
+//   bedSpaces.forEach(bedSpace => {
+//     // Calculate the workload points for this bed space
+//     let bedSpacePoints = 0;
+
+//     // Calculate workload points for checkboxes in this bed space
+//     const checkboxes = bedSpace.querySelectorAll('[workload-value]');
+//     checkboxes.forEach(checkbox => {
+//       if (checkbox.checked) {
+//         const workloadValue = Number(checkbox.getAttribute('workload-value'));
+//         bedSpacePoints += workloadValue;
+//       }
+//     });// Totalize the inputs of all free form number input fields in this bed space
+//     const uniqueFields = bedSpace.querySelectorAll('[unique-field]');
+//     uniqueFields.forEach(field_element => {
+//       const workloadValue = handleExtractUniqueValue(field_element);
+//       if (workloadValue) bedSpacePoints += workloadValue;
+//     });
+
+//     // Update the total workload points for this bed space
+//     bedSpace.dataset.workloadPoints = bedSpacePoints;
+
+//     // Add the bed space's workload points to the total
+//     totalWorkloadPoints += bedSpacePoints;
+//   });// Update the total workload tally
+//   updateTotalWorkloadTally(totalWorkloadPoints);
+// }
+
+// // Function to update the total workload tally in HTML
+// function updateTotalWorkloadTally(totalWorkloadPoints) {
+//   const totalTallyParagraph = document.querySelector("#points-total");
+//   totalTallyParagraph.textContent = `Total Tally: ${totalWorkloadPoints}`;
+// }
+
+
+/////////////////////Show summary for beds with completed form/////////////
+//function showForm() {
+    //Check localStorage keys for bed id
+    // const bed_Id = localStorage.getItem('bed_id');
+
+    // if bed id doesn't exist, show form
+   
+    // if (!bed_Id) {
+  
+    //   } else {
+      // Create an HTML list to display the selected inputs
+    //         const list = document.createElement('ul');
+
+    //  // Iterate through the bedData and add each selected input to the list
+    //         bedData.selectedInputs.forEach((inputLabel) => {
+    //         const listItem = document.createElement('li');
+    //         listItem.textContent = inputLabel;
+    //         list.appendChild(listItem);
+    //         });
+
+    //         // Clear the summary div and append the list
+    //         summaryDiv.innerHTML = '';
+    //         summaryDiv.appendChild(list);
+      
