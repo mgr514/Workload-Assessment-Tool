@@ -1,5 +1,6 @@
 //Current Issues: the submission button disappears after first form submission, is not there for any other beds
 //no validation message for nurse field
+//I want the new forms to forget previous submissions (for now)
 
 
 
@@ -9,7 +10,6 @@
 ///////////////// GLOBALS FOR QUERY SELECTORS /////////////////////////////
 const thankYouMessage = document.getElementById("thank-you-message");
 const messageContainer = document.getElementById("message-container")
-
 const formElement = document.getElementById("workload-form")
 const nurseInput = document.querySelector('#nurses');
 
@@ -280,13 +280,13 @@ function summarizeFormInputs() {
     }
 });
 });
-        // Update the summary div with the generated summary text
-        const summaryElement = document.getElementById('summary');
-        summaryElement.innerHTML = `<ul>${summary}</ul>`; 
+    // Create the title for the summary
+    const title = "Input Summary";
+
+    // Update the summary div with the generated summary text and title
+    const summaryElement = document.getElementById('summary');
+    summaryElement.innerHTML = `<h2>${title}</h2><ul>${summary}</ul>`;
 }
-
-
-
 
 //Function show form and hide message container
 function showForm() {
@@ -384,25 +384,90 @@ const handleButtonClick = (event) =>
   }
 }
 
-// Function to hide the "Thank You" message
+// Function to hide the  message container
 function hideMessageContainer() {
     if (messageContainer) {
       messageContainer.classList.add('hidden');
     }
   }
 
-//   function showSubmitButton() {
-//     const submitButton = document.getElementById('submit-button');
-//     if (submitButton) {
-//       submitButton.style.display = 'flex';
-//       console.log('submit button displayed')
-//     }
-//   }
-
-  // Attach a click event listener to the Bed link
+//   // Attach a click event listener to the Bed link
+//This code works but doesn't include the data callbak functions
   
-      bedLinks.forEach(bedLink => {
-      bedLink.addEventListener("click", function (event) {
+//       bedLinks.forEach(bedLink => {
+//       bedLink.addEventListener("click", function (event) {
+//         currentFieldsetIndex = 0;
+//         fieldsets.forEach((fieldset, index) => {
+//           if (index === 0) {
+//             fieldset.classList.remove('hidden');
+//           } else {
+//             fieldset.classList.add('hidden');
+//           }
+//         });
+//         allFormTabs.forEach((element, index) => {
+//           if (index === 0) {
+//             element.classList.add('active-tab');
+//           } else {
+//             element.classList.remove('active-tab');
+//           }
+//         });
+//           event.preventDefault()
+//           hideMessageContainer();
+//           //show form again
+//           showForm();
+//       })
+//     })
+
+bedLinks.forEach(bedLink => {
+    bedLink.addEventListener("click", function (event) {
+      // Get the bed ID
+      const bedId = bedLink.getAttribute("data-bed-id");
+  
+      // Check if data exists for this bed ID in local storage
+      const bedData = localStorage.getItem(`bed_${bedId}`);
+  
+      if (!bedData) {
+        // If does not exist, show the form
+        currentFieldsetIndex = 0;
+        fieldsets.forEach((fieldset, index) => {
+          if (index === 0) {
+            fieldset.classList.remove('hidden');
+          } else {
+            fieldset.classList.add('hidden');
+          }
+        });
+        allFormTabs.forEach((element, index) => {
+          if (index === 0) {
+            element.classList.add('active-tab');
+          } else {
+            element.classList.remove('active-tab');  }
+        });
+        console.log("no data found, new form")
+        event.preventDefault();
+        hideMessageContainer();
+        showForm();
+      } else {
+        // If data exists, show the message container with saved data
+        showMessageContainer();
+        hideForm();
+        // parse the bedData? if it's stored as JSON in local storage
+        const parsedData = JSON.parse(bedData);
+        // populate message container with saved data
+        updateMessageContainerContent(parsedData)
+      }
+    });
+  });
+
+
+
+
+ /////////////////////// Show summary for beds with completed form/////////////
+function showForm() {
+    // Check localStorage keys for bed id
+     const bed_Id = localStorage.getItem('bed_id');
+
+    // if bed id doesn't exist, show form
+     if (!bed_Id) {
         currentFieldsetIndex = 0;
         fieldsets.forEach((fieldset, index) => {
           if (index === 0) {
@@ -418,19 +483,15 @@ function hideMessageContainer() {
             element.classList.remove('active-tab');
           }
         });
-          event.preventDefault()
-          hideMessageContainer();
-          //show form again
-          showForm();
-      })
-    })
-
-    //Here's the problem, the submit button is somehow there. I have trouble shooted
-    //this in every way possible that I could think of. I also tried to dynamically
-    //create a new button. The issue isn't that it's not there functionally. When
-    //you hit the enter button you can move through the fields. the button is just
-    //not visible. Though the button itself does not have hidden properties, the fieldsets
-    //do, but they're removed because the form is visible. I have reached an impasse.
+        hideMessageContainer();
+        
+       } else {
+      //show message container with saved data
+        showMessageContainer();
+        hideForm();
+        loadSavedDataForBed(bed_Id);
+       }
+    }
   
 
 // ====================================================================================================
@@ -712,28 +773,13 @@ function saveDataToLocalStorage() {
 //   totalTallyParagraph.textContent = `Total Tally: ${totalWorkloadPoints}`;
 // }
 
-
-/////////////////////Show summary for beds with completed form/////////////
-//function showForm() {
-    //Check localStorage keys for bed id
-    // const bed_Id = localStorage.getItem('bed_id');
-
-    // if bed id doesn't exist, show form
-   
-    // if (!bed_Id) {
-  
-    //   } else {
-      // Create an HTML list to display the selected inputs
-    //         const list = document.createElement('ul');
-
-    //  // Iterate through the bedData and add each selected input to the list
-    //         bedData.selectedInputs.forEach((inputLabel) => {
-    //         const listItem = document.createElement('li');
-    //         listItem.textContent = inputLabel;
-    //         list.appendChild(listItem);
-    //         });
-
-    //         // Clear the summary div and append the list
-    //         summaryDiv.innerHTML = '';
-    //         summaryDiv.appendChild(list);
       
+
+    ////////////////// Function for submit button ////////////////
+    //   function showSubmitButton() {
+//     const submitButton = document.getElementById('submit-button');
+//     if (submitButton) {
+//       submitButton.style.display = 'flex';
+//       console.log('submit button displayed')
+//     }
+//   }
