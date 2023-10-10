@@ -284,12 +284,16 @@ label {
     border: none;
 }
 
-#submit-button {
+.submission-wrapper {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    padding: 1em;
+ 
+}
+#submit-button {
+    padding: 1em 2em;
+    margin-left: auto;
     cursor: pointer;
-    padding: 0.6em 1.5em;
-    margin: 2em 2em 2em 80em;
     border: 2px solid var(--navy);
     border-radius: 5px;
     background-color: whitesmoke;
@@ -300,25 +304,18 @@ label {
     color: var(--white);
 }
 
-#submit-button {
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    padding: 0.6em 1.5em;
-    margin: 2em 2em 2em 80em;
-    border: 2px solid var(--navy);
-    border-radius: 5px;
-    background-color: whitesmoke;
-}
-
-#submit-button:hover {
-    background-color: var(--navy);
-    color: var(--white);
+#error-handler {
+    flex-grow: 1;
+    color: red;
+    font-weight: bolder;
+    margin-left: 0;
+    padding: 0.3em;
 }
 
 .hidden {
     display:none;
 }
+
 .message-container {
     display: flex;
     flex-direction: column;

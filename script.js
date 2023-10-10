@@ -1,10 +1,5 @@
-//Current Issues: the submission button disappears after first form submission, is not there for any other beds
 //no validation message for nurse field
-//I want the new forms to forget previous submissions (for now)
-//issue with data storage, not remembering previously entered data.
-
-
-
+//issue with data storage
 
 
 
@@ -13,6 +8,33 @@ const thankYouMessage = document.getElementById("thank-you-message");
 const messageContainer = document.getElementById("message-container")
 const formElement = document.getElementById("workload-form")
 const nurseInput = document.querySelector('#nurses');
+const bedLinks = document.querySelectorAll('.bed-link');
+const fieldsets = document.querySelectorAll('.workload-form');
+const formFieldset = document.querySelectorAll('fieldset')
+
+const assess_collab_link = document.getElementById("assess-collab-tab");
+const fieldsetAssessCollab = document.getElementById("assess-collab-form");
+
+const basic_care_link = document.getElementById('basic-care-tab');
+const fieldsetBasicCare = document.getElementById("basic-care-form");
+
+const monitor_eval_link = document.getElementById("monitor-eval-tab");
+const fieldsetMonitorEval = document.getElementById("monitor-eval-form");
+
+const nurse_int_link = document.getElementById("nurse-int-tab");
+const fieldsetNurseIntervention = document.getElementById("nurse-int-form");
+
+const other_int_link = document.getElementById("other-int-tab");
+const fieldsetOtherIntervention = document.getElementById("other-int-form");
+
+const meetings = document.getElementById("meetings");
+const arrest = document.getElementById("arrest");
+const complexdsg = document.getElementById("complexdsg");
+const burn_care = document.getElementById("burn-care");
+const transport = document.getElementById("transport");
+const unplanned = document.getElementById("unplanned");
+
+const summaryElement = document.getElementById('summary');
 
 
 
@@ -72,8 +94,6 @@ shiftSelect.addEventListener("change", () => {
 
 
 ////////////////////Adds functionality to Bed links///////////////////////////////
-const bedLinks = document.querySelectorAll('.bed-link');
-
 document.addEventListener("DOMContentLoaded", function () {
 
   bedLinks.forEach(function (bedLink) {
@@ -95,21 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 ////////////////////// Adds functionality to form tabs//////////////////////////////
-const assess_collab_link = document.getElementById("assess-collab-tab");
-const fieldsetAssessCollab = document.getElementById("assess-collab-form");
-
-const basic_care_link = document.getElementById('basic-care-tab');
-const fieldsetBasicCare = document.getElementById("basic-care-form");
-
-const monitor_eval_link = document.getElementById("monitor-eval-tab");
-const fieldsetMonitorEval = document.getElementById("monitor-eval-form");
-
-const nurse_int_link = document.getElementById("nurse-int-tab");
-const fieldsetNurseIntervention = document.getElementById("nurse-int-form");
-
-const other_int_link = document.getElementById("other-int-tab");
-const fieldsetOtherIntervention = document.getElementById("other-int-form");
-
 const allFormTabs = [
   assess_collab_link,
   basic_care_link,
@@ -189,14 +194,6 @@ const handleExtractUniqueValue = (field_element) => {
 }
 
 
-const meetings = document.getElementById("meetings");
-const arrest = document.getElementById("arrest");
-const complexdsg = document.getElementById("complexdsg");
-const burn_care = document.getElementById("burn-care");
-const transport = document.getElementById("transport");
-const unplanned = document.getElementById("unplanned");
-
-
 // combine all unique fields into an array so we can operate on them all as a group with the generic callback function above
 const unique_fields_array = [
   meetings,
@@ -257,7 +254,6 @@ function summarizeFormInputs() {
     let totalWorkload = 0;
 
     // Iterate through each fieldset (assuming each fieldset corresponds to a tab)
-    const fieldsets = document.querySelectorAll('.workload-form');
     fieldsets.forEach(fieldset => {
         // Iterate through each input element within the fieldset
         const inputs = fieldset.querySelectorAll('input[type="checkbox"]:checked, input[type="number"]');
@@ -288,7 +284,6 @@ function summarizeFormInputs() {
     const title = "Input Summary";
 
     // Update the summary div with the generated summary text and title
-    const summaryElement = document.getElementById('summary');
     summaryElement.innerHTML = `<h2>${title}</h2><ul>${summary}</ul>`;
 }
 
@@ -313,7 +308,6 @@ function hideForm() {
 // ====================================================================================================
 
 //Allows submit button to flow user into next fieldset
-const fieldsets = document.querySelectorAll('fieldset');
 let submittedFieldsets = 0;
 let meetingsValue = 0
 let arrestValue = 0
@@ -375,7 +369,7 @@ const handleButtonClick = (event) =>
     if (document.querySelector('#workload-form')?.checkValidity() === false) {
       event.stopPropagation();
       const errorMessage = document.getElementById('error-handler');
-      errorMessage.textContent = 'Form is invalid, please check required inputs and try again'
+      errorMessage.textContent = 'Nurse entry is invalid, please check entry and try again'
       errorMessage.style.display = 'block';
       console.log('form invalid!')
       return;
@@ -407,41 +401,15 @@ function hideMessageContainer() {
     }
   }
 
-//   // Attach a click event listener to the Bed link
-//This code works but doesn't include the data callbak functions
-  
-//       bedLinks.forEach(bedLink => {
-//       bedLink.addEventListener("click", function (event) {
-//         currentFieldsetIndex = 0;
-//         fieldsets.forEach((fieldset, index) => {
-//           if (index === 0) {
-//             fieldset.classList.remove('hidden');
-//           } else {
-//             fieldset.classList.add('hidden');
-//           }
-//         });
-//         allFormTabs.forEach((element, index) => {
-//           if (index === 0) {
-//             element.classList.add('active-tab');
-//           } else {
-//             element.classList.remove('active-tab');
-//           }
-//         });
-//           event.preventDefault()
-//           hideMessageContainer();
-//           //show form again
-//           showForm();
-//       })
-//     })
 
 bedLinks.forEach(bedLink => {
     bedLink.addEventListener("click", function (event) {
       // Get the bed ID
       const bedId = bedLink.getAttribute("id");
-      
+  
       // Check if data exists for this bed ID in local storage
       const bedData = localStorage.getItem(`bed_${bedId}`);
-
+  
       if (!bedData) {
         // If does not exist, show the form
         currentFieldsetIndex = 0;
@@ -473,9 +441,6 @@ bedLinks.forEach(bedLink => {
       }
     });
   });
-
-  //this seems to be working except there's an issue in the data storage
-  //It is not remembering data saved to bed 1
   
 
 // ====================================================================================================
@@ -507,30 +472,39 @@ const writeFormDataToLS = () => {
   // set the objects bed_id property to the correct value
   data_to_store.bed_id = current_link_id;
 
-  // grab all the inputs in a specific form section
-  const assessment_inputs = Array.from(assessCollabForm.querySelectorAll('input'))
-
   // Iterate through all the fields and extract the relevant info from each
   // NOTE: map and forEach are nearly identical, except map MUST explicitly return a value
-  assessment_inputs.map(
-    input => {
-      // if we have a checkbox, extract the checked state into a boolean value
-      if (input.type === 'checkbox') {
-        return data_to_store.assessment_form_values[input.name] = {
-          value: input.checked ? true : false,
-          type: 'checkbox'
-        }
-      }
-      // if we have a text field, force the value into a Number type.
-      else if (input.type === 'text') {
-        return data_to_store.assessment_form_values[input.name] = {
-          value: Number(input.value) ?? 0,
-          type: 'number'
-        }
-      }
-      else return console.log(`Error extracting data from ${input.name}`)
+// Use map to extract data from each form section (fieldset)
+const fieldsets = Array.from(document.querySelectorAll('.workload-form'));
+const formDataArray = fieldsets.map(fieldset => {
+  // grab all the inputs in the current form section
+  const inputs = Array.from(fieldset.querySelectorAll('input[type="checkbox"]:checked, input[type="number"]'));
+
+  // Create an object to store data for this form section
+  const sectionData = {};
+
+  // Iterate through all the fields and extract the relevant info from each
+  inputs.forEach(input => {
+    // if we have a checkbox, extract the checked state into a boolean value
+    if (input.type === 'checkbox') {
+      sectionData[input.name] = {
+        value: input.checked,
+        type: 'checkbox'
+      };
     }
-  )
+    // if we have a text field, force the value into a Number type.
+    else if (input.type === 'text') {
+      sectionData[input.name] = {
+        value: Number(input.value) || 0,
+        type: 'number'
+      };
+    }
+    else {
+      console.log(`Error extracting data from ${input.name}`);
+    }
+  });
+  return sectionData;
+});
 
   const localStorageKey = `bed_${current_link_id}`;
   localStorage.setItem(localStorageKey, JSON.stringify(data_to_store));
@@ -553,14 +527,14 @@ const injectLSDataIntoForm = (bed_id) => {
   const current_form_data = JSON.parse(bed_data);
 
   // checks if a particualr form section exists in our LS data
-  if (current_form_data.assessment_form_values) {
+  if (current_form_data.form_values) {
     // grab all the inputs in a specific form section
-    const assessment_inputs = Array.from(assessCollabForm.querySelectorAll('input'))
+    const inputs = Array.from(fieldset.querySelectorAll('input'))
 
     // Iterate through our form inputs and populate each one with it's corresponding LS value
-    assessment_inputs.forEach(
+    inputs.forEach(
       input => {
-        const ls_data = current_form_data.assessment_form_values[input.name] ?? null
+        const ls_data = current_form_data.form_values[input.name] ?? null
         if (ls_data) {
           if (input.type === 'checkbox') {
             input.checked = ls_data.value
@@ -619,105 +593,6 @@ function saveDataToLocalStorage(bed_id) {
 }
 
 
-// // JSON object for testing
-// const random_data = {
-//   someKey: 'some value',
-//   someFunction: () => {console.log('this')},
-//   someOtherKey: 100,
-//   nested_data: {
-//     someKey: 200,
-//     someOtherFunction: () => {console.log('that')}
-//   }
-// }
-
-
-// //DATE JSON
-//  const dateData = {
-//     date: formattedDate,
-//  };
-
-
-// //BED LINKS JSON
-//  const bedLinks_data = {
-//      bedLinks: 'bed-link',
-//      document.getElementById('bed-link').addEventListener('click' => {console.log(bedLinks_data)}
-//  )};
-
-
-//INPUT FIELDS JSON
-// const inputFields_data = {
-//   nurse_field: {
-//     type: 'number',
-//     label: 'nurses',
-//     value: '',
-//   },
-//   shift_select: {
-//     type: '',
-//     label: 'shift-select',
-//     value: '',
-//   },
-//   meetings_field: {
-//     type: 'number',
-//     label: 'meetings',
-//     value: '',
-//   },
-//   arrest_field: {
-//     type: 'number',
-//     label: 'arrest',
-//     value: '',
-//   },
-//   complexdsg_field: {
-//     type: 'number',
-//     label: 'complexdsg',
-//     value: '',
-//   },
-//   burn_field: {
-//     type: 'number',
-//     label: 'burn-care',
-//     value: '',
-//   },
-//   transport_field: {
-//     type: 'number',
-//     label: 'transport',
-//     value: '',
-//   },
-//   unplanned_field: {
-//     type: 'number',
-//     label: 'unplanned',
-//     value: '',
-//   },
-//   checkbox: {
-//     type: 'checkbox',
-//     checked: false,
-//   }
-// };
-
-
-
-///////////////////////////////////////////////////////////////////////////
-///Currently Not used Code! ///////////////////////////////////////
-
-
-/////////////////Error message for not filled nurse field/////////////////////
-// // Add an event listener to the form's submit event
-// document.addEventListener('DOMContentLoaded', function () {
-//     // Add an event listener to the form's submit event
-//     document.getElementById('nurse-form').addEventListener('submit', function (e) {
-//         // Get the value of the "Nurses" input field
-//         var nursesInput = document.getElementById('nurses').value;
-
-//         // Check if the input is empty or not a number
-//         if (nursesInput === "" || isNaN(nursesInput)) {
-//             // Prevent the form from submitting
-//console.log ('error message validated")
-//             e.preventDefault();
-//             alert("Please enter a valid number of nurses.");
-//         }
-//     });
-// });
-
-
-
 ////////////// Function to update the total workload tally in HTML/////////////
 // // Initialize an array to store bed space data
 // const bedLink = [];
@@ -760,18 +635,6 @@ function saveDataToLocalStorage(bed_id) {
 //   const totalTallyParagraph = document.querySelector("#points-total");
 //   totalTallyParagraph.textContent = `Total Tally: ${totalWorkloadPoints}`;
 // }
-
-      
-
-    ////////////////// Function for submit button ////////////////
-    //   function showSubmitButton() {
-//     const submitButton = document.getElementById('submit-button');
-//     if (submitButton) {
-//       submitButton.style.display = 'flex';
-//       console.log('submit button displayed')
-//     }
-//   }
-
 
 
 
