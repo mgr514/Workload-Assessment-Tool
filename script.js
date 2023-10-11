@@ -424,13 +424,13 @@ bedLinks.forEach(bedLink => {
           } else {
             element.classList.remove('active-tab');  }
         });
-        console.log("no data found, new form")
+        console.log("Showing form for bed ID:", bedId)
         event.preventDefault();
-        injectLSDataIntoForm(bedId)
         hideMessageContainer();
         showForm();
       } else {
-        console.log("data found, show message container")
+        console.log("Data found for bed ID:", bedId)
+        console.log("bedData:", bedData)
         // If data exists, show the message container with saved data
         showMessageContainer();
         hideForm();
@@ -515,7 +515,8 @@ const injectLSDataIntoForm = (bed_id) => {
   // handle error if no id argument is passed
   if (!bed_id) throw new Error('no bed id provided to Form Population Method')
   // check if the bed_id exists in LS
-  const bed_data = localStorage.getItem(`bed_${bed_id}`);
+  const localStorageKey = `bed_${bed_id}`;
+  const bed_data = localStorage.getItem(localStorageKey);
   // handle error if the LS key doesn't exist
   if (!bed_data){
    console.log(`No form data exists for bed id ${bed_id}`);
