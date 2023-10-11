@@ -303,6 +303,13 @@ function hideForm() {
   formElement.style.display = "none";
 }
 
+// Function to hide the  message container
+function hideMessageContainer() {
+  if (messageContainer) {
+    messageContainer.classList.add('hidden');
+  }
+}
+
 // ====================================================================================================
 // Click Handlers
 // ====================================================================================================
@@ -318,7 +325,6 @@ let unplannedValue = 0
 
 // Global variable for tracking the array index of the current form tab
 let currentFieldsetIndex = 0;
-
 
 // const allFormTabs = document.querySelectorAll('.form-tabs');
 
@@ -383,7 +389,6 @@ const handleButtonClick = (event) =>
     showMessageContainer();
    
 
-
     // If on the last fieldset, submit the form
     writeFormDataToLS()
     
@@ -393,13 +398,6 @@ const handleButtonClick = (event) =>
     nextFieldset();
   }
 }
-
-// Function to hide the  message container
-function hideMessageContainer() {
-    if (messageContainer) {
-      messageContainer.classList.add('hidden');
-    }
-  }
 
 
 bedLinks.forEach(bedLink => {
