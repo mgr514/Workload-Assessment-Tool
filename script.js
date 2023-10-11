@@ -491,7 +491,7 @@ const formDataArray = fieldsets.map(fieldset => {
       };
     }
     // if we have a text field, force the value into a Number type.
-    else if (input.type === 'text') {
+    else if (input.type === 'number') {
       sectionData[input.name] = {
         value: Number(input.value) || 0,
         type: 'number'
