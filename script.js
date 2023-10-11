@@ -426,6 +426,7 @@ bedLinks.forEach(bedLink => {
         });
         console.log("no data found, new form")
         event.preventDefault();
+        injectLSDataIntoForm(bedId)
         hideMessageContainer();
         showForm();
       } else {
@@ -513,17 +514,13 @@ const formDataArray = fieldsets.map(fieldset => {
 const injectLSDataIntoForm = (bed_id) => {
   // handle error if no id argument is passed
   if (!bed_id) throw new Error('no bed id provided to Form Population Method')
-
   // check if the bed_id exists in LS
   const bed_data = localStorage.getItem(`bed_${bed_id}`);
-
-
   // handle error if the LS key doesn't exist
   if (!bed_data){
    console.log(`No form data exists for bed id ${bed_id}`);
    return;
   }
-
   // extracts form data from LS after we verify that exists above
   const current_form_data = JSON.parse(bed_data);
 
