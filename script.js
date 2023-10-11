@@ -519,30 +519,32 @@ const injectLSDataIntoForm = (bed_id) => {
 
 
   // handle error if the LS key doesn't exist
-  if (!bed_data) return console.log(`No form data exists for bed id ${bed_id}`);
+  if (!bed_data){
+   console.log(`No form data exists for bed id ${bed_id}`);
+   return;
+  }
 
   // extracts form data from LS after we verify that exists above
   const current_form_data = JSON.parse(bed_data);
 
-  // checks if a particualr form section exists in our LS data
-  if (current_form_data.form_values) {
-    // grab all the inputs in a specific form section
-    const inputs = Array.from(fieldset.querySelectorAll('input'))
-
-    // Iterate through our form inputs and populate each one with it's corresponding LS value
-    inputs.forEach(
-      input => {
-        const ls_data = current_form_data.form_values[input.name] ?? null
-        if (ls_data) {
-          if (input.type === 'checkbox') {
-            input.checked = ls_data.value
-          }
-          if (input.type === 'text') {
-            input.value = ls_data.value
-          }
+  if (current_form_data && current_form_data.form_values) {
+    // Grab all the inputs in a specific form section
+    const inputs = Array.from(fieldset.querySelectorAll('input'));
+  
+    // Iterate through our form inputs and populate each one with its corresponding LS value
+    inputs.forEach((input) => {
+      const ls_data = current_form_data.form_values[input.name] ?? null;
+      if (ls_data) {
+        if (input.type === 'checkbox') {
+          input.checked = ls_data.value;
+        }
+        if (input.type === 'text') {
+          input.value = ls_data.value;
         }
       }
-    )
+    });
+  } else {
+    console.log(`No form data exists for bed id ${bed_id}`);
   }
 }
 
