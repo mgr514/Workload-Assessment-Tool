@@ -448,66 +448,61 @@ bedLinks.forEach(bedLink => {
 
 // Grabs the current form data and stores it to LS on submit
 const writeFormDataToLS = () => {
+  const current_link = document.querySelector('.bed-link.active');
+  if (!current_link) {
+    console.error("No active bed link found");
+    return;
+  }
+  const current_link_id = current_link.getAttribute("id");
+
   // create a new object to store our form data in
   const data_to_store = {
-    bed_id: undefined,
+    bed_id: current_link_id,
     assessment_form_values: {}
   };
-
-  // convert NodeList to array so we can use Prototype methods
-  const bedLinksArray = Array.from(bedLinks);
-
-  // determine the current bed_id from bedlinks
-  const current_link_id = bedLinksArray.find(
-    (link) => {
-      if (link.classList.contains('active')) {
-        const bed_id = link.getAttribute("id");
-        return link;
-      }
-      else return null
-    }
-  )?.getAttribute('id')
-
-  // set the objects bed_id property to the correct value
-  data_to_store.bed_id = current_link_id;
 
   // Iterate through all the fields and extract the relevant info from each
   // NOTE: map and forEach are nearly identical, except map MUST explicitly return a value
 // Use map to extract data from each form section (fieldset)
 const fieldsets = Array.from(document.querySelectorAll('.workload-form'));
-const formDataArray = fieldsets.map(fieldset => {
-  // grab all the inputs in the current form section
-  const inputs = Array.from(fieldset.querySelectorAll('input[type="checkbox"]:checked, input[type="number"]'));
+  const bedDataArray = fieldsets.map(fieldset => {
+    // grab all the inputs in the current form section
+    const inputs = Array.from(fieldset.querySelectorAll('input[type="checkbox"]:checked, input[type="number"]'));
 
-  // Create an object to store data for this form section
-  const sectionData = {};
+    // Create an object to store data for this form section
+    const sectionData = {};
 
-  // Iterate through all the fields and extract the relevant info from each
-  inputs.forEach(input => {
-    // if we have a checkbox, extract the checked state into a boolean value
-    if (input.type === 'checkbox') {
-      sectionData[input.name] = {
-        value: input.checked,
-        type: 'checkbox'
-      };
-    }
-    // if we have a text field, force the value into a Number type.
-    else if (input.type === 'number') {
-      sectionData[input.name] = {
-        value: Number(input.value) || 0,
-        type: 'number'
-      };
-    }
-    else {
-      console.log(`Error extracting data from ${input.name}`);
-    }
-  });
-  return sectionData;
-});
+    // Iterate through all the fields and extract the relevant info from each
+    inputs.forEach(input => {
+      // if we have a checkbox, extract the checked state into a boolean value
+      if (input.type === 'checkbox') {
+        sectionData[input.name] = {
+          value: input.checked,
+          type: 'checkbox'
+        };
+      }
+      // if we have a text field, force the value into a Number type.
+      else if (input.type === 'number') {
+        sectionData[input.name] = {
+          value: Number(input.value) || 0,
+          type: 'number'
+        };
+      }});
 
-  const localStorageKey = `bed_${current_link_id}`;
-  localStorage.setItem(localStorageKey, JSON.stringify(data_to_store));
-};
+      return { [fieldset.id]: sectionData };
+    });
+  
+    // Combine the data for each form section into a single object
+    bedDataArray.forEach(sectionData => {
+      data_to_store.assessment_form_values = { ...data_to_store.assessment_form_values, ...sectionData };
+    });
+  
+    // Generate a unique key for this data entry using the bed_id
+    const localStorageKey = `bed_${current_link_id}`;
+    
+    // Save the data to Local Storage under the unique key
+    localStorage.setItem(localStorageKey, JSON.stringify(data_to_store));
+  };
 
 
 // Prepopulate Field Data when a particular bed link is clicked
@@ -531,7 +526,7 @@ const injectLSDataIntoForm = (bed_id) => {
   
     // Iterate through our form inputs and populate each one with its corresponding LS value
     inputs.forEach((input) => {
-      const ls_data = current_form_data.form_values[input.name] ?? null;
+      const ls_data = current_form_data.form_values[input.name] || null;
       if (ls_data) {
         if (input.type === 'checkbox') {
           input.checked = ls_data.value;
@@ -557,7 +552,7 @@ function saveDataToLocalStorage(bed_id) {
   const selectedBed = document.querySelector('.bed-link.active').textContent;
   const selectedShift = document.getElementById('shift-select').value;
   const numberOfNurses = parseFloat(document.getElementById('nurses').value);
-  const bed_data = localStorage.getItem(`bed_${bed_id}`);
+  //const bed_data = localStorage.getItem(`bed_${bed_id}`);
 
 
   //Get value from checkboxes
@@ -584,11 +579,34 @@ function saveDataToLocalStorage(bed_id) {
     unplanned: unplannedValue,
   };
   // Generate a unique key for this data entry
-  const localStorageKey = `${selectedBed}-${selectedShift}-${new Date().getTime()}`;
+  const localStorageKey = `bed_${bed_id}`
+  //const localStorageKey = `${selectedBed}-${selectedShift}-${new Date().getTime()}`;
 
   // Save the data to Local Storage
-  localStorage.setItem(`bed_${bed_id}`, JSON.stringify(dataToSave));
+  localStorage.setItem(localStorageKey, JSON.stringify(dataToSave))
+  //localStorage.setItem(`bed_${bed_id}`, JSON.stringify(dataToSave));
 }
+
+
+
+/////////write form to LS piece
+  // // convert NodeList to array so we can use Prototype methods
+  // const bedLinksArray = Array.from(bedLinks);
+
+  // // determine the current bed_id from bedlinks
+  // const current_link_id = bedLinksArray.find(
+  //   (link) => {
+  //     if (link.classList.contains('active')) {
+  //       const bed_id = link.getAttribute("id");
+  //       return link;
+  //     }
+  //     else return null
+  //   }
+  // )?.getAttribute('id')
+
+  // set the objects bed_id property to the correct value
+  //data_to_store.bed_id = current_link_id;
+
 
 
 ////////////// Function to update the total workload tally in HTML/////////////
