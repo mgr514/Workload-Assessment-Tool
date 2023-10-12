@@ -2,12 +2,17 @@
 //issue with data storage
 
 
+// TODOS:
+// 1. Refactor Tally handling code (either treat it as a global or a property of the bed data in LS)
+// 2. Stretch Goal: Increase the clickable area for all checkboxes
+// 3. Stretch Goal: Remove duplicate scroll bars, just have your form sections be scrollable if required
 
 ///////////////// GLOBALS FOR QUERY SELECTORS /////////////////////////////
 const thankYouMessage = document.getElementById("thank-you-message");
 const messageContainer = document.getElementById("message-container")
 const formElement = document.getElementById("workload-form")
 const nurseInput = document.querySelector('#nurses');
+const totalTallyParagraph = document.querySelector("#points-total");
 const bedLinks = document.querySelectorAll('.bed-link');
 const fieldsets = document.querySelectorAll('.workload-form');
 const formFieldset = document.querySelectorAll('fieldset')
@@ -209,7 +214,6 @@ letsubmittedFieldsets = 0;
 
 // Function to update the total workload tally in HTML
 function updateTotalWorkloadTally() {
-  const totalTallyParagraph = document.querySelector("#points-total");
   totalTallyParagraph.textContent = `Total Tally: ${workload_point_total}`;
 }
 
@@ -249,45 +253,45 @@ function showMessageContainer() {
 
 ////////////////////// Summary /////////////////////////////////////////////////
 function summarizeFormInputs(bed_id) {
-      // Fetch data for the selected bed based on the bed_id
-      const localStorageKey = `bed_${bed_id}`;
-      const bedData = JSON.parse(localStorage.getItem(localStorageKey));
-    // Initialize variables to store the summary and total workload
-    let summary = "";
-    let totalWorkload = 0;
+  // Fetch data for the selected bed based on the bed_id
+  const localStorageKey = `bed_${bed_id}`;
+  const bedData = JSON.parse(localStorage.getItem(localStorageKey));
+  // Initialize variables to store the summary and total workload
+  let summary = "";
+  let totalWorkload = 0;
 
-    // Iterate through each fieldset (assuming each fieldset corresponds to a tab)
-    fieldsets.forEach(fieldset => {
-        // Iterate through each input element within the fieldset
-        const inputs = fieldset.querySelectorAll('input[type="checkbox"]:checked, input[type="number"]');
-        inputs.forEach(input => {
-            // Guard cluase to prevent rendering of empty number inputs
-            if (input.type === 'number' && !input.value ) return null
+  // Iterate through each fieldset (assuming each fieldset corresponds to a tab)
+  fieldsets.forEach(fieldset => {
+    // Iterate through each input element within the fieldset
+    const inputs = fieldset.querySelectorAll('input[type="checkbox"]:checked, input[type="number"]');
+    inputs.forEach(input => {
+      // Guard cluase to prevent rendering of empty number inputs
+      if (input.type === 'number' && !input.value) return null
 
-            const workloadValue = parseInt(input.getAttribute('workload-value')) || 0;
-            totalWorkload += workloadValue;
+      const workloadValue = parseInt(input.getAttribute('workload-value')) || 0;
+      totalWorkload += workloadValue;
 
-            const labelText = fieldset.querySelector(`label[for="${input.id}"]`).textContent;
-            let inputValue = "";
+      const labelText = fieldset.querySelector(`label[for="${input.id}"]`).textContent;
+      let inputValue = "";
 
-            if (input.type === "checkbox") {
-                inputValue = `${workloadValue} points`;
-            } else if (input.type === "number") {
-                inputValue = `${input.value} points`;
-            }
+      if (input.type === "checkbox") {
+        inputValue = `${workloadValue} points`;
+      } else if (input.type === "number") {
+        inputValue = `${input.value} points`;
+      }
 
-       // Check if the inputValue is not empty before appending it to the summary
-       if (inputValue !== "") {
+      // Check if the inputValue is not empty before appending it to the summary
+      if (inputValue !== "") {
         // Append the input summary to the summary variable
         summary += `<li>${labelText}: ${inputValue}</li>`;
-    }
-});
-});
-    // Create the title for the summary
-    const title = "Input Summary";
+      }
+    });
+  });
+  // Create the title for the summary
+  const title = "Input Summary";
 
-    // Update the summary div with the generated summary text and title
-    summaryElement.innerHTML = `<h2>${title}</h2><ul>${summary}</ul>`;
+  // Update the summary div with the generated summary text and title
+  summaryElement.innerHTML = `<h2>${title}</h2><ul>${summary}</ul>`;
 }
 
 //Function show form and hide message container
@@ -351,8 +355,7 @@ document.getElementById('submit-button').addEventListener(
 )
 
 //Callback handler to determine whether to submit the form or show the next section
-const handleButtonClick = (event) => 
-{
+const handleButtonClick = (event) => {
   // Prevent default form subission behaviour from DOM
   event.preventDefault();
 
@@ -373,12 +376,15 @@ const handleButtonClick = (event) =>
     //handle submission
     console.log('handle submission')
 
+    const errorMessage = document.getElementById('error-handler');
+
+    // TODO: Form Validity isn't resetting at any point?
+
     // Checks entire form object for any required fields that are missing or invalid
     // Stops function execution and returns error message if any issues found
-    if (document.querySelector('#workload-form')?.checkValidity() === false) {
+    if (!(Number(nurseInput.value) >= 3 && Number(nurseInput.value) <= 10)) {
       event.stopPropagation();
-      const errorMessage = document.getElementById('error-handler');
-      errorMessage.textContent = 'Nurse entry is invalid, please check entry and try again'
+      errorMessage.textContent = 'Nurse entry is invalid, should be between 3 and 10'
       errorMessage.style.display = 'block';
       console.log('form invalid!')
       return;
@@ -386,15 +392,16 @@ const handleButtonClick = (event) =>
 
     // If no issues found, submit form and show thank you message
     console.log('form valid!')
-    saveDataToLocalStorage()
+    errorMessage.style.display = 'none';
+    // saveDataToLocalStorage() // This method appears to be causing the errors
+    writeFormDataToLS() // This is the callback method we want to use for writing to LS
     calculateWorkloadPoints();
     summarizeFormInputs();
     showMessageContainer();
-   
+    formElement.reset();
+    workload_point_total = 0
+    updateTotalWorkloadTally();
 
-    // If on the last fieldset, submit the form
-    writeFormDataToLS()
-    
   } else {
     // Cycle to next fieldset
     console.log('cycle to next fieldset')
@@ -403,47 +410,56 @@ const handleButtonClick = (event) =>
 }
 
 
-bedLinks.forEach(bedLink => {
-    bedLink.addEventListener("click", function (event) {
-      // Get the bed ID
-      const bedId = bedLink.getAttribute("id");
-  
-      // Check if data exists for this bed ID in local storage
-      const bedData = localStorage.getItem(`bed_${bedId}`);
-  
-      if (!bedData) {
-        // If does not exist, show the form
-        currentFieldsetIndex = 0;
-        fieldsets.forEach((fieldset, index) => {
-          if (index === 0) {
-            fieldset.classList.remove('hidden');
-          } else {
-            fieldset.classList.add('hidden');
-          }
-        });
-        allFormTabs.forEach((element, index) => {
-          if (index === 0) {
-            element.classList.add('active-tab');
-          } else {
-            element.classList.remove('active-tab');  }
-        });
-        console.log("Showing form for bed ID:", bedId)
-        event.preventDefault();
-        hideMessageContainer();
-        showForm();
+const handleRetrieveFormStateFromLS = (bedId = 'bed_1') => {
+  // Check if data exists for this bed ID in local storage
+  const bedData = localStorage.getItem(bedId);
+
+  if (!bedData) {
+    // If does not exist, show the form
+    currentFieldsetIndex = 0;
+    fieldsets.forEach((fieldset, index) => {
+      if (index === 0) {
+        fieldset.classList.remove('hidden');
       } else {
-        console.log("Data found for bed ID:", bedId)
-        console.log("bedData:", bedData)
-        // If data exists, show the message container with saved data
-        showMessageContainer();
-        hideForm();
-        // populate form with LS data, then populate message container with saved data
-        injectLSDataIntoForm(bedId)
-        summarizeFormInputs(bedId)
+        fieldset.classList.add('hidden');
       }
     });
+    allFormTabs.forEach((element, index) => {
+      if (index === 0) {
+        element.classList.add('active-tab');
+      } else {
+        element.classList.remove('active-tab');
+      }
+    });
+    console.log("Showing form for bed ID:", bedId)
+    event.preventDefault();
+    hideMessageContainer();
+    formElement.reset(); // Could replace this with a method to preserve desired field state
+    showForm();
+  } else {
+    console.log("Data found for bed ID:", bedId)
+    // If data exists, show the message container with saved data
+    showMessageContainer();
+    hideForm();
+    // populate form with LS data, then populate message container with saved data
+    injectLSDataIntoForm(bedId)
+    summarizeFormInputs(bedId)
+  }
+}
+
+window.addEventListener('load', () => {
+  handleRetrieveFormStateFromLS('bed_1');
+});
+
+bedLinks.forEach(bedLink => {
+  bedLink.addEventListener("click", function (event) {
+    // Get the bed ID
+    const bedId = bedLink.getAttribute("id");
+
+    handleRetrieveFormStateFromLS(bedId);
   });
-  
+});
+
 
 // ====================================================================================================
 // Submission Handlers
@@ -458,16 +474,23 @@ const writeFormDataToLS = () => {
   }
   const current_link_id = current_link.getAttribute("id");
 
+  const selectedShift = document.getElementById('shift-select').value ?? 'day';
+  const numberOfNurses = parseFloat(nurseInput.value) ?? 3;
+
   // create a new object to store our form data in
-  const data_to_store = {
+  let data_to_store = {
     bed_id: current_link_id,
-    assessment_form_values: {}
+    date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    shift: selectedShift,
+    numberOfNurses: numberOfNurses,
   };
 
   // Iterate through all the fields and extract the relevant info from each
   // NOTE: map and forEach are nearly identical, except map MUST explicitly return a value
-// Use map to extract data from each form section (fieldset)
-const fieldsets = Array.from(document.querySelectorAll('.workload-form'));
+  // Use map to extract data from each form section (fieldset)
+  const fieldsets = Array.from(document.querySelectorAll('.workload-form'));
+
+  // Use map to extract data from each form section (fieldset)
   const bedDataArray = fieldsets.map(fieldset => {
     // grab all the inputs in the current form section
     const inputs = Array.from(fieldset.querySelectorAll('input[type="checkbox"]:checked, input[type="number"]'));
@@ -485,27 +508,27 @@ const fieldsets = Array.from(document.querySelectorAll('.workload-form'));
         };
       }
       // if we have a text field, force the value into a Number type.
-      else if (input.type === 'number') {
+      else if (input.type === 'number' && input.value !== '') {
         sectionData[input.name] = {
-          value: Number(input.value) || 0,
+          value: Number(input.value),
           type: 'number'
         };
-      }});
+      }
+    });
 
-      return { [fieldset.id]: sectionData };
-    });
-  
-    // Combine the data for each form section into a single object
-    bedDataArray.forEach(sectionData => {
-      data_to_store.assessment_form_values = { ...data_to_store.assessment_form_values, ...sectionData };
-    });
-  
-    // Generate a unique key for this data entry using the bed_id
-    const localStorageKey = `bed_${current_link_id}`;
-    
-    // Save the data to Local Storage under the unique key
-    localStorage.setItem(localStorageKey, JSON.stringify(data_to_store));
-  };
+    return { [fieldset.id]: sectionData };
+  });
+
+  // Combine the data for each form section into a single object
+  bedDataArray.forEach(sectionData => {
+    data_to_store = { ...data_to_store, ...sectionData };
+  });
+
+  console.log('Data to Store: ', data_to_store);
+
+  // Save the data to Local Storage under the unique key
+  localStorage.setItem(current_link_id, JSON.stringify(data_to_store));
+};
 
 
 // Prepopulate Field Data when a particular bed link is clicked
@@ -514,34 +537,36 @@ const injectLSDataIntoForm = (bed_id) => {
   // handle error if no id argument is passed
   if (!bed_id) throw new Error('no bed id provided to Form Population Method')
 
+  formElement.reset(); // reset form to default values
+
   // check if the bed_id exists in LS
-  const localStorageKey = `bed_${bed_id}`;
+  const localStorageKey = `${bed_id}`;
   const bed_data = localStorage.getItem(localStorageKey);
   // handle error if the LS key doesn't exist
-  if (!bed_data){
-   console.log(`No form data exists for bed id ${bed_id}`);
-   return;
+  if (!bed_data) {
+    console.log(`No form data exists for bed id ${bed_id}`);
+    return;
   }
   // extracts form data from LS after we verify that exists above
   const current_form_data = JSON.parse(bed_data);
 
-  if (current_form_data && current_form_data.assessment_form_values) {
+  if (current_form_data && current_form_data) {
     // Grab all the inputs in a specific form section
     const inputs = Array.from(document.querySelectorAll('.workload-form input'));
-  
+
     // Iterate through our form inputs and populate each one with its corresponding LS value
     inputs.forEach((input) => {
       const sectionId = input.closest('.workload-form').id;
-      const ls_data = current_form_data.assessment_form_values[sectionId] || null;
+      const ls_data = current_form_data[sectionId] || null;
       if (ls_data) {
         if (input.type === 'checkbox') {
           if (ls_data[input.name] && typeof ls_data[input.name].value === 'boolean') {
-          input.checked = ls_data[input.name].value;
+            input.checked = ls_data[input.name].value;
           }
         }
         if (input.type === 'number') {
           if (ls_data[input.name] && typeof ls_data[input.name].value === 'number') {
-          input.value = ls_data[input.name].value;
+            input.value = ls_data[input.name].value;
           }
         }
       }
@@ -561,7 +586,7 @@ function saveDataToLocalStorage(bed_id) {
   // Get the selected bed, shift, and nurses
   const selectedBed = document.querySelector('.bed-link.active').textContent;
   const selectedShift = document.getElementById('shift-select').value;
-  const numberOfNurses = parseFloat(document.getElementById('nurses').value);
+  const numberOfNurses = parseFloat(nurseInput.value);
   //const bed_data = localStorage.getItem(`bed_${bed_id}`);
 
 
@@ -574,7 +599,7 @@ function saveDataToLocalStorage(bed_id) {
     workloadValues[name] = value;
   });
 
-  //Create array
+  //Create JSON object for LocalStorage
   const dataToSave = {
     date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
     shift: selectedShift,
@@ -596,183 +621,3 @@ function saveDataToLocalStorage(bed_id) {
   localStorage.setItem(localStorageKey, JSON.stringify(dataToSave))
   //localStorage.setItem(`bed_${bed_id}`, JSON.stringify(dataToSave));
 }
-
-
-
-////////////// Function to update the total workload tally in HTML/////////////
-// // Initialize an array to store bed space data
-// const bedLink = [];
-
-// // Function to calculate total workload points
-// function calculateWorkloadPoints() {
-//   // Reset total workload points
-//   let totalWorkloadPoints = 0;
-
-//   // Iterate through each bed space
-//   bedSpaces.forEach(bedSpace => {
-//     // Calculate the workload points for this bed space
-//     let bedSpacePoints = 0;
-
-//     // Calculate workload points for checkboxes in this bed space
-//     const checkboxes = bedSpace.querySelectorAll('[workload-value]');
-//     checkboxes.forEach(checkbox => {
-//       if (checkbox.checked) {
-//         const workloadValue = Number(checkbox.getAttribute('workload-value'));
-//         bedSpacePoints += workloadValue;
-//       }
-//     });// Totalize the inputs of all free form number input fields in this bed space
-//     const uniqueFields = bedSpace.querySelectorAll('[unique-field]');
-//     uniqueFields.forEach(field_element => {
-//       const workloadValue = handleExtractUniqueValue(field_element);
-//       if (workloadValue) bedSpacePoints += workloadValue;
-//     });
-
-//     // Update the total workload points for this bed space
-//     bedSpace.dataset.workloadPoints = bedSpacePoints;
-
-//     // Add the bed space's workload points to the total
-//     totalWorkloadPoints += bedSpacePoints;
-//   });// Update the total workload tally
-//   updateTotalWorkloadTally(totalWorkloadPoints);
-// }
-
-// // Function to update the total workload tally in HTML
-// function updateTotalWorkloadTally(totalWorkloadPoints) {
-//   const totalTallyParagraph = document.querySelector("#points-total");
-//   totalTallyParagraph.textContent = `Total Tally: ${totalWorkloadPoints}`;
-// }
-
-
-
-
-// // Grabs the current form data and stores it to LS on submit
-// const writeFormDataToLS = () => {
-//     // create a new object to store our form data in
-//     const data_to_store = {
-//       bed_id: undefined,
-//       assessment_form_values: {}
-//     };
-  
-//     // convert NodeList to array so we can use Prototype methods
-//     const bedLinksArray = Array.from(bedLinks);
-  
-//     // determine the current bed_id from bedlinks
-//     const current_link_id = bedLinksArray.find(
-//       (link) => {
-//         if (link.classList.contains('active')) {
-//           const bed_id = link.getAttribute("id");
-//           return link;
-//         }
-//         else return null
-//       }
-//     )?.getAttribute('id')
-  
-//     // set the objects bed_id property to the correct value
-//     data_to_store.bed_id = current_link_id;
-  
-//     // grab all the inputs in a specific form section
-//     const assessment_inputs = Array.from(assessCollabForm.querySelectorAll('input'))
-  
-//     // Iterate through all the fields and extract the relevant info from each
-//     // NOTE: map and forEach are nearly identical, except map MUST explicitly return a value
-//     assessment_inputs.map(
-//       input => {
-//         // if we have a checkbox, extract the checked state into a boolean value
-//         if (input.type === 'checkbox') {
-//           return data_to_store.assessment_form_values[input.name] = {
-//             value: input.checked ? true : false,
-//             type: 'checkbox'
-//           }
-//         }
-//         // if we have a text field, force the value into a Number type.
-//         else if (input.type === 'text') {
-//           return data_to_store.assessment_form_values[input.name] = {
-//             value: Number(input.value) ?? 0,
-//             type: 'number'
-//           }
-//         }
-//         else return console.log(`Error extracting data from ${input.name}`)
-//       }
-//     )
-  
-//     localStorage.setItem(current_link_id, JSON.stringify(data_to_store))
-//   };
-  
-  
-//   // Prepopulate Field Data when a particular bed link is clicked
-//   const injectLSDataIntoForm = (bed_id) => {
-//     // handle error if no id argument is passed
-//     if (!bed_id) throw new Error('no bed id provided to Form Population Method')
-  
-//     // check if the bed_id exists in LS
-//     const bed_data = localStorage.getItem(bed_id);
-  
-//     // handle error if the LS key doesn't exist
-//     if (!bed_data) return console.log(`No form data exists for bed id ${bed_id}`);
-  
-//     // extracts form data from LS after we verify that exists above
-//     const current_form_data = JSON.parse(bed_data);
-  
-//     // checks if a particualr form section exists in our LS data
-//     if (current_form_data.assessment_form_values) {
-//       // grab all the inputs in a specific form section
-//       const assessment_inputs = Array.from(assessCollabForm.querySelectorAll('input'))
-  
-//       // Iterate through our form inputs and populate each one with it's corresponding LS value
-//       assessment_inputs.forEach(
-//         input => {
-//           const ls_data = current_form_data.assessment_form_values[input.name] ?? null
-//           if (ls_data) {
-//             if (input.type === 'checkbox') {
-//               input.checked = ls_data.value
-//             }
-//             if (input.type === 'text') {
-//               input.value = ls_data.value
-//             }
-//           }
-//         }
-//       )
-//     }
-//   }
-  
-//   // This will only work if you already have data for 'bed_1' 
-//   // stored in Localstorage from the writeFormDataToLS method above
-//   // injectLSDataIntoForm('bed_1');
-  
-//   ////////////////////////////////////////////////////////////////////////////////
-//   //LOCAL STORAGE
-//   function saveDataToLocalStorage() {
-//     // Get the selected bed, shift, and nurses
-//     const selectedBed = document.querySelector('.bed-link.active').textContent;
-//     const selectedShift = document.getElementById('shift-select').value;
-//     const numberOfNurses = parseFloat(document.getElementById('nurses').value);
-  
-//     //Get value from checkboxes
-//     const checkboxes = document.querySelectorAll('[workload-value]');
-//     const workloadValues = {};
-//     checkboxes.forEach(checkbox => {
-//       const name = checkbox.getAttribute('workload-value');
-//       const value = checkbox.checked;
-//       workloadValues[name] = value;
-//     });
-  
-//     //Create array
-//     const dataToSave = {
-//       date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
-//       shift: selectedShift,
-//       bed: selectedBed,
-//       workloadValues: workloadValues,
-//       numberOfNurses: numberOfNurses,
-//       meetings: meetingsValue,
-//       arrest: arrestValue,
-//       complexdsg: complexdsgValue,
-//       burnCare: burnCareValue,
-//       transport: transportValue,
-//       unplanned: unplannedValue,
-//     };
-//     // Generate a unique key for this data entry
-//     const localStorageKey = `${selectedBed}-${selectedShift}-${new Date().getTime()}`;
-  
-//     // Save the data to Local Storage
-//     localStorage.setItem(localStorageKey, JSON.stringify(dataToSave));
-//   }
