@@ -248,7 +248,10 @@ function showMessageContainer() {
 }
 
 ////////////////////// Summary /////////////////////////////////////////////////
-function summarizeFormInputs() {
+function summarizeFormInputs(bed_id) {
+      // Fetch data for the selected bed based on the bed_id
+      const localStorageKey = `bed_${bed_id}`;
+      const bedData = JSON.parse(localStorage.getItem(localStorageKey));
     // Initialize variables to store the summary and total workload
     let summary = "";
     let totalWorkload = 0;
@@ -436,7 +439,7 @@ bedLinks.forEach(bedLink => {
         hideForm();
         // populate form with LS data, then populate message container with saved data
         injectLSDataIntoForm(bedId)
-        summarizeFormInputs()
+        summarizeFormInputs(bedId)
       }
     });
   });
@@ -507,8 +510,10 @@ const fieldsets = Array.from(document.querySelectorAll('.workload-form'));
 
 // Prepopulate Field Data when a particular bed link is clicked
 const injectLSDataIntoForm = (bed_id) => {
+
   // handle error if no id argument is passed
   if (!bed_id) throw new Error('no bed id provided to Form Population Method')
+
   // check if the bed_id exists in LS
   const localStorageKey = `bed_${bed_id}`;
   const bed_data = localStorage.getItem(localStorageKey);
@@ -520,19 +525,24 @@ const injectLSDataIntoForm = (bed_id) => {
   // extracts form data from LS after we verify that exists above
   const current_form_data = JSON.parse(bed_data);
 
-  if (current_form_data && current_form_data.form_values) {
+  if (current_form_data && current_form_data.assessment_form_values) {
     // Grab all the inputs in a specific form section
-    const inputs = Array.from(fieldset.querySelectorAll('input'));
+    const inputs = Array.from(document.querySelectorAll('.workload-form input'));
   
     // Iterate through our form inputs and populate each one with its corresponding LS value
     inputs.forEach((input) => {
-      const ls_data = current_form_data.form_values[input.name] || null;
+      const sectionId = input.closest('.workload-form').id;
+      const ls_data = current_form_data.assessment_form_values[sectionId] || null;
       if (ls_data) {
         if (input.type === 'checkbox') {
-          input.checked = ls_data.value;
+          if (ls_data[input.name] && typeof ls_data[input.name].value === 'boolean') {
+          input.checked = ls_data[input.name].value;
+          }
         }
-        if (input.type === 'text') {
-          input.value = ls_data.value;
+        if (input.type === 'number') {
+          if (ls_data[input.name] && typeof ls_data[input.name].value === 'number') {
+          input.value = ls_data[input.name].value;
+          }
         }
       }
     });
@@ -586,26 +596,6 @@ function saveDataToLocalStorage(bed_id) {
   localStorage.setItem(localStorageKey, JSON.stringify(dataToSave))
   //localStorage.setItem(`bed_${bed_id}`, JSON.stringify(dataToSave));
 }
-
-
-
-/////////write form to LS piece
-  // // convert NodeList to array so we can use Prototype methods
-  // const bedLinksArray = Array.from(bedLinks);
-
-  // // determine the current bed_id from bedlinks
-  // const current_link_id = bedLinksArray.find(
-  //   (link) => {
-  //     if (link.classList.contains('active')) {
-  //       const bed_id = link.getAttribute("id");
-  //       return link;
-  //     }
-  //     else return null
-  //   }
-  // )?.getAttribute('id')
-
-  // set the objects bed_id property to the correct value
-  //data_to_store.bed_id = current_link_id;
 
 
 
