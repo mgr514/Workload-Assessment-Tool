@@ -5,7 +5,6 @@
 // TODOS:
 // 1. Refactor Tally handling code (either treat it as a global or a property of the bed data in LS)
 // 2. Stretch Goal: Increase the clickable area for all checkboxes
-// 3. Stretch Goal: Remove duplicate scroll bars, just have your form sections be scrollable if required
 
 ///////////////// GLOBALS FOR QUERY SELECTORS /////////////////////////////
 const thankYouMessage = document.getElementById("thank-you-message");
@@ -16,6 +15,9 @@ const totalTallyParagraph = document.querySelector("#points-total");
 const bedLinks = document.querySelectorAll('.bed-link');
 const fieldsets = document.querySelectorAll('.workload-form');
 const formFieldset = document.querySelectorAll('fieldset')
+
+const menuIcon = document.getElementById("menu-icon");
+const menuPopup = document.getElementById("menu-popup");
 
 const assess_collab_link = document.getElementById("assess-collab-tab");
 const fieldsetAssessCollab = document.getElementById("assess-collab-form");
@@ -41,12 +43,12 @@ const unplanned = document.getElementById("unplanned");
 
 const summaryElement = document.getElementById('summary');
 
+const checkboxes = document.querySelectorAll('[workload-value]');
+
 
 
 /////////////////////// Pop up menu////////////////////////////////////////
 document.addEventListener("DOMContentLoaded", function () {
-  const menuIcon = document.getElementById("menu-icon");
-  const menuPopup = document.getElementById("menu-popup");
 
   const hidePopup = () => {
     menuPopup.style.display = "none";
@@ -214,7 +216,8 @@ letsubmittedFieldsets = 0;
 
 // Function to update the total workload tally in HTML
 function updateTotalWorkloadTally() {
-  totalTallyParagraph.textContent = `Total Tally: ${workload_point_total}`;
+  const totalWorkloadElement = document.getElementById("total-workload");
+  totalWorkloadElement.textContent = `${workload_point_total}`;
 }
 
 // Function to calculate total workload points
@@ -223,8 +226,6 @@ function calculateWorkloadPoints() {
   workload_point_total = 0;
 
   // Checks all checkbox elements with a 'workload-value' attribute
-  const checkboxes = document.querySelectorAll('[workload-value]');
-
   checkboxes.forEach(checkbox => {
     if (checkbox.checked) {
       const workloadValue = Number(checkbox.getAttribute('workload-value'));
@@ -236,19 +237,23 @@ function calculateWorkloadPoints() {
     const workload_value = handleExtractUniqueValue(field_element);
     if (workload_value) workload_point_total += workload_value;
   });
-  updateTotalWorkloadTally();
 
+  updateTotalWorkloadTally();
   console.log('The form has a total score of: ', workload_point_total);
+
+    // Display Total workload points in message
+    const totalWorkloadElement = document.getElementById("total-workload");
+    totalWorkloadElement.textContent = `${workload_point_total}`;
 }
+
+calculateWorkloadPoints();
+
+
 
 // Function to show message container
 function showMessageContainer() {
   messageContainer.style.display = "block";
   formElement.style.display = "none";
-
-  // Display Total workload points in message
-  const totalWorkloadElement = document.getElementById("total-workload");
-  totalWorkloadElement.textContent = `${workload_point_total}`;
 }
 
 ////////////////////// Summary /////////////////////////////////////////////////
@@ -398,9 +403,8 @@ const handleButtonClick = (event) => {
     calculateWorkloadPoints();
     summarizeFormInputs();
     showMessageContainer();
-    formElement.reset();
-    workload_point_total = 0
     updateTotalWorkloadTally();
+    formElement.reset();
 
   } else {
     // Cycle to next fieldset
@@ -444,6 +448,12 @@ const handleRetrieveFormStateFromLS = (bedId = 'bed_1') => {
     // populate form with LS data, then populate message container with saved data
     injectLSDataIntoForm(bedId)
     summarizeFormInputs(bedId)
+
+    // Get the totalWorkloadPoints from the saved data
+    const savedData = JSON.parse(bedData);
+    const totalWorkloadPoints = savedData.totalWorkloadPoints;
+    calculateWorkloadPoints(totalWorkloadPoints);
+    
   }
 }
 

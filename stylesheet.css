@@ -11,8 +11,10 @@
 }
 
 body {
-    display:flex;
+    display: flex;
     font-family: 'Inter', sans-serif;
+    height: 100%;
+    margin: 0;
 }
 
 /*GRID CONTAINER*/
@@ -55,6 +57,7 @@ body {
 .input-wrapper{
     display: flex;
     flex-direction: row;
+    margin-right: 1em;
 }
 
 #nurses {
@@ -180,7 +183,7 @@ select {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: calc(100vh -2em);
     background-color: var(--navy);
     padding: 1.5em;
     max-width: 150px;
@@ -195,9 +198,10 @@ select {
 }
 
 .bed-list li {
-    padding: 0.8em;
-    margin: 0.7em;
+    padding: 0.4em;
+    margin: 0.5em;
     font-size: 0.9em;
+    text-align: center;
 }
 
 .bed-link:hover {
@@ -234,6 +238,7 @@ select {
 #workload-form {
     margin-right: 1em;
 }
+
 .fieldset-item {
     display: flex;
     flex-direction: row-reverse;
@@ -244,8 +249,19 @@ select {
     border: 1px dotted black;
 }
 
+#workload-form label:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
 label {
     margin: 0.5em;
+    cursor: pointer;
+    display: inline-block;
 }
 
 #workload-form input[type="checkbox"] {
