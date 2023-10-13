@@ -225,10 +225,12 @@ select {
 #points-total {
     margin-top: 0.4em;
 }
+
 .form-container {
     max-height: calc(100vh - 100px);
     overflow-y: auto;
 }
+
 .shift-stats-new{
     display: flex;
     flex-direction: row;
@@ -306,6 +308,7 @@ label {
     padding: 1em;
  
 }
+
 #submit-button {
     padding: 1em 2em;
     margin-left: auto;
@@ -361,9 +364,11 @@ label {
     max-width: 50%;
     margin: 0 auto;
 }
+
 #summary ul {
     padding: 1em;
 }
+
 #summary li {
     padding: 0.5em;
 }
@@ -408,6 +413,7 @@ label {
     .flex-column {
         margin-left: 0; 
     }
+
     .main-header {
         flex-direction: column;
         align-items: center; 
@@ -421,8 +427,6 @@ label {
         margin-bottom: 1em;
         margin-left: 4em;
     }
-
-
 
     .bottom-head {
         flex-direction: column;
@@ -447,6 +451,7 @@ label {
     .bed-list {
         width: 100%;
     }
+
     .bed-list li {
         padding: 0.5em;
         margin: 1em;
@@ -480,7 +485,6 @@ label {
     .label {
         margin: 0.5em 0;
     }
-
   
     #submit-button {
         margin: 2em auto; 
@@ -508,6 +512,7 @@ label {
         left: 2%;
         top: 6%;
     }
+
     .menu-popup {
         position: absolute;
         top: 1%;
@@ -521,6 +526,7 @@ label {
     .flex-column {
         margin-left: 0; 
     }
+
     .main-header {
         flex-direction: column;
         align-items: center; 
@@ -541,6 +547,7 @@ label {
         font-size: 1em;
         margin-top: 3em;
     }
+
     .shift-stats p {
         padding: 1em 0;
     }
@@ -568,6 +575,7 @@ label {
     .bed-list {
         width: 100%;
     }
+
     .bed-list li {
         padding: 0.5em;
         margin: 1em;
@@ -588,7 +596,6 @@ label {
         text-align: center; 
     }
 
-
     .fieldset-item {
         padding: 0.5em 0;
         font-size: 0.9em;
@@ -597,7 +604,6 @@ label {
     .label {
         margin: 0.5em 0;
     }
-
   
     #submit-button {
         margin: 2em auto; 
