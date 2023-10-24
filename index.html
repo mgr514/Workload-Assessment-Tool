@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./stylesheet.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=Quicksand:wght@300&display=swap"
+        rel="stylesheet">
+    <title>Workload Assessment</title>
+</head>
+
+<body>
+    <!--Log-in Page-->
+    <!-- Won't be doing anything with this yet -->
+    <!--
+<form>
+    <fieldset class="field">
+        <div class="field-container">
+            <label for="username" name="username" id="username">Username:</label>
+            <input type="username" name="username" id="username">
+        </div>
+        <div class="field-container">   
+            <label for="user-pw">Password:</label>
+            <input type="password" name="user-pw" id="user-pw" minlength="6">
+        </div>
+        <div class="button-container">
+            <button class="click" type="submit"> Sign-In</button>
+        </div>
+    </fieldset>
+    <div class="form-foot">
+        <a id="log-in" href="">Forgot Password or Username?</a>
+    </div>
+</form>
+-->
+
+    <!-- HINT: use alt + shift + f (CMD + k + f on Mac) to auto-format your code -->
+
+
+    <!--Main Form page-->
+    <div class="grid-container">
+        <!-- Head Banner -->
+        <header class="heading-container">
+            <div class="icons" id="menu-icon">
+                <div class="clickable"><img src="./assets/menu.png" alt="Menu"></div>
+            </div>
+            <div class="menu-popup" id="menu-popup">
+                <ul>
+                    <li><a href="#">Form Page</a></li>
+                    <li><a href="#">Graph Page</a></li>
+                </ul>
+            </div>
+            <div class="flex-column">
+                <div class="flex-row">
+                    <div class="main-header">
+                        <h4>Workload Assessment Tool</h4>
+                    </div>
+                    <div class="bottom-head">
+                        <p id="current-date">Date</p>
+                        <p>Unit: ICU</p>
+                    </div>
+
+                </div>
+                <div class="form-tabs">
+                    <button class="tab" id="assess-collab-tab">Assessment/Planning/Collaboration</button>
+                    <button class="tab" id="basic-care-tab">Basic Patient Care Activities</button>
+                    <button class="tab" id="monitor-eval-tab">Monitor and Evaluate</button>
+                    <button class="tab" id="nurse-int-tab">Nursing Interventions </button>
+                    <button class="tab" id="other-int-tab">Other Interventions</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <!-- HINT: Remember Semantic HTML, this is a great place for a 'nav' element instead of a div -->
+        <nav class="sidebar">
+            <ul class="bed-list">
+                <li class="bed-link active" id="bed_1">Bed 1</li>
+                <li class="bed-link" id="bed_2">Bed 2</li>
+                <li class="bed-link" id="bed_3">Bed 3</li>
+                <li class="bed-link" id="bed_4">Bed 4</li>
+                <li class="bed-link" id="bed_5">Bed 5</li>
+                <li class="bed-link" id="bed_6">Bed 6</li>
+                <li class="bed-link" id="bed_7">Bed 7</li>
+                <li class="bed-link" id="bed_8">Bed 8</li>
+                <li class="bed-link" id="bed_9">Admit 1</li>
+                <li class="bed-link" id="bed_10">Admit 2</li>
+                <li class="bed-link" id="bed_11">Admit 3</li>
+                <li class="bed-link" id="bed_12">Admit 4</li>
+            </ul>
+        </nav>
+
+        <!-- Main-Content -->
+        <div class="main-content">
+            <!-- Form -->
+
+            <div class="form-container">
+                <form id="workload-form">
+                    <div class="flex-row shift-stats-new">
+                        <div class="input-wrapper">
+                            <label for="nurses">Nurses:</label>
+                            <input type="number" min="3" max="10" id="nurses" name="nurses" required>
+                            <div class="error-message" id="nurses-error"></div>
+                        </div>
+
+                        <!-- <p>Total Tally:</p> -->
+                        <div class="input-wrapper">
+                            <label for="shift-select">Shift:</label>
+                            <select id="shift-select" class="Shift">
+                                <option value="day">Day</option>
+                                <option value="night">Night</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--Assessment/Planning/Collaboration Tab-->
+                    <fieldset class="workload-form fieldset" id="assess-collab-form">
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="admit-assess" name="admit-assess" workload-value=15>
+                            <label for="admit-assess">Admission Assessment</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="shift-assess" name="shift-assess" workload-value=8>
+                            <label for="shift-assess">Shift Assessment</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="update-assess" name="update-assess" workload-value=6>
+                            <label for="update-assess">Update Assessment</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="rounds" name="rounds" workload-value=3>
+                            <label for="rounds"> Interdisciplinary Rounds (day shift only)</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="report" name="report" workload-value=3>
+                            <label for="report">Shift Report</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="number" min="0" max="25" id="meetings" name="meetings">
+                            <label for="meetings">Team / Family Meetings
+                                Time (Calculate as fraction of hours multiplied by
+                                10)</label><!--calculate as fraction of hours multiplied by 10-->
+                        </div>
+                    </fieldset>
+
+
+                    <!--Basic Patient Care Activities Tab -->
+                    <!-- Fieldset 2 - Checkboxes? Select all that apply? -->
+                    <fieldset class="workload-form fieldset" id="basic-care-form">
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="feed-partial" name="feed-partial" workload-value=2>
+                            <label for="feed-partial">Feeds Self with Partial Assistance</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="feed-full" name="feed-full" workload-value=5>
+                            <label for="feed-full">Feeding with Full Assistance</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="tube-feeding" name="tube-feeding" workload-value=7>
+                            <label for="tube-feeding">Tube Feeding (Continuous/ Intermittent)</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="toilet-assist" name="toilet-assist" workload-value=2>
+                            <label for="toilet-assist">Toilet with Assistance</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="incont1" name="incont1" workload-value=7>
+                            <label for="incont1">Incontinent Care (1-3)</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="incont2" name="incont2" workload-value=12>
+                            <label for="incont2">Incontinent Care (4+)</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="bath-partial" name="bath-partial" workload-value=3>
+                            <label for="bath-partial">Bath with Partial Assistance</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="bath-complete" name="bath-complete" workload-value=5>
+                            <label for="bath-complete">Bath with Complete Assistance</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="mouth-care" name="mouth-care" workload-value=3>
+                            <label for="mouth-care">Mouth Care</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="eye-care" name="eye-care" workload-value=3>
+                            <label for="eye-care">Eye Care</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="turn1" name="turn1" workload-value=6>
+                            <label for="turn1">Turn and Position 1-3 times (1-2 nurses)</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="turn2" name="turn2" workload-value=10>
+                            <label for="turn2">Turn and Position 4+ times (1-2 nurses)</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="prone" name="prone" workload-value=15>
+                            <label for="prone">Prone Positioning</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="chair1" name="chair1" workload-value=2>
+                            <label for="chair1">Up In Chair With 1 Person Assist</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="chair2" name="chair2" workload-value=3>
+                            <label for="chair2">Up In Chair With 2+ Person Assist</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="mech-lift" name="mech-lift" workload-value=5>
+                            <label for="mech-lift">Mechanical Lift</label>
+                        </div>
+                    </fieldset>
+
+                    <!--Monitor and Evaluate Tab-->
+                    <!-- Fieldset 3 - Combo of checkboxes and number inputs -->
+                    <fieldset class="workload-form fieldset" id="monitor-eval-form">
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="monitor12" name="monitor12" workload-value=10>
+                            <label for="monitor12">Monitoring of Patient 12x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="monitor6" name="monitor6" workload-value=5>
+                            <label for="monitor6">Monitoring of Patient 6x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="monitor3" name="monitor3" workload-value=3>
+                            <label for="monitor3">Monitoring of Patient 3x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="hemo5" name="hemo5" workload-value=8>
+                            <label for="hemo5">Hemodynamic Pressure/ Cardiac Output 5x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="hemo3" name="hemo3" workload-value=5>
+                            <label for="hemo3">Hemodynamic Pressure/ Cardiac Output 3x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="neuro12" name="neuro12" workload-value=6>
+                            <label for="neuro12">Neuro Signs 12x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="neuro6" name="neuro6" workload-value=3>
+                            <label for="neuro6">Neuro Signs 6x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="neurovasc12" name="neurovasc12" workload-value=6>
+                            <label for="neurovasc12">Neurovascular Signs 12x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="neurovasc6" name="neurovasc6" workload-value=3>
+                            <label for="neurovasc6">Neurovascular Signs 6x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="icp" name="icp" workload-value=10>
+                            <label for="icp">Care of Patient with ICP Monitoring/ Ventricular Drain</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="iabp" name="iabp" workload-value=10>
+                            <label for="iabp">Care of Patient with IABP</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="chest-tube" name="chest-tube" workload-value=4>
+                            <label for="chest-tube">Chest Tube Care</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="vent" name="vent" workload-value=10>
+                            <label for="vent">Care of Patient on Ventilator (Invasive/Non-invasive)</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="ett" name="ett" workload-value=2>
+                            <label for="ett">ET Tube Care</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="number" min="0" max="60" id="arrest" name="arrest">
+                            <label for="arrest">Cardiac/Respiratory Arrest Time (Calculate as fraction of hours
+                                multiplied by 20)</label>
+                            <!--calculate as fraction of hours multiplied by 20-->
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="meds1" name="meds1" workload-value=3>
+                            <label for="meds1">Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 1-3</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="meds2" name="meds2" workload-value=5>
+                            <label for="meds2">Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 4-6</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="meds3" name="meds3" workload-value=10>
+                            <label for="meds3">Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 7-12</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="meds4" name="meds4" workload-value=15>
+                            <label for="meds4">Medications (PO, NG/OG, PR UNG, SQ, IM, IV) 12+</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="vaso1" name="vaso1" workload-value=4>
+                            <label for="vaso1">Titration of Vasoactive Medication 1</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="vaso2" name="vaso2" workload-value=12>
+                            <label for="vaso2">Titration of Vasoactive Medication 2-3</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="vaso3" name="vaso3" workload-value=20>
+                            <label for="vaso3">Titration of Vasoactive Medication 4+</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="stable-iv1" name="stable-iv1" workload-value=4>
+                            <label for="stable-iv1">Continuous IV Stable Infusion 1-3</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="stable-iv2" name="stable-iv2" workload-value=10>
+                            <label for="stable-iv2">Continuous IV Stable Infusion 4+</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="bloodtx1" name="bloodtx1" workload-value=5>
+                            <label for="bloodtx1">Transfusion of Blood Products 1-2</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="bloodtx2" name="bloodtx2" workload-value=10>
+                            <label for="bloodtx2">Transfusion of Blood Products 3+</label>
+                        </div>
+                    </fieldset>
+
+                    <!--Nursing Interventions Tab-->
+                    <!-- Fieldset 4 - Combo of checkboxes and number inputs -->
+                    <fieldset class="workload-form fieldset" id="nurse-int-form">
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="iv-insert1" name="iv-insert1" workload-value=3>
+                            <label for="iv-insert1">IV Insertion 1-2</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="iv-insert2" name="iv-insert2" workload-value=7>
+                            <label for="iv-insert2">IV Insertion 3+</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="site-care1" name="sitecare1" workload-value=5>
+                            <label for="sitecare1">Tubing / Dressing Change / IV Site Care 1-2</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="site-care2" name="sitecare2" workload-value=10>
+                            <label for="sitecare2">Tubing / Dressing Change / IV Site Care 3+</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="simpledsg1" name="simpledsg1" workload-value=2>
+                            <label for="simpledsg1">Simple Wound Dressing 1-2</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="simpledsg2" name="simpledsg2" workload-value=4>
+                            <label for="simpledsg2">Simple Wound Dressing 3+</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="number" min="0" max="30" id="complexdsg" name="complexdsg">
+                            <label for="complexdsg">Complex Wound Dressing Time (Calculate as fraction of hours
+                                multiplied by 10)</label>
+                            <!--calculate as fraction of hours multiplied by 10-->
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="number" min="0" max="50" id="burn-care" name="burn-care">
+                            <label for="burn-care">Burn Care
+                                Time (Calculate as fraction of hours multiplied by
+                                15)</label><!--calculate as fraction of hours multiplied by 15-->
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="irrigat" name="irrigat" workload-value=6>
+                            <label for="irrigat">Infusion Irrigations (Bladder, Pleural, Mediastinal)</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="asp1" name="asp1" workload-value=8>
+                            <label for="asp1">Aspiration of Drains 1-2</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="asp2" name="asp2" workload-value=20>
+                            <label for="asp2">Aspiration of Drains 3+</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="chest-tube-removal" name="chest-tube-removal" workload-value=3>
+                            <label for="chest-tube-removal">Chest Tube Removal by Nurse</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="trach1" name="trach1" workload-value=4>
+                            <label for="trach1">Tracheostomy Care 1-2</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="trach2" name="trach2" workload-value=6>
+                            <label for="trach2">Tracheostomy Care 3+</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="suction1" name="suction1" workload-value=5>
+                            <label for="suction1">Suctioning 1-3</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="suction2" name="suction2" workload-value=10>
+                            <label for="suction2">Suctioning 4-6</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="suction3" name="suction3" workload-value=20>
+                            <label for="suction3">Suctioning 7+</label>
+                        </div>
+                    </fieldset>
+
+                    <!--Other Interventions Tab-->
+                    <!-- Fieldset 5 - Combo of checkboxes and number inputs -->
+                    <fieldset class="workload-form fieldset" id="other-int-form">
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="assist15" name="assist15" workload-value=3>
+                            <label for="assist15">Assist With Procedures x15 Minutes</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="assist30" name="assist30" workload-value=5>
+                            <label for="assist30"> Assist With Procedures x30 Minutes</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="assist60" name="assist60" workload-value=10>
+                            <label for="assist60">Assist With Procedures x60+ Minutes</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="blood-collect1" name="blood-collect1" workload-value=3>
+                            <label for="blood-collect1">Blood Collection 1-3</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="blood-collect2" name="blood-collect2" workload-value=6>
+                            <label for="blood-collect2">Blood Collection 4-6</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="blood-collect3" name="blood-collect3" workload-value=10>
+                            <label for="blood-collect3">Blood Collection 7+</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="teaching15" name="teaching15" workload-value=5>
+                            <label for="teaching15">Teaching / Emotional Support x15 Minutes</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="teaching30" name="teaching30" workload-value=10>
+                            <label for="teaching30">Teaching / Emotional Support x30 Minutes</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="teaching60" name="teaching60" workload-value=15>
+                            <label for="teaching60">Teaching / Emotional Support x60+ Minutes</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="number" min="0" max="25" id="transport" name="transport">
+                            <label for="transport">Transportation of Patient (Within and Outside Facility) Time
+                                (Calculate as fraction of hours multiplied by 10)</label>
+                            <!--calculate as fraction of hours multiplied by 10-->
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="crrt-setup" name="crrt-setup" workload-value=8>
+                            <label for="crrt-setup">CRRT Initial Set Up</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="crrt-change1" name="crrt-change1" workload-value=5>
+                            <label for="crrt-change1">CRRT Change Set x1</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="crrt-change2" name="crrt-change2" workload-value=10>
+                            <label for="crrt-change2">CRRT Change Set x2+</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="crrt-disconnect" name="crrt-disconnect" workload-value=5>
+                            <label for="crrt-disconnect">CRRT Temporary Disconnect</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="crrt-monitor12" name="crrt-monitor12" workload-value=30>
+                            <label for="crrt-monitor12">CRRT Monitoring 12x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="checkbox" id="crrt-monitor6" name="crrt-monitor6" workload-value=15>
+                            <label for="crrt-monitor6">CRRT Monitoring 6x /shift</label>
+                        </div>
+                        <div class="fieldset-item">
+                            <input type="number" min="0" max="45" id="unplanned" name="unplanned">
+                            <label for="unplanned">Unplanned Activities Time (Calculate as fraction of hours multiplied
+                                by 10)</label>
+                            <!--calculate as fraction of hours multiplied by 10-->
+                        </div>
+                    </fieldset>
+
+                    <!-- This will always show since it's outside the fieldsets (wrapped in fieldset for styling) -->
+                    <div class="submission-wrapper flex-row">
+                        <div class="hidden" id="error-handler">
+                        </div>
+                        <button type="submit" id="submit-button">Enter</button>
+                    </div>
+ 
+                </form>
+            </div>
+        </div>
+        <div id="message-container" hidden>
+            <div id="thank-you-message">
+                <p id="points-total">Thank you for submitting the form with a total workload of <span id="total-workload"></span>.</p>
+            </div>
+            <div id="summary">
+                <!-- Summary will be displayed here with JS -->
+            </div>
+        </div>
+    </div>
+
+
+    <!--Data Page-->
+    <!-- Not doing anything with this yet -->
+    <!-- 
+    Head Banner 
+ <header class="heading-container">
+            <div class="icons" id="menu-icon">
+                <div class="clickable"><img src="./assets/menu.png" alt="Menu"></div>
+            </div>
+            <div class="menu-popup" id="menu-popup">
+                <ul>
+                    <li><a href="#">Form Page</a></li>
+                    <li><a href="#">Graph Page</a></li>
+                </ul>
+            </div>
+            <div class="flex-column">
+                <div class="flex-row">
+                    <div class="main-header">
+                        <h4>Workload Assessment Tool</h4>
+                        <div class="bottom-head">
+                            <p id="current-date">Date</p>
+                            <p>Unit: ICU</p>
+                            <label for="shift-select">Shift:</label>
+                            <select id="shift-select" class="Shift">
+                                <option value="day">Day</option>
+                                <option value="night">Night</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="shift-stats">
+                        <form>
+                            <label for="nurses">Nurses:</label>
+                            <input type="input" type="number" min="3" max="10" id="nurses" name="nurses">
+                        </form>
+                        <p>Total Tally:</p>
+                    </div>
+                </div>
+                <div class="form-tabs">
+                    <button id="assess-collab-tab">Assessment/Planning/Collaboration</button>
+                    <button id="basic-care-tab">Basic Patient Care Activities</button>
+                    <button id="monitor-eval-tab">Monitor and Evaluate</button>
+                    <button id="nurse-int-tab">Nursing Interventions </button>
+                    <button id="other-int-tab">Other Interventions</button>
+                </div>
+            </div>
+        </header>
+-->
+    <!-- 
+    Sidebar
+    <nav class="sidebar">
+        <ul class="data-list1">Overview
+            <li>By Week</li>
+            <li>By Month</li>
+            <li>By Year</li>
+        </ul>
+        <ul class="data-list2"> Shift
+            <li>Day</li>
+            <li>Night</li>
+        </ul>
+    </nav>
+-->
+    <!--Data Grids-->
+
+
+    <!--SCRIPT TAGS -->
+    <script src="./script.js" defer></script>
+
+</body>
+
+</html>
