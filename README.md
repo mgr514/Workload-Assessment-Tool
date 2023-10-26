@@ -1,5 +1,7 @@
 # Workload Assessment Tool for ICU Nurses
 
+# https://mgr514.github.io/Workload-Assessment-Tool/
+
 ## Project Description
 
 This project is aimed at creating a digital tool to replace the paper forms currently used by ICU nurses in St. John's, Newfoundland, for assessing and quantifying their workload per patient and per shift. These paper forms are traditionally sent to the government to aid in analyzing unit acuity and determining appropriate staffing levels. The Workload Assessment Tool for ICU Nurses is designed to streamline this process and make it more efficient.
