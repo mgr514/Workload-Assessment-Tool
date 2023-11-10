@@ -153,14 +153,13 @@ select {
 
 .menu-popup ul {
     list-style-type: none;
-    padding: 0;
+    padding: 0.5em;
     margin: 0;
 }
 
 .menu-popup li {
     padding: 10px 0;
     text-align: center;
-    border-bottom: 0.5px dotted black;
 }
 
 .menu-popup li a {
